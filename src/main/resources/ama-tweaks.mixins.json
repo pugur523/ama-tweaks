@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "org.amateras_smp.amatweaks.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+  ],
+  "client": [
+    "MixinClientPlayerInteractionManager",
+    "MixinMinecraftClient"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

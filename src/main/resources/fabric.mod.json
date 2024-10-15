@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "ama-tweaks",
+  "version": "${version}",
+  "name": "ama-tweaks",
+  "description": "Client side minecraft fabric mod for Amateras-SMP",
+  "authors": [
+    "pugur"
+  ],
+  "contact": {
+    "repo": "https://github.com/pugur523/ama-tweaks"
+  },
+  "license": "MIT",
+  "icon": "assets/ama-tweaks/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "org.amateras_smp.amatweaks.AmaTweaks"
+    ],
+    "modmenu": [
+      "org.amateras_smp.amatweaks.compat.modmenu.ModMenuImpl"
+    ]
+  },
+  "mixins": [
+    "ama-tweaks.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": ">=1.18.2"
+  }
+}
