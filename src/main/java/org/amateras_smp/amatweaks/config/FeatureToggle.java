@@ -7,6 +7,7 @@ import fi.dy.masa.malilib.config.ConfigType;
 import fi.dy.masa.malilib.config.IConfigBoolean;
 import fi.dy.masa.malilib.config.IConfigNotifiable;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
+import fi.dy.masa.malilib.config.options.ConfigBooleanHotkeyed;
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyCallbackToggleBooleanConfigWithMessage;
@@ -21,7 +22,9 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward"),
     TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward"),
     TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eat food when your food level is not full"),
-    TWEAK_HOTBAR_RESTOCK("tweakHotbarRestock", false, "", "Restock a stack of items from container specified by hotbarRestockList");
+    TWEAK_HOTBAR_RESTOCK("tweakHotbarRestock", false, "", "Restock a stack of items from container specified by hotbarRestockList"),
+    DISABLE_PLACED_ON_PORTAL_SIDES("disablePlacedOnNetherPortalSides", false, "", "disable placed on sliced nether portal sides");
+
 
     public static final ImmutableList<FeatureToggle> VALUES = ImmutableList.copyOf(values());
 
