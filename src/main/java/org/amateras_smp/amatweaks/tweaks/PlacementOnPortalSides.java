@@ -86,7 +86,7 @@ public class PlacementOnPortalSides {
             } else */
             if (itemStack.getItem() instanceof BedItem) {
                 if (blockPos2.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
-                    // TODO in 1.20.1 use ctx.getHorizontalPlayerFacing();
+                    // TODO >=1.19 use ctx.getHorizontalPlayerFacing();
                     Direction direction = ctx.getPlayerFacing();
                     blockPos2 = blockPos2.offset(direction);
                 } else {
