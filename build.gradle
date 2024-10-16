@@ -31,7 +31,8 @@ dependencies {
 
     modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
     modImplementation "maven.modrinth:malilib:${project.malilib_version}"
-    modImplementation "maven.modrinth:tweakeroo:${project.tweakeroo_version}"
+    // modImplementation "maven.modrinth:tweakeroo:${project.tweakeroo_version}"
+    modImplementation files("tmp/tweakfork-fabric-${project.minecraft_version}-${project.tweakfork_version}.jar")
     modImplementation "maven.modrinth:tweakermore:${project.tweakermore_version}"
     modImplementation "maven.modrinth:item-scroller:${project.itemscroller_version}"
     // modImplementation "maven.modrinth:syncmatica:${project.syncmatica_version}"
