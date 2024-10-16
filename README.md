@@ -31,4 +31,4 @@ The `hotbarRestockList` can be specified in the list tab of the config.
 `disablePlacementOnPortalSides`
 
 > Prevents block placement on sliced nether portal sides.
-This feature is heavily inspired by [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
+This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
