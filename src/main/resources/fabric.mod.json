@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "ama-tweaks",
   "version": "${version}",
-  "name": "ama-tweaks",
+  "name": "Ama Tweaks",
   "description": "Client side minecraft fabric mod for Amateras-SMP",
   "authors": [
     "pugur"
