@@ -2,7 +2,7 @@
 
 [日本語の説明はこちら](README_ja.md)
 
-AmaTweaks is client side minecraft fabric mod made for AmaterasSMP which has some useful features.
+AmaTweaks is client side minecraft fabric mod made for Amateras SMP which has some useful features.
 
 ## Features
 `tweakSafeStepProtection`
