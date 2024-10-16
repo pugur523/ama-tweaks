@@ -3,6 +3,7 @@
 [日本語の説明はこちら](README_ja.md)
 
 AmaTweaks is client side minecraft fabric mod made for Amateras SMP which has some useful features.
+Press `Left Alt` + `K` to open config GUI.
 
 ## Features
 `tweakSafeStepProtection`
