@@ -99,7 +99,6 @@ public class PlacementOnPortalSides {
         return false;
     }
 
-
     public static boolean checkNeighbors(World world, BlockPos blockPos, Direction.Axis axis, ItemPlacementContext ctx, BlockHitResult hitResult, BlockPos origin) {
         BlockState blockState = world.getBlockState(blockPos);
         ItemStack itemStack = ctx.getStack();
@@ -143,7 +142,6 @@ public class PlacementOnPortalSides {
 
         return true;
     }
-
 
     public static boolean canRing(BellBlock bell, BlockState blockState, BlockHitResult hitResult, BlockPos blockPos) {
         return ((IBellBlockMixin) bell).ModIsPointOnBell(blockState, hitResult.getSide(), hitResult.getPos().y - (double)blockPos.getY());
