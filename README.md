@@ -1,5 +1,5 @@
 # AmaTweaks
-
+![modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_64h.png)
 [日本語の説明はこちら](README_ja.md)
 
 AmaTweaks is client side minecraft fabric mod made for AmaterasSMP which has some useful features.
