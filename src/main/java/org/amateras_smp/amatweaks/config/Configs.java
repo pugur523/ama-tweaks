@@ -3,7 +3,6 @@ package org.amateras_smp.amatweaks.config;
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import fi.dy.masa.malilib.MaLiLib;
 import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
@@ -13,18 +12,11 @@ import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.config.options.ConfigStringList;
 import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
-import fi.dy.masa.malilib.util.StringUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
-import net.minecraft.item.Item;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.util.InventoryUtil;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 
 public class Configs implements IConfigHandler
 {
