@@ -11,7 +11,7 @@
     "repo": "https://github.com/pugur523/ama-tweaks"
   },
   "license": "MIT",
-  "icon": "assets/ama-tweaks/ama_icon.png",
+  "icon": "assets/ama-tweaks/icon.png",
   "environment": "client",
   "entrypoints": {
     "client": [
