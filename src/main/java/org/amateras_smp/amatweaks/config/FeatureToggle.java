@@ -23,7 +23,7 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward"),
     TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eat food when your food level is not full"),
     TWEAK_HOTBAR_RESTOCK("tweakHotbarRestock", false, "", "Restock a stack of items from container specified by hotbarRestockList"),
-    DISABLE_PLACED_ON_PORTAL_SIDES("disablePlacedOnNetherPortalSides", false, "", "disable placed on sliced nether portal sides");
+    DISABLE_PLACEMENT_ON_PORTAL_SIDES("disablePlacementOnPortalSides", false, "", "disable placement on sliced nether portal sides");
 
 
     public static final ImmutableList<FeatureToggle> VALUES = ImmutableList.copyOf(values());

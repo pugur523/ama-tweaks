@@ -45,7 +45,7 @@ import static net.minecraft.block.NetherPortalBlock.AXIS;
 
 public class PlacementOnPortalSides {
     public static boolean restriction(World world, ItemPlacementContext ctx, BlockHitResult hitResult) {
-        if(!FeatureToggle.DISABLE_PLACED_ON_PORTAL_SIDES.getBooleanValue()) return false;
+        if(!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
 
         if (ctx == null) {
             return false;
