@@ -1,9 +1,6 @@
 package org.amateras_smp.amatweaks.util;
 
-import fi.dy.masa.itemscroller.util.InventoryUtils;
-import me.fallenbreath.tweakermore.TweakerMoreMod;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -11,14 +8,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.screen.ScreenHandler;
-import net.minecraft.screen.slot.Slot;
 import net.minecraft.screen.slot.SlotActionType;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.Configs;
 
-import java.util.List;
 import java.util.Objects;
 
 public class InventoryUtil {
@@ -39,9 +34,14 @@ public class InventoryUtil {
 
         HitResult hit = mc.crosshairTarget;
         if (hit == null) return;
-        BlockHitResult hitBlock = (BlockHitResult) hit;
-        BlockPos hitBlockPos = hitBlock.getBlockPos();
-        if (mc.currentScreen != null || player.getWorld().getBlockEntity(hitBlockPos) != null) return;
+        if (hit.getType() == HitResult.Type.BLOCK) {
+            BlockHitResult hitBlock = (BlockHitResult) hit;
+            BlockPos hitBlockPos = hitBlock.getBlockPos();
+            if (mc.currentScreen != null || player.getWorld().getBlockEntity(hitBlockPos) != null) return;
+        } else {
+            // hit target is entity or something, just end this func
+            return;
+        }
 
         double hungerThreshold = Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue();
         // devide by 2 because of foodSaturationLevel
@@ -83,55 +83,6 @@ public class InventoryUtil {
                 }
                 mc.interactionManager.clickSlot(container.syncId, slot, FOOD_SWITCH_SLOT, SlotActionType.SWAP, mc.player);
             }
-        }
-    }
-
-    public static void hotbarRestock() {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        ClientPlayerEntity player = mc.player;
-        if (player == null || player.getWorld() == null || mc.getNetworkHandler() == null || mc.interactionManager == null) return;
-    }
-
-    private void moveToPlayerInventory(HandledScreen<?> containerScreen, List<Slot> playerInvSlots, Slot fromSlot, int amount) {
-        ItemStack stack = fromSlot.getStack().copy();
-        if (amount == stack.getCount())
-        {
-            InventoryUtils.shiftClickSlot(containerScreen, fromSlot.id);
-            return;
-        }
-        else if (amount > stack.getCount())
-        {
-            TweakerMoreMod.LOGGER.warn("Too many items to move to player inventory, the stack {} has {} items but {} items are required", stack.getItem(), stack.getCount(), amount);
-            return;
-        }
-        // ensure amount <= stack.getCount()
-
-        InventoryUtils.leftClickSlot(containerScreen, fromSlot.id);
-        // reversed iterating to match vanilla shift-click item putting order
-        for (int idx = playerInvSlots.size() - 1; idx >= 0; idx--)
-        {
-            Slot slot = playerInvSlots.get(idx);
-            int clickAmount = 0;
-            if (slot.hasStack() && InventoryUtils.areStacksEqual(slot.getStack(), stack))
-            {
-                ItemStack invStack = slot.getStack();
-                clickAmount = Math.min(invStack.getMaxCount() - invStack.getCount(), amount);
-            }
-            else if (!slot.hasStack())
-            {
-                clickAmount = amount;
-            }
-            for (int i = 0; i < clickAmount; i++) InventoryUtils.rightClickSlot(containerScreen, slot.id);
-            amount -= clickAmount;
-            if (amount == 0)
-            {
-                break;
-            }
-        }
-        InventoryUtils.leftClickSlot(containerScreen, fromSlot.id);
-        if (amount != 0)
-        {
-            TweakerMoreMod.LOGGER.warn("Failed to move full item stack to player inventory, {} items remains", amount);
         }
     }
 }

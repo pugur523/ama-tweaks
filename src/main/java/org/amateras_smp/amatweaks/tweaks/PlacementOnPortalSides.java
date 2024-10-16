@@ -38,7 +38,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.mixin.IBellBlockMixin;
+import org.amateras_smp.amatweaks.mixin.IMixinBellBlock;
 import org.amateras_smp.amatweaks.util.BlockTypeEquals;
 
 import static net.minecraft.block.NetherPortalBlock.AXIS;
@@ -144,6 +144,6 @@ public class PlacementOnPortalSides {
     }
 
     public static boolean canRing(BellBlock bell, BlockState blockState, BlockHitResult hitResult, BlockPos blockPos) {
-        return ((IBellBlockMixin) bell).ModIsPointOnBell(blockState, hitResult.getSide(), hitResult.getPos().y - (double)blockPos.getY());
+        return ((IMixinBellBlock) bell).ModIsPointOnBell(blockState, hitResult.getSide(), hitResult.getPos().y - (double)blockPos.getY());
     }
 }

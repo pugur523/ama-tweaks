@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(BellBlock.class)
-public interface IBellBlockMixin {
+public interface IMixinBellBlock {
     @Invoker("isPointOnBell")
     boolean ModIsPointOnBell(BlockState state, Direction side, double y);
 }

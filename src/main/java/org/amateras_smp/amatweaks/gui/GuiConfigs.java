@@ -27,7 +27,7 @@ public class GuiConfigs extends GuiConfigsBase
 
     public GuiConfigs()
     {
-        super(10, 50, Reference.MOD_ID, null, "KindaTweaks Config", String.format("%s", Reference.MOD_VERSION));
+        super(10, 50, Reference.MOD_ID, null, Reference.MOD_NAME + " %s", String.format("%s", Reference.MOD_VERSION));
     }
 
     @Override
