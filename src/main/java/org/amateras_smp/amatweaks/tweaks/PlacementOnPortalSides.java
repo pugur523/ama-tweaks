@@ -86,7 +86,7 @@ public class PlacementOnPortalSides {
             } else */
             if (itemStack.getItem() instanceof BedItem) {
                 if (blockPos2.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
-                    // <1.19: Direction direction = ctx.getPlayerFacing();
+                    // for <1.19: Direction direction = ctx.getPlayerFacing();
                     Direction direction = ctx.getHorizontalPlayerFacing();
                     blockPos2 = blockPos2.offset(direction);
                 } else {
