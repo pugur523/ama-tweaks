@@ -26,13 +26,13 @@
     "ama-tweaks.mixins.json"
   ],
   "depends": {
+    "minecraft": "${minecraft_dependency}",
     "fabricloader": ">=0.15.0",
     "fabric": "*",
     "modmenu": "*",
     "malilib": "*",
     "tweakeroo": "*",
     "tweakermore": "*",
-    "itemscroller": "*",
-    "minecraft": "${minecraft_dependency}"
+    "itemscroller": "*"
   }
 }
