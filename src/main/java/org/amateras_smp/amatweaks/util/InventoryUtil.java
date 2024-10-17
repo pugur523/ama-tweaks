@@ -14,6 +14,11 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.Configs;
 
+//#if MC >= 12006
+//$$ import net.minecraft.component.ComponentMap;
+//$$ import net.minecraft.component.DataComponentTypes;
+//#endif
+
 import java.util.Objects;
 
 public class InventoryUtil {
@@ -41,7 +46,11 @@ public class InventoryUtil {
         if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 < Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue()) {
             for (int i = 0; i < player.getInventory().size(); i++) {
                 ItemStack stack = player.getInventory().getStack(i);
+                //#if MC >= 12006
+                //$$ if (stack.getItem().getComponents().contains(DataComponentTypes.FOOD)) {
+                //#else
                 if (stack.getItem().isFood()) {
+                //#endif
                     tryToSwap(i);
                     KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
                     flag = true;
