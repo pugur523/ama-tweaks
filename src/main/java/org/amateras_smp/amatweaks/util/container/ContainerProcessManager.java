@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import org.amateras_smp.amatweaks.tweaks.HotbarRestock;
+import fi.dy.masa.itemscroller.util.InventoryUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,7 +23,11 @@ public class ContainerProcessManager {
     );
 
     private static boolean hasTweakEnabled() {
-        return CONTAINER_PROCESSORS.stream().anyMatch(IContainerProcessor::isEnabled);
+        for (IContainerProcessor p : CONTAINER_PROCESSORS) {
+            if (p.isEnabled()) return true;
+        }
+        return false;
+        // return CONTAINER_PROCESSORS.stream().anyMatch(IContainerProcessor::isEnabled);
     }
 
     public static List<IContainerProcessor> getProcessors() {

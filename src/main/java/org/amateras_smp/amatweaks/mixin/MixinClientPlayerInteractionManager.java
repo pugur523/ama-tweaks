@@ -27,9 +27,9 @@ public class MixinClientPlayerInteractionManager {
             cir.setReturnValue(false);
         }
     }
-
     @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
-    private void onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+    // < 1.20: private void onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+    private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 

@@ -19,7 +19,6 @@ public class Callbacks {
         IHotkeyCallback callbackGeneric = new KeyCallbackHotkeysGeneric();
         Hotkeys.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
         FeatureToggle.TWEAK_HOLD_FORWARD.setValueChangeCallback(new FeatureCallbackHold(mc.options.forwardKey));
-        Configs.Generic.FOOD_SWITCHABLE_SLOT.setValueChangeCallback((cfg) -> InventoryUtil.setFoodSwitchSlot(cfg.getIntegerValue()));
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback
