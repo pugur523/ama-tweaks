@@ -76,19 +76,23 @@ public class PlacementOnPortalSides {
                 return true;
             }
 
-            /*
+
+            //#if MC >= 12000
             if (itemStack.getItem() instanceof TallBlockItem || itemStack.isOf(Items.PITCHER_PLANT)) {
                 if (blockPos2.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
                     blockPos2 = blockPos2.up();
                 } else {
                     break;
                 }
-            } else */
+            } else
+            //#endif
             if (itemStack.getItem() instanceof BedItem) {
                 if (blockPos2.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
+                    //#if MC > 11900
                     Direction direction = ctx.getHorizontalPlayerFacing();
-                    // < 1.19 use ctx.getPlayerFacing();
-                    // Direction direction = ctx.getPlayerFacing();
+                    //#else
+                    //$$ Direction direction = ctx.getPlayerFacing();
+                    //#endif
                     blockPos2 = blockPos2.offset(direction);
                 } else {
                     break;
