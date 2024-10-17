@@ -38,4 +38,14 @@ public class MixinClientPlayerInteractionManager {
             cir.cancel();
         }
     }
+
+    private void onInteractBlockOld(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+        ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
+        ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
+
+        if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
+            cir.setReturnValue(ActionResult.CONSUME);
+            cir.cancel();
+        }
+    }
 }
