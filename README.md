@@ -2,7 +2,7 @@
 
 [日本語の説明はこちら](README_ja.md)
 
-AmaTweaks is client side minecraft fabric mod made for AmaterasSMP which has some useful features.
+AmaTweaks is client side minecraft fabric mod made for Amateras SMP which has some useful features.
 
 ## Features
 `tweakSafeStepProtection`
@@ -30,4 +30,4 @@ The `hotbarRestockList` can be specified in the list tab of the config.
 `disablePlacementOnPortalSides`
 
 > Prevents block placement on sliced nether portal sides.
-This feature is heavily inspired by [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
+This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
