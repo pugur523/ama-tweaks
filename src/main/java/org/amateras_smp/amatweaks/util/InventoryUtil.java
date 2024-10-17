@@ -18,13 +18,7 @@ import java.util.Objects;
 
 public class InventoryUtil {
     private static int beforeSlot;
-    private static int FOOD_SWITCH_SLOT;
     private static boolean flag = false;
-    public static void setFoodSwitchSlot(int slot) {
-        if (slot > 0 && slot <= 9) {
-            FOOD_SWITCH_SLOT = slot - 1;
-        }
-    }
 
     public static void autoEat() {
         MinecraftClient mc = MinecraftClient.getInstance();
@@ -60,7 +54,7 @@ public class InventoryUtil {
         if (flag) {
             KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), false);
             player.getInventory().selectedSlot = beforeSlot;
-            mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(player.getInventory().selectedSlot));
+            mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(beforeSlot));
             flag = false;
         }
     }
@@ -77,11 +71,11 @@ public class InventoryUtil {
                 inventory.selectedSlot = slot;
                 mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(inventory.selectedSlot));
             } else {
-                if (inventory.selectedSlot != FOOD_SWITCH_SLOT) {
-                    inventory.selectedSlot = FOOD_SWITCH_SLOT;
+                if (inventory.selectedSlot != Configs.Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue()) {
+                    inventory.selectedSlot = Configs.Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue();
                     Objects.requireNonNull(mc.getNetworkHandler()).sendPacket(new UpdateSelectedSlotC2SPacket(player.getInventory().selectedSlot));
                 }
-                mc.interactionManager.clickSlot(container.syncId, slot, FOOD_SWITCH_SLOT, SlotActionType.SWAP, mc.player);
+                mc.interactionManager.clickSlot(container.syncId, slot, Configs.Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue(), SlotActionType.SWAP, mc.player);
             }
         }
     }

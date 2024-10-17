@@ -25,7 +25,7 @@ public class Configs implements IConfigHandler
     public static class Generic
     {
         public static final ConfigBoolean MOD_ENABLED = new ConfigBoolean ("modEnabled",  true, "the boolean value of if this mod is enabled");
-        public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, "slot to switch food by auto eat food tweak");
+        public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by auto eat food tweak");
         public static final ConfigDouble AUTO_EAT_THRESHOLD = new ConfigDouble("autoEatThreshold", 0.9, 0, 1.0, "hunger level threshold for auto eat food tweak");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
@@ -45,6 +45,8 @@ public class Configs implements IConfigHandler
     }
 
     public static void onConfigLoaded() {
+        InventoryUtil.setFoodSwitchSlot(Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue());
+        InventoryUtil.setFoodSwitchSlot(Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue());
         Configs.Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
     }
 
@@ -64,9 +66,7 @@ public class Configs implements IConfigHandler
             }
         }
 
-        // TODO 1.19.3+
-        //CreativeExtraItems.setCreativeExtraItems(Lists.CREATIVE_EXTRA_ITEMS.getStrings());
-        InventoryUtil.setFoodSwitchSlot(Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue());
+
 
         onConfigLoaded();
     }
