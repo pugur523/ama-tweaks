@@ -37,9 +37,8 @@ public class InventoryUtil {
             return;
         }
 
-        double hungerThreshold = Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue();
         // devide by 2 because of foodSaturationLevel
-        if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 < hungerThreshold) {
+        if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 < Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue()) {
             for (int i = 0; i < player.getInventory().size(); i++) {
                 ItemStack stack = player.getInventory().getStack(i);
                 if (stack.getItem().isFood()) {

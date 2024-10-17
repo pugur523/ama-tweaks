@@ -45,8 +45,6 @@ public class Configs implements IConfigHandler
     }
 
     public static void onConfigLoaded() {
-        InventoryUtil.setFoodSwitchSlot(Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue());
-        InventoryUtil.setFoodSwitchSlot(Generic.FOOD_SWITCHABLE_SLOT.getIntegerValue());
         Configs.Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
     }
 
