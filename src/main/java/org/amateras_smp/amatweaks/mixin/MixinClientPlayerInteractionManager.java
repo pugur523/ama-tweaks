@@ -7,6 +7,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
+import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import org.amateras_smp.amatweaks.tweaks.PlacementOnPortalSides;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -27,9 +29,18 @@ public class MixinClientPlayerInteractionManager {
             cir.setReturnValue(false);
         }
     }
-    @Inject(method = "interactBlock", at = @At("HEAD"), cancellable = true)
-    // < 1.20: private void onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
-    private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+    @Inject(
+            method = "interactBlock",
+            at = @At("HEAD"),
+            cancellable = true
+    )
+    //#if MC <= 11904
+    //$$ private void onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
+    //#else
+    private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
+    //#endif
+    {
+        AmaTweaks.LOGGER.debug("new interact block mixin");
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 
@@ -39,7 +50,9 @@ public class MixinClientPlayerInteractionManager {
         }
     }
 
+    @Unique
     private void onInteractBlockOld(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
+        AmaTweaks.LOGGER.debug("old interact block mixin");
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 
