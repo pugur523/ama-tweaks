@@ -44,7 +44,21 @@ public class MixinPlacementTweaks {
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 
         if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
-            cir.setReturnValue(ActionResult.CONSUME);
+            cir.setReturnValue(ActionResult.PASS);
+            cir.cancel();
+        }
+    }
+
+    @Inject(method = "handleFlexibleBlockPlacement", at = @At("HEAD"), cancellable = true)
+    private static void handleFlexibleBlockPlacement(ClientPlayerInteractionManager controller, ClientPlayerEntity player, ClientWorld world, BlockPos pos, Direction side, float playerYaw, Vec3d hitVec, Hand hand, PositionUtils.HitPart hitPart, CallbackInfoReturnable<ActionResult> cir) {
+        if(!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return;
+        BlockHitResult hitResult = new BlockHitResult(hitVec, side, pos, false);
+
+        ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
+        ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
+
+        if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
+            cir.setReturnValue(ActionResult.PASS);
             cir.cancel();
         }
     }
