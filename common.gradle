@@ -81,7 +81,7 @@ if (System.getenv("JITPACK") == "true") {
 } else {
     base.archivesName = project.archives_base_name
 }
-fullProjectVersion = project.minecraft_version + '-v' + project.mod_version
+fullProjectVersion = project.minecraft_version + '-' + project.mod_version
 fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version
 version = fullProjectVersion
 
