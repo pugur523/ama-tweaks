@@ -45,39 +45,20 @@ public class MixinPlacementTweaks {
 
         if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
             cir.setReturnValue(ActionResult.PASS);
-            cir.cancel();
         }
     }
-    @Inject(method = "tryPlaceBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/Vec3d;add(Lnet/minecraft/util/math/Vec3d;)Lnet/minecraft/util/math/Vec3d;"), cancellable = true)
-    private static void tryPlaceBlock2(ClientPlayerInteractionManager controller, ClientPlayerEntity player, ClientWorld world, BlockPos posIn, Direction sideIn, Direction sideRotatedIn, float playerYaw, Vec3d hitVec, Hand hand, PositionUtils.HitPart hitPart, boolean isFirstClick, CallbackInfoReturnable<ActionResult> cir) {
+
+    // for flexible block placement and accurate block placement
+    @Inject(method = "processRightClickBlockWrapper", at = @At("HEAD"), cancellable = true)
+    private static void processRightClickBlockWrapper(ClientPlayerInteractionManager controller, ClientPlayerEntity player, ClientWorld world, BlockPos posIn, Direction sideIn, Vec3d hitVecIn, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if(!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return;
-
-        if (!isFirstClick) {
-            return;
-        }
-
-        BlockHitResult hitResult = new BlockHitResult(hitVec, sideIn, posIn, false);
+        BlockHitResult hitResult = new BlockHitResult(hitVecIn, sideIn, posIn, false);
 
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 
         if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
             cir.setReturnValue(ActionResult.PASS);
-            cir.cancel();
-        }
-    }
-
-    @Inject(method = "handleFlexibleBlockPlacement", at = @At("HEAD"), cancellable = true)
-    private static void handleFlexibleBlockPlacement(ClientPlayerInteractionManager controller, ClientPlayerEntity player, ClientWorld world, BlockPos pos, Direction side, float playerYaw, Vec3d hitVec, Hand hand, PositionUtils.HitPart hitPart, CallbackInfoReturnable<ActionResult> cir) {
-        if(!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return;
-        BlockHitResult hitResult = new BlockHitResult(hitVec, side, pos, false);
-
-        ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
-        ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
-
-        if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
-            cir.setReturnValue(ActionResult.PASS);
-            cir.cancel();
         }
     }
 
