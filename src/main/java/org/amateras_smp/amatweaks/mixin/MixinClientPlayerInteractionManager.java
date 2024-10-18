@@ -29,6 +29,7 @@ public class MixinClientPlayerInteractionManager {
             cir.setReturnValue(false);
         }
     }
+
     @Inject(
             method = "interactBlock",
             at = @At("HEAD"),

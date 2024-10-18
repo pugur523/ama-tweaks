@@ -5,7 +5,6 @@ import fi.dy.masa.malilib.util.PositionUtils;
 import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.fallenbreath.tweakermore.util.ModIds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -19,6 +18,7 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
+import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.tweaks.PlacementOnPortalSides;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Restriction(require = @Condition(ModIds.tweakeroo))
+@Restriction(require = @Condition(Reference.ModIds.tweakeroo))
 @Mixin(PlacementTweaks.class)
 public class MixinPlacementTweaks {
     @Inject(method = "tryPlaceBlock", at = @At("HEAD"), cancellable = true)

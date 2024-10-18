@@ -23,11 +23,7 @@ public class ContainerProcessManager {
     );
 
     private static boolean hasTweakEnabled() {
-        for (IContainerProcessor p : CONTAINER_PROCESSORS) {
-            if (p.isEnabled()) return true;
-        }
-        return false;
-        // return CONTAINER_PROCESSORS.stream().anyMatch(IContainerProcessor::isEnabled);
+        return CONTAINER_PROCESSORS.stream().anyMatch(IContainerProcessor::isEnabled);
     }
 
     public static List<IContainerProcessor> getProcessors() {

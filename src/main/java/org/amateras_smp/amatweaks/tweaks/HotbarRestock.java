@@ -22,7 +22,6 @@ import org.amateras_smp.amatweaks.util.container.IContainerProcessor;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 
 
 public class HotbarRestock implements IContainerProcessor {
@@ -61,7 +60,7 @@ public class HotbarRestock implements IContainerProcessor {
 
             for (Slot containerSlot : containerInvSlots) {
                 ItemStack containerStack = containerSlot.getStack().copy();
-                if (Objects.equals(RegistryUtil.getItemId(containerStack.getItem()), clientItemId) && !restockedItems.contains(containerStack.getItem())) {
+                if (InventoryUtils.areStacksEqual(containerStack, clientStack) && !restockedItems.contains(containerStack.getItem())) {
                     // update amount of clientStack
                     int missingAmount = Math.min(clientStack.getMaxCount() - player.getInventory().getStack(i).getCount(), containerStack.getCount());
                     int remainAmount = clientStack.getMaxCount() - missingAmount;
@@ -83,6 +82,7 @@ public class HotbarRestock implements IContainerProcessor {
 
         }
 
+        if (result) return new ProcessResult(true, result);
         for (int i = 0; i < PlayerInventory.getHotbarSize(); i++) {
             String itemId = RegistryUtil.getItemId(player.getInventory().getStack(i).getItem());
             if (Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings().stream().noneMatch(target -> target.equals(itemId))) continue;
