@@ -4,11 +4,12 @@
   "package": "org.amateras_smp.amatweaks.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "MixinClientPlayNetworkHandler"
   ],
   "client": [
+    "IMixinBellBlock",
     "MixinClientPlayerInteractionManager",
     "MixinMinecraftClient",
-    "IMixinBellBlock",
     "MixinPlacementTweaks",
     "MixinScreenHandler"
   ],
