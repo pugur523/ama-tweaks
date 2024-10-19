@@ -1,7 +1,6 @@
-package org.amateras_smp.amatweaks.util.container;
+package org.amateras_smp.amatweaks.impl.util.container;
 
 import com.google.common.collect.ImmutableList;
-import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.AutoProcessableScreen;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
 import me.fallenbreath.tweakermore.mixins.tweaks.features.autoContainerProcess.ItemScrollerInventoryUtilsAccessor;
 import net.minecraft.client.MinecraftClient;
@@ -11,8 +10,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.amateras_smp.amatweaks.tweaks.HotbarRestock;
-import fi.dy.masa.itemscroller.util.InventoryUtils;
+import org.amateras_smp.amatweaks.impl.tweaks.HotbarRestock;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,11 +21,7 @@ public class ContainerProcessManager {
     );
 
     private static boolean hasTweakEnabled() {
-        for (IContainerProcessor p : CONTAINER_PROCESSORS) {
-            if (p.isEnabled()) return true;
-        }
-        return false;
-        // return CONTAINER_PROCESSORS.stream().anyMatch(IContainerProcessor::isEnabled);
+        return CONTAINER_PROCESSORS.stream().anyMatch(IContainerProcessor::isEnabled);
     }
 
     public static List<IContainerProcessor> getProcessors() {
@@ -42,12 +36,12 @@ public class ContainerProcessManager {
             if (player.isSpectator()) return;
 
             HandledScreen<?> containerScreen = (HandledScreen<?>)screen;
-            if (containerScreen.getScreenHandler() != container || !((AutoProcessableScreen)screen).shouldProcess$TKM())
+            if (containerScreen.getScreenHandler() != container || !((AutoProcessableScreen)screen).shouldProcess$AMT())
             {
                 return;
             }
 
-            ((AutoProcessableScreen)screen).setShouldProcess$TKM(false);
+            ((AutoProcessableScreen)screen).setShouldProcess$AMT(false);
             List<Slot> allSlots = container.slots;
             List<Slot> playerInvSlots = allSlots.stream().filter(slot -> slot.inventory instanceof PlayerInventory).collect(Collectors.toList());
             if (allSlots.isEmpty() || playerInvSlots.isEmpty())

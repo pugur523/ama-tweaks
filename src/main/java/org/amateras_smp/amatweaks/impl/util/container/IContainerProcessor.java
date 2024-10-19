@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.util.container;
+package org.amateras_smp.amatweaks.impl.util.container;
 
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;

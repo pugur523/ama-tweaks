@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.tweaks;
+package org.amateras_smp.amatweaks.impl.tweaks;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;

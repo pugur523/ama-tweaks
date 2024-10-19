@@ -14,7 +14,6 @@ import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import org.amateras_smp.amatweaks.Reference;
-import org.amateras_smp.amatweaks.util.InventoryUtil;
 
 import java.io.File;
 

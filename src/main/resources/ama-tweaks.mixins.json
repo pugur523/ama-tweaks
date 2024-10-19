@@ -1,15 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "org.amateras_smp.amatweaks.mixin",
+  "package": "org.amateras_smp.amatweaks.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-  ],
-  "client": [
+    "MixinClientPlayNetworkHandler",
+    "IMixinBellBlock",
     "MixinClientPlayerInteractionManager",
     "MixinMinecraftClient",
-    "IMixinBellBlock",
     "MixinPlacementTweaks",
+    "MixinScreen",
     "MixinScreenHandler"
   ],
   "injectors": {
