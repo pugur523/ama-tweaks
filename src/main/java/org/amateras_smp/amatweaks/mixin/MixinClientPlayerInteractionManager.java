@@ -35,7 +35,7 @@ public class MixinClientPlayerInteractionManager {
             at = @At("HEAD"),
             cancellable = true
     )
-    //#if MC <= 11904
+    //#if MC < 11904
     //$$ private void onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
     //#else
     private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
