@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.util.container;
+package org.amateras_smp.amatweaks.impl.util.container;
 
 import com.google.common.collect.ImmutableList;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
@@ -10,7 +10,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.amateras_smp.amatweaks.tweaks.HotbarRestock;
+import org.amateras_smp.amatweaks.impl.tweaks.HotbarRestock;
 
 import java.util.List;
 import java.util.stream.Collectors;

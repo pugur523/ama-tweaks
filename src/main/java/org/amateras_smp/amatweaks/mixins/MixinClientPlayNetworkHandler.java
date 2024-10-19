@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixin;
+package org.amateras_smp.amatweaks.mixins;
 
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -6,7 +6,7 @@ import me.fallenbreath.tweakermore.util.ModIds;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
-import org.amateras_smp.amatweaks.util.container.AutoProcessableScreen;
+import org.amateras_smp.amatweaks.impl.util.container.AutoProcessableScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.util;
+package org.amateras_smp.amatweaks.impl.util;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

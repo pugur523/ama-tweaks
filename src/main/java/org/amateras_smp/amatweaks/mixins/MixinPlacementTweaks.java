@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixin;
+package org.amateras_smp.amatweaks.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import fi.dy.masa.malilib.util.PositionUtils;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.tweaks.PlacementOnPortalSides;
+import org.amateras_smp.amatweaks.impl.tweaks.PlacementOnPortalSides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

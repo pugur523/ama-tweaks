@@ -26,7 +26,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package org.amateras_smp.amatweaks.tweaks;
+package org.amateras_smp.amatweaks.impl.tweaks;
 
 import net.minecraft.block.BellBlock;
 import net.minecraft.block.Block;
@@ -38,8 +38,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.mixin.IMixinBellBlock;
-import org.amateras_smp.amatweaks.util.BlockTypeEquals;
+import org.amateras_smp.amatweaks.mixins.IMixinBellBlock;
+import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
 
 import static net.minecraft.block.NetherPortalBlock.AXIS;
 

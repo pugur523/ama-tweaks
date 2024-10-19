@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.tweaks;
+package org.amateras_smp.amatweaks.impl.tweaks;
 
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
@@ -18,7 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.util.container.IContainerProcessor;
+import org.amateras_smp.amatweaks.impl.util.container.IContainerProcessor;
 
 import java.util.HashSet;
 import java.util.List;
