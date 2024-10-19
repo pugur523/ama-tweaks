@@ -43,7 +43,6 @@ public class MixinClientPlayerInteractionManager {
     private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
     //#endif
     {
-        AmaTweaks.LOGGER.debug("new interact block mixin");
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 

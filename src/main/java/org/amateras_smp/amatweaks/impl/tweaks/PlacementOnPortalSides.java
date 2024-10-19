@@ -33,10 +33,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
+import net.minecraft.state.property.DirectionProperty;
+import net.minecraft.state.property.Property;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.mixins.IMixinBellBlock;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
@@ -45,7 +48,7 @@ import static net.minecraft.block.NetherPortalBlock.AXIS;
 
 public class PlacementOnPortalSides {
     public static boolean restriction(World world, ItemPlacementContext ctx, BlockHitResult hitResult) {
-        if(!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
+        if (!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
 
         if (ctx == null) {
             return false;
@@ -104,6 +107,18 @@ public class PlacementOnPortalSides {
         return false;
     }
 
+    public static boolean restrictionFlexbile(World world, ItemPlacementContext ctx, BlockHitResult hitResult) {
+        if (!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
+
+        BlockPos pos = ctx.getBlockPos();
+        return  checkNeighbors(world, pos.north(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
+                checkNeighbors(world, pos.south(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
+                checkNeighbors(world, pos.west(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
+                checkNeighbors(world, pos.east(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
+                checkNeighbors(world, pos.up(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos()) ||
+                checkNeighbors(world, pos.down(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos());
+    }
+
     public static boolean checkNeighbors(World world, BlockPos blockPos, Direction.Axis axis, ItemPlacementContext ctx, BlockHitResult hitResult, BlockPos origin) {
         BlockState blockState = world.getBlockState(blockPos);
         ItemStack itemStack = ctx.getStack();
@@ -150,5 +165,21 @@ public class PlacementOnPortalSides {
 
     public static boolean canRing(BellBlock bell, BlockState blockState, BlockHitResult hitResult, BlockPos blockPos) {
         return ((IMixinBellBlock) bell).ModIsPointOnBell(blockState, hitResult.getSide(), hitResult.getPos().y - (double)blockPos.getY());
+    }
+
+    public static boolean isFacingValidFor(Direction facing, ItemStack stack) {
+        Item item = stack.getItem();
+        if (!stack.isEmpty() && item instanceof BlockItem) {
+            Block block = ((BlockItem)item).getBlock();
+            BlockState state = block.getDefaultState();
+
+            for (Property<?> property : state.getProperties()) {
+                if (property instanceof DirectionProperty) {
+                    return ((DirectionProperty) property).getValues().contains(facing);
+                }
+            }
+        }
+
+        return false;
     }
 }
