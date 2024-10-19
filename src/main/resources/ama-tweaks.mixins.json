@@ -11,6 +11,7 @@
     "MixinClientPlayerInteractionManager",
     "MixinMinecraftClient",
     "MixinPlacementTweaks",
+    "MixinScreen",
     "MixinScreenHandler"
   ],
   "injectors": {
