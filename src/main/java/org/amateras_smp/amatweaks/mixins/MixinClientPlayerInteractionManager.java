@@ -19,6 +19,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.amateras_smp.amatweaks.impl.tweaks.SafeStepProtection;
 
+//#if MC < 11904
+//$$ import net.minecraft.client.world.ClientWorld;
+//#endif
+
 @Mixin(ClientPlayerInteractionManager.class)
 public class MixinClientPlayerInteractionManager {
     @Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)
