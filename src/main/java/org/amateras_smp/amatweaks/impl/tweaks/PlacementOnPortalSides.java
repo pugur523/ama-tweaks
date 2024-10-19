@@ -39,10 +39,9 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.mixins.IMixinBellBlock;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
+import org.amateras_smp.amatweaks.mixins.IMixinBellBlock;
 
 import static net.minecraft.block.NetherPortalBlock.AXIS;
 
@@ -107,16 +106,9 @@ public class PlacementOnPortalSides {
         return false;
     }
 
-    public static boolean restrictionFlexbile(World world, ItemPlacementContext ctx, BlockHitResult hitResult) {
-        if (!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
-
-        BlockPos pos = ctx.getBlockPos();
-        return  checkNeighbors(world, pos.north(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
-                checkNeighbors(world, pos.south(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
-                checkNeighbors(world, pos.west(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
-                checkNeighbors(world, pos.east(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
-                checkNeighbors(world, pos.up(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos()) ||
-                checkNeighbors(world, pos.down(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos());
+    public static boolean restriction2(BlockHitResult hitResult) {
+        BlockPos pos = hitResult.getBlockPos();
+        return false;
     }
 
     public static boolean checkNeighbors(World world, BlockPos blockPos, Direction.Axis axis, ItemPlacementContext ctx, BlockHitResult hitResult, BlockPos origin) {
