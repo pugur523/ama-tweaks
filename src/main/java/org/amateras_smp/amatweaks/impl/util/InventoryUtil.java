@@ -36,7 +36,11 @@ public class InventoryUtil {
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockHitResult hitBlock = (BlockHitResult) hit;
             BlockPos hitBlockPos = hitBlock.getBlockPos();
+            //#if MC >= 11802
             if (mc.currentScreen != null || player.getWorld().getBlockEntity(hitBlockPos) != null) return;
+            //#else
+            //$$ if (mc.currentScreen != null || player.world.getBlockEntity(hitBlockPos) != null) return;
+            //#endif
         } else {
             // hit target is entity or something, just end this func
             return;
@@ -70,7 +74,11 @@ public class InventoryUtil {
     public static void tryToSwap(int slot) {
         MinecraftClient mc = MinecraftClient.getInstance();
         ClientPlayerEntity player = mc.player;
+        //#if MC >= 11802
         if (player == null || player.getWorld() == null || mc.getNetworkHandler() == null || mc.interactionManager == null) return;
+        //#else
+        //$$ if (player == null || player.world == null || mc.getNetworkHandler() == null || mc.interactionManager == null) return;
+        //#endif
         PlayerInventory inventory = player.getInventory();
         ScreenHandler container = player.playerScreenHandler;
         if (slot >= 0 && slot!= inventory.selectedSlot && player.currentScreenHandler == player.playerScreenHandler) {

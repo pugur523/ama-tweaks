@@ -106,19 +106,10 @@ public class PlacementOnPortalSides {
         return false;
     }
 
-    public static boolean restriction2(BlockHitResult hitResult) {
-        BlockPos pos = hitResult.getBlockPos();
-        return false;
-    }
-
     public static boolean checkNeighbors(World world, BlockPos blockPos, Direction.Axis axis, ItemPlacementContext ctx, BlockHitResult hitResult, BlockPos origin) {
         BlockState blockState = world.getBlockState(blockPos);
-        ItemStack itemStack = ctx.getStack();
         if (blockState.isOf(Blocks.NETHER_PORTAL)) {
             if (Direction.Axis.Y == axis || blockState.get(AXIS) == axis) {
-                if (!itemStack.isOf(Items.SCAFFOLDING) && ctx.canReplaceExisting()) {
-                    return false;
-                }
                 if (!ctx.canPlace()) {
                     return false;
                 }
