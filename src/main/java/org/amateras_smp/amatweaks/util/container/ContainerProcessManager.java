@@ -12,7 +12,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import org.amateras_smp.amatweaks.tweaks.HotbarRestock;
-import fi.dy.masa.itemscroller.util.InventoryUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
