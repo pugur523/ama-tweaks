@@ -1,6 +1,7 @@
 package org.amateras_smp.amatweaks.impl.tweaks;
 
 import fi.dy.masa.itemscroller.util.InventoryUtils;
+import me.fallenbreath.tweakermore.TweakerMoreMod;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
 import me.fallenbreath.tweakermore.util.RegistryUtil;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,6 +12,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.Pair;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -66,8 +68,21 @@ public class HotbarRestock implements IContainerProcessor {
 
         if (shouldRestockSlots.isEmpty()) return new ProcessResult(false, false);
 
-        // ここ以降はすでに1スタック以上のアイテムが補充されていることが前提となる
-        executeRestock(containerScreen, shouldRestockSlots, containerInvSlots);
+        // first restock
+        HashMap<Item, Integer> remainingRestockableMap = executeRestock(containerScreen, shouldRestockSlots, containerInvSlots, restockableMap);
+
+//        これは、restockできるのにインベントリにそれが存在しないがために理ストックされなかったものを2度目のrestockで空スロットに補充しようと思ってやろうとして上手くいかなかった痕跡
+//        if (remainingRestockableMap.isEmpty()) {
+//            return new ProcessResult(true, true);
+//        }
+//
+//        shouldRestockSlots.clear();
+//        for (Slot slot : playerInvSlots) {
+//            if (!slot.hasStack()) shouldRestockSlots.add(slot);
+//        }
+//
+//        // second restock : restocks items which not in player inventory
+//        executeRestock(containerScreen, shouldRestockSlots, containerInvSlots, remainingRestockableMap);
 
         return new ProcessResult(true, true);
     }
@@ -76,12 +91,14 @@ public class HotbarRestock implements IContainerProcessor {
         return Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings().stream().anyMatch(target -> target.equals(itemId));
     }
 
-    private void executeRestock(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots) {
+    private HashMap<Item, Integer> executeRestock(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots, HashMap<Item, Integer> restockableMap) {
         for (Slot playerSlot : shouldRestockSlots) {
             ItemStack playerStack = playerSlot.getStack().copy();
             int requireRestockAmount = playerStack.getMaxCount() - playerStack.getCount();
             int remainingRestockAmount = requireRestockAmount;
-            for (Slot containerSlot : containerSlots) {
+            for (int idx = containerSlots.size() - 1; idx >= 0; idx--) {
+                Slot containerSlot = containerSlots.get(idx);
+            // for (Slot containerSlot : containerSlots) {
                 ItemStack restockStack = containerSlot.getStack().copy();
                 if (restockStack.getItem() == playerStack.getItem()) {
                     int restockAmount = Math.min(remainingRestockAmount, restockStack.getCount());
@@ -90,25 +107,29 @@ public class HotbarRestock implements IContainerProcessor {
                 }
                 if (remainingRestockAmount <= 0) {
                     System.out.println("restocked item. remaining amount : "  + remainingRestockAmount);
-                    System.out.println("restocked" + restockStack.getItem().getName().toString() + " " + requireRestockAmount);
+                    System.out.println("restocked " + restockStack.getItem().getTranslationKey() + " " + requireRestockAmount);
                     break;
                 }
             }
-            System.out.println("couldn't restock full stack : missing items in container");
+            // remove as restocked item
+            restockableMap.remove(playerStack.getItem());
         }
+        return restockableMap;
     }
 
     private void moveToPlayerInventory(HandledScreen<?> containerScreen, Slot containerSlot, Slot playerSlot, int moveAmount) {
-        InventoryUtils.leftClickSlot(containerScreen, containerSlot.getIndex());
-        int putBackAmount = containerSlot.getStack().copy().getMaxCount() - moveAmount;
-        if (putBackAmount == 0) {
-            InventoryUtils.shiftClickSlot(containerScreen, containerSlot.getIndex());
+        System.out.println("moveAmount : " + moveAmount);
+        if (moveAmount == containerSlot.getStack().getCount())
+        {
+            InventoryUtils.shiftClickSlot(containerScreen, containerSlot.id);
             return;
         }
-        for (int i = 0; i < putBackAmount; i++) {
-            InventoryUtils.rightClickSlot(containerScreen, containerSlot.getIndex());
+        InventoryUtils.leftClickSlot(containerScreen, containerSlot.id);
+        for (int i = 0; i < moveAmount; i++) {
+            System.out.print(i);
+            InventoryUtils.rightClickSlot(containerScreen, playerSlot.id);
         }
-        InventoryUtils.leftClickSlot(containerScreen, playerSlot.getIndex());
+        InventoryUtils.leftClickSlot(containerScreen, containerSlot.id);
     }
 
 //    @Override
