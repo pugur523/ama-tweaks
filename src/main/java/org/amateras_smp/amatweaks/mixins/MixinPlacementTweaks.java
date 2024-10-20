@@ -118,7 +118,7 @@ public class MixinPlacementTweaks {
         ItemPlacementContext ctx = new ItemPlacementContext(new ItemUsageContext(player, hand, hitResult));
 
         if (PlacementOnPortalSides.restriction(world, ctx, hitResult)) {
-            String message = "placement restricted by disablePlacementOnPortalSides tweak";
+            String message = "placement restricted by disablePlacementOnPortalSides";
             InfoUtils.printActionbarMessage(message);
             cir.setReturnValue(ActionResult.PASS);
         }

@@ -34,7 +34,7 @@ public class MixinMinecraftClient {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void onTick(CallbackInfo ci) {
-        if (Configs.Generic.MOD_ENABLED.getBooleanValue() && FeatureToggle.TWEAK_AUTO_EAT.getBooleanValue()) {
+        if (FeatureToggle.TWEAK_AUTO_EAT.getBooleanValue()) {
             InventoryUtil.autoEat();
         }
     }

@@ -23,12 +23,10 @@ public class Configs implements IConfigHandler
 
     public static class Generic
     {
-        public static final ConfigBoolean MOD_ENABLED = new ConfigBoolean ("modEnabled",  true, "the boolean value of if this mod is enabled");
-        public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by auto eat food tweak");
-        public static final ConfigDouble AUTO_EAT_THRESHOLD = new ConfigDouble("autoEatThreshold", 0.9, 0, 1.0, "hunger level threshold for auto eat food tweak");
+        public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by auto eat food tweak. start from 0.");
+        public static final ConfigDouble AUTO_EAT_THRESHOLD = new ConfigDouble("autoEatThreshold", 1.0, 0, 1.0, "hunger level threshold for auto eat food tweak.");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
-                MOD_ENABLED,
                 FOOD_SWITCHABLE_SLOT,
                 AUTO_EAT_THRESHOLD
         );
