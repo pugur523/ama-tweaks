@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.SlotActionType;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -36,6 +37,11 @@ public class InventoryUtil {
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockHitResult hitBlock = (BlockHitResult) hit;
             BlockPos hitBlockPos = hitBlock.getBlockPos();
+
+            // is it can right-click?
+            ActionResult tempResult = player.clientWorld.getBlockState(hitBlockPos).onUse(player.getWorld(), player, player.getActiveHand(), hitBlock);
+            if (!tempResult.isAccepted()) return;
+
             //#if MC >= 11802
             if (mc.currentScreen != null || player.getWorld().getBlockEntity(hitBlockPos) != null) return;
             //#else

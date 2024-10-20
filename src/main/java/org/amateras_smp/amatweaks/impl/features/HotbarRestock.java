@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.impl.tweaks;
+package org.amateras_smp.amatweaks.impl.features;
 
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;

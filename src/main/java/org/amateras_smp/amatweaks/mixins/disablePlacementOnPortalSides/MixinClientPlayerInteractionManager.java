@@ -7,7 +7,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
-import org.amateras_smp.amatweaks.impl.tweaks.PlacementOnPortalSides;
+import org.amateras_smp.amatweaks.impl.features.PlacementOnPortalSides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

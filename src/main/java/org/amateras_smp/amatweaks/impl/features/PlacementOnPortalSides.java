@@ -26,7 +26,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-package org.amateras_smp.amatweaks.impl.tweaks;
+package org.amateras_smp.amatweaks.impl.features;
 
 import net.minecraft.block.BellBlock;
 import net.minecraft.block.Block;

@@ -7,8 +7,9 @@ public class Reference {
     public static final String MOD_NAME = "AmaTweaks";
     public static final String MOD_VERSION = StringUtils.getModVersionString(MOD_ID);
 
-    public class ModIds {
+    public static class ModIds {
         public static final String minecraft = "minecraft";
+        public static final String amatweaks = "ama-tweaks";
         public static final String fabric_loader = "fabricloader";
         public static final String fabric_api = "fabric";
         public static final String malilib = "malilib";

@@ -10,7 +10,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.amateras_smp.amatweaks.impl.tweaks.HotbarRestock;
+import org.amateras_smp.amatweaks.impl.features.HotbarRestock;
 
 import java.util.List;
 import java.util.stream.Collectors;
