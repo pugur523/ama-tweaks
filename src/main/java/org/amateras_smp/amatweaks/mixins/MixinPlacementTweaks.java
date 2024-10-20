@@ -2,6 +2,7 @@ package org.amateras_smp.amatweaks.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;
+import fi.dy.masa.malilib.util.InfoUtils;
 import fi.dy.masa.malilib.util.PositionUtils;
 import fi.dy.masa.tweakeroo.config.Configs;
 import fi.dy.masa.tweakeroo.config.Hotkeys;
@@ -117,6 +118,8 @@ public class MixinPlacementTweaks {
         ItemPlacementContext ctx = new ItemPlacementContext(new ItemUsageContext(player, hand, hitResult));
 
         if (PlacementOnPortalSides.restriction(world, ctx, hitResult)) {
+            String message = "placement restricted by disablePlacementOnPortalSides tweak";
+            InfoUtils.printActionbarMessage(message);
             cir.setReturnValue(ActionResult.PASS);
         }
     }
