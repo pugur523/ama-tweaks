@@ -94,7 +94,7 @@ def branchName = getGitBranchName()
 
 if (branchName != "main") {
     // rename jar file when it's not main branch
-    base.archivesBaseName = "${base.archivesBaseName}-${branchName}"
+    base.archivesName = "${base.archivesName}-${branchName}"
 }
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
