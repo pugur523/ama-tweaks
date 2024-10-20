@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class InventoryUtil {
     private static int beforeSlot;
-    private static boolean flag = false;
+    private static boolean eating = false;
 
     public static void autoEat() {
         MinecraftClient mc = MinecraftClient.getInstance();
@@ -39,8 +39,13 @@ public class InventoryUtil {
             BlockPos hitBlockPos = hitBlock.getBlockPos();
 
             // is it can right-click?
+            //#if MC >= 12006
+            //$$ ActionResult tempResult = player.clientWorld.getBlockState(hitBlockPos).onUse(player.getWorld(), player, hitBlock);
+            //#else
             ActionResult tempResult = player.clientWorld.getBlockState(hitBlockPos).onUse(player.getWorld(), player, player.getActiveHand(), hitBlock);
-            if (!tempResult.isAccepted()) return;
+            //#endif
+
+            if (tempResult.isAccepted()) return;
 
             //#if MC >= 11802
             if (mc.currentScreen != null || player.getWorld().getBlockEntity(hitBlockPos) != null) return;
@@ -63,17 +68,17 @@ public class InventoryUtil {
                 //#endif
                     tryToSwap(i);
                     KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
-                    flag = true;
+                    eating = true;
                     return;
                 }
             }
         }
 
-        if (flag) {
-            KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), false);
+        if (eating) {
             player.getInventory().selectedSlot = beforeSlot;
             mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(beforeSlot));
-            flag = false;
+            eating = false;
+            KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), false);
         }
     }
 

@@ -98,14 +98,13 @@ public class HotbarRestock implements IContainerProcessor {
                 Slot containerSlot = containerSlots.get(idx);
             // for (Slot containerSlot : containerSlots) {
                 ItemStack restockStack = containerSlot.getStack().copy();
+                if (restockStack.isEmpty()) continue;
                 if (restockStack.getItem() == playerStack.getItem()) {
                     int restockAmount = Math.min(remainingRestockAmount, restockStack.getCount());
                     moveToPlayerInventory(containerScreen, containerSlot, playerSlot, restockAmount);
                     remainingRestockAmount -= restockAmount;
                 }
                 if (remainingRestockAmount <= 0) {
-                    System.out.println("restocked item. remaining amount : "  + remainingRestockAmount);
-                    System.out.println("restocked " + restockStack.getItem().getTranslationKey() + " " + requireRestockAmount);
                     break;
                 }
             }
@@ -116,7 +115,6 @@ public class HotbarRestock implements IContainerProcessor {
     }
 
     private void moveToPlayerInventory(HandledScreen<?> containerScreen, Slot containerSlot, Slot playerSlot, int moveAmount) {
-        System.out.println("moveAmount : " + moveAmount);
         if (moveAmount == containerSlot.getStack().getCount())
         {
             InventoryUtils.shiftClickSlot(containerScreen, containerSlot.id);
@@ -124,7 +122,6 @@ public class HotbarRestock implements IContainerProcessor {
         }
         InventoryUtils.leftClickSlot(containerScreen, containerSlot.id);
         for (int i = 0; i < moveAmount; i++) {
-            System.out.print(i);
             InventoryUtils.rightClickSlot(containerScreen, playerSlot.id);
         }
         InventoryUtils.leftClickSlot(containerScreen, containerSlot.id);

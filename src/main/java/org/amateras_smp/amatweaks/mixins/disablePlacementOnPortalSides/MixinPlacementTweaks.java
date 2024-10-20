@@ -71,21 +71,23 @@ public class MixinPlacementTweaks {
         boolean accurate = fi.dy.masa.tweakeroo.config.FeatureToggle.TWEAK_ACCURATE_BLOCK_PLACEMENT.getBooleanValue();
         boolean keys = fi.dy.masa.tweakeroo.config.Hotkeys.ACCURATE_BLOCK_PLACEMENT_IN.getKeybind().isKeybindHeld() || fi.dy.masa.tweakeroo.config.Hotkeys.ACCURATE_BLOCK_PLACEMENT_REVERSE.getKeybind().isKeybindHeld();
         accurate = accurate && keys;
-        double y;
+
+        double x;
         //#if MC >= 12100
         //$$ if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidFor(sideIn, stackOriginal)) {
         //#else
         if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.CARPET_ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidFor(sideIn, stackOriginal)) {
         //#endif
             Direction facing = sideIn.getOpposite();
-            y = (double)(posIn.getX() + 2 + facing.getId() * 2);
+            x = (double)(posIn.getX() + 2 + facing.getId() * 2);
             if (fi.dy.masa.tweakeroo.config.FeatureToggle.TWEAK_AFTER_CLICKER.getBooleanValue()) {
-                y += (double)(afterClickerClickCount * 16);
+                x += (double)(afterClickerClickCount * 16);
             }
 
-            hitVecIn = new Vec3d(y, hitVecIn.y, hitVecIn.z);
+            hitVecIn = new Vec3d(x, hitVecIn.y, hitVecIn.z);
         }
 
+        double y;
         if (fi.dy.masa.tweakeroo.config.FeatureToggle.TWEAK_Y_MIRROR.getBooleanValue() && fi.dy.masa.tweakeroo.config.Hotkeys.PLACEMENT_Y_MIRROR.getKeybind().isKeybindHeld()) {
             y = 1.0 - hitVecIn.y + (double)(2 * posIn.getY());
             hitVecIn = new Vec3d(hitVecIn.x, y, hitVecIn.z);
