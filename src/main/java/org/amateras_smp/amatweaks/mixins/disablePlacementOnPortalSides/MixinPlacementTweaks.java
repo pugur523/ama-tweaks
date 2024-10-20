@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins;
+package org.amateras_smp.amatweaks.mixins.disablePlacementOnPortalSides;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.datafixers.util.Pair;

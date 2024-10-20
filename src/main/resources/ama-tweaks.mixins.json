@@ -4,15 +4,19 @@
   "package": "org.amateras_smp.amatweaks.mixins",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinClientPlayNetworkHandler",
-    "IMixinBellBlock",
-    "MixinClientPlayerInteractionManager",
-    "MixinMinecraftClient",
-    "MixinPlacementTweaks",
-    "MixinScreen",
-    "MixinScreenHandler"
+    "disablePlacementOnPortalSides.IMixinBellBlock",
+    "disablePlacementOnPortalSides.MixinPlacementTweaks",
+    "holdForward.MixinMinecraftClient",
+    "hotbarRestock.MixinScreen",
+    "hotbarRestock.MixinScreenHandler",
+    "hotbarRestock.MixinClientPlayNetworkHandler",
+    "safeStepProtection.MixinClientPlayerInteractionManager"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "client": [
+    "autoEat.MixinMinecraftClient",
+    "disablePlacementOnPortalSides.MixinClientPlayerInteractionManager"
+  ]
 }

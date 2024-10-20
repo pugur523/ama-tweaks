@@ -41,7 +41,7 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
-import org.amateras_smp.amatweaks.mixins.IMixinBellBlock;
+import org.amateras_smp.amatweaks.mixins.disablePlacementOnPortalSides.IMixinBellBlock;
 
 import static net.minecraft.block.NetherPortalBlock.AXIS;
 

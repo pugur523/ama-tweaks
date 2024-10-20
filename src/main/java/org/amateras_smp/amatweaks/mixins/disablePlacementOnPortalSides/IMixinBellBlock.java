@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins;
+package org.amateras_smp.amatweaks.mixins.disablePlacementOnPortalSides;
 
 import net.minecraft.block.BellBlock;
 import net.minecraft.block.BlockState;

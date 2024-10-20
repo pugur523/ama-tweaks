@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins;
+package org.amateras_smp.amatweaks.mixins.safeStepProtection;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -28,26 +28,6 @@ public class MixinClientPlayerInteractionManager {
     private void handleBreakingRestriction(BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
         if (FeatureToggle.TWEAK_SAFE_STEP_PROTECTION.getBooleanValue() && !SafeStepProtection.isPositionAllowedByBreakingRestriction(pos)) {
             cir.setReturnValue(false);
-        }
-    }
-
-    @Inject(
-            method = "interactBlock",
-            at = @At("HEAD"),
-            cancellable = true
-    )
-    //#if MC < 11904
-    //$$ private void onInteractBlock(ClientPlayerEntity player, ClientWorld world, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
-    //#else
-    private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir)
-    //#endif
-    {
-        ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
-        ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
-
-        if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
-            cir.setReturnValue(ActionResult.CONSUME);
-            cir.cancel();
         }
     }
 }
