@@ -1,6 +1,7 @@
 package org.amateras_smp.amatweaks.impl.util;
 
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
@@ -14,31 +15,28 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.Configs;
+import java.util.Objects;
 
 //#if MC >= 12006
 //$$ import net.minecraft.component.ComponentMap;
 //$$ import net.minecraft.component.DataComponentTypes;
 //#endif
 
-import java.util.Objects;
 
 public class InventoryUtil {
     private static int beforeSlot;
     private static boolean eating = false;
 
-    public static void autoEat() {
-        MinecraftClient mc = MinecraftClient.getInstance();
-        ClientPlayerEntity player = mc.player;
-        if (player == null) return;
-        if (mc.getNetworkHandler() == null || mc.interactionManager == null) return;
-
+    public static void autoEat(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
         HitResult hit = mc.crosshairTarget;
         if (hit == null) return;
+
         if (hit.getType() == HitResult.Type.BLOCK) {
             BlockHitResult hitBlock = (BlockHitResult) hit;
             BlockPos hitBlockPos = hitBlock.getBlockPos();
 
-            // is it can right-click?
+            // make sure hitBlock can't be interacted.
+
             //#if MC >= 12006
             //$$ ActionResult tempResult = player.clientWorld.getBlockState(hitBlockPos).onUse(player.getWorld(), player, hitBlock);
             //#else
@@ -58,7 +56,7 @@ public class InventoryUtil {
         }
 
         // devide by 2 because of foodSaturationLevel
-        if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 < Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue()) {
+        if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 <= Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue() && player.getHungerManager().isNotFull()) {
             for (int i = 0; i < player.getInventory().size(); i++) {
                 ItemStack stack = player.getInventory().getStack(i);
                 //#if MC >= 12006
@@ -73,10 +71,14 @@ public class InventoryUtil {
                 }
             }
         }
+        autoEatCheck(mc, player, networkHandler);
 
+    }
+
+    public static void autoEatCheck(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
         if (eating) {
             player.getInventory().selectedSlot = beforeSlot;
-            mc.getNetworkHandler().sendPacket(new UpdateSelectedSlotC2SPacket(beforeSlot));
+            networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(beforeSlot));
             eating = false;
             KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), false);
         }
