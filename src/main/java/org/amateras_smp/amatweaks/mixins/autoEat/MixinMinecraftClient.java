@@ -14,8 +14,8 @@ public class MixinMinecraftClient {
     @Shadow
     static MinecraftClient instance;
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    private void onTickHead(CallbackInfo ci) {
+    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/MinecraftClient;handleInputEvents()V"))
+    private void onTick(CallbackInfo ci) {
         if (FeatureToggle.TWEAK_AUTO_EAT.getBooleanValue()) {
             if (instance.player != null && instance.player.networkHandler != null && instance.interactionManager != null) {
                 InventoryUtil.autoEat(instance, instance.player, instance.player.networkHandler);

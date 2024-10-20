@@ -28,35 +28,23 @@ public class InventoryUtil {
     private static boolean eating = false;
 
     public static void autoEat(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
-        HitResult hit = mc.crosshairTarget;
-        if (hit == null) return;
-
-        if (hit.getType() == HitResult.Type.BLOCK) {
-            BlockHitResult hitBlock = (BlockHitResult) hit;
-            BlockPos hitBlockPos = hitBlock.getBlockPos();
-
-            // make sure hitBlock can't be interacted.
-
-            //#if MC >= 12006
-            //$$ ActionResult tempResult = player.clientWorld.getBlockState(hitBlockPos).onUse(player.getWorld(), player, hitBlock);
-            //#else
-            ActionResult tempResult = player.clientWorld.getBlockState(hitBlockPos).onUse(player.getWorld(), player, player.getActiveHand(), hitBlock);
-            //#endif
-
-            if (tempResult.isAccepted()) return;
-
-            //#if MC >= 11802
-            if (mc.currentScreen != null || player.getWorld().getBlockEntity(hitBlockPos) != null) return;
-            //#else
-            //$$ if (mc.currentScreen != null || player.world.getBlockEntity(hitBlockPos) != null) return;
-            //#endif
-        } else {
-            // hit target is entity or something, just end this func
-            return;
-        }
-
-        // devide by 2 because of foodSaturationLevel
         if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 <= Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue() && player.getHungerManager().isNotFull()) {
+            HitResult hit = mc.crosshairTarget;
+            if (hit == null) return;
+            if (hit.getType() == HitResult.Type.BLOCK) {
+                BlockHitResult hitBlock = (BlockHitResult) hit;
+                BlockPos hitBlockPos = hitBlock.getBlockPos();
+
+                // make sure hitBlock can't be interacted.
+                if (BlockTypeEquals.isSneakingInteractionCancel(player.getWorld().getBlockState(hitBlockPos))) {
+                    return;
+                }
+            } else if (hit.getType() == HitResult.Type.ENTITY) {
+                // hit target is entity, so just end this function.
+                return;
+            }
+
+            // divide by 2 because of foodSaturationLevel
             for (int i = 0; i < player.getInventory().size(); i++) {
                 ItemStack stack = player.getInventory().getStack(i);
                 //#if MC >= 12006

@@ -51,13 +51,15 @@ public class BlockTypeEquals {
                 blockState.isOf(Blocks.REPEATER) ||
                 blockState.isOf(Blocks.COMPARATOR) ||
                 blockState.isOf(Blocks.ACACIA_TRAPDOOR) ||
-                // blockState.isOf(Blocks.BAMBOO_TRAPDOOR) ||
                 blockState.isOf(Blocks.BIRCH_TRAPDOOR) ||
-                // blockState.isOf(Blocks.CHERRY_TRAPDOOR) ||
                 blockState.isOf(Blocks.CRIMSON_TRAPDOOR) ||
                 blockState.isOf(Blocks.DARK_OAK_TRAPDOOR) ||
                 blockState.isOf(Blocks.JUNGLE_TRAPDOOR) ||
-                // blockState.isOf(Blocks.MANGROVE_TRAPDOOR) ||
+                //#if MC >= 12000
+                //$$ blockState.isOf(Blocks.BAMBOO_TRAPDOOR) ||
+                //$$ blockState.isOf(Blocks.CHERRY_TRAPDOOR) ||
+                //$$ blockState.isOf(Blocks.MANGROVE_TRAPDOOR) ||
+                //#endif
                 blockState.isOf(Blocks.OAK_TRAPDOOR) ||
                 blockState.isOf(Blocks.SPRUCE_TRAPDOOR) ||
                 blockState.isOf(Blocks.WARPED_TRAPDOOR) ||
@@ -80,61 +82,71 @@ public class BlockTypeEquals {
                 blockState.isOf(Blocks.WHITE_BED) ||
                 blockState.isOf(Blocks.YELLOW_BED) ||
                 blockState.isOf(Blocks.ACACIA_DOOR) ||
-                // blockState.isOf(Blocks.BAMBOO_DOOR) ||
                 blockState.isOf(Blocks.BIRCH_DOOR) ||
-                // blockState.isOf(Blocks.CHERRY_DOOR) ||
                 blockState.isOf(Blocks.CRIMSON_DOOR) ||
                 blockState.isOf(Blocks.DARK_OAK_DOOR) ||
                 blockState.isOf(Blocks.JUNGLE_DOOR) ||
-                // blockState.isOf(Blocks.MANGROVE_DOOR) ||
+                //#if MC >= 12000
+                //$$ blockState.isOf(Blocks.BAMBOO_DOOR) ||
+                //$$ blockState.isOf(Blocks.CHERRY_DOOR) ||
+                //$$ blockState.isOf(Blocks.MANGROVE_DOOR) ||
+                //#endif
                 blockState.isOf(Blocks.OAK_DOOR) ||
                 blockState.isOf(Blocks.SPRUCE_DOOR) ||
                 blockState.isOf(Blocks.WARPED_DOOR) ||
                 blockState.isOf(Blocks.ACACIA_FENCE_GATE) ||
-                // blockState.isOf(Blocks.BAMBOO_FENCE_GATE) ||
                 blockState.isOf(Blocks.BIRCH_FENCE_GATE) ||
-                // blockState.isOf(Blocks.CHERRY_FENCE_GATE) ||
                 blockState.isOf(Blocks.CRIMSON_FENCE_GATE) ||
                 blockState.isOf(Blocks.DARK_OAK_FENCE_GATE) ||
                 blockState.isOf(Blocks.JUNGLE_FENCE_GATE) ||
-                // blockState.isOf(Blocks.MANGROVE_FENCE_GATE) ||
+                //#if MC >= 12000
+                //$$ blockState.isOf(Blocks.BAMBOO_FENCE_GATE) ||
+                //$$ blockState.isOf(Blocks.CHERRY_FENCE_GATE) ||
+                //$$ blockState.isOf(Blocks.MANGROVE_FENCE_GATE) ||
+                //#endif
                 blockState.isOf(Blocks.OAK_FENCE_GATE) ||
                 blockState.isOf(Blocks.SPRUCE_FENCE_GATE) ||
                 blockState.isOf(Blocks.WARPED_FENCE_GATE) ||
                 blockState.isOf(Blocks.ACACIA_BUTTON) ||
-                // blockState.isOf(Blocks.BAMBOO_BUTTON) ||
                 blockState.isOf(Blocks.BIRCH_BUTTON) ||
-                // blockState.isOf(Blocks.CHERRY_BUTTON) ||
                 blockState.isOf(Blocks.CRIMSON_BUTTON) ||
                 blockState.isOf(Blocks.DARK_OAK_BUTTON) ||
                 blockState.isOf(Blocks.JUNGLE_BUTTON) ||
-                // blockState.isOf(Blocks.MANGROVE_BUTTON) ||
+                //#if MC >= 12000
+                //$$ blockState.isOf(Blocks.BAMBOO_BUTTON) ||
+                //$$ blockState.isOf(Blocks.CHERRY_BUTTON) ||
+                //$$ blockState.isOf(Blocks.MANGROVE_BUTTON) ||
+                //#endif
                 blockState.isOf(Blocks.OAK_BUTTON) ||
                 blockState.isOf(Blocks.SPRUCE_BUTTON) ||
                 blockState.isOf(Blocks.WARPED_BUTTON) ||
                 blockState.isOf(Blocks.ACACIA_SIGN) ||
-                // blockState.isOf(Blocks.BAMBOO_SIGN) ||
                 blockState.isOf(Blocks.BIRCH_SIGN) ||
-                // blockState.isOf(Blocks.CHERRY_SIGN) ||
                 blockState.isOf(Blocks.CRIMSON_SIGN) ||
                 blockState.isOf(Blocks.DARK_OAK_SIGN) ||
                 blockState.isOf(Blocks.JUNGLE_SIGN) ||
-                // blockState.isOf(Blocks.MANGROVE_SIGN) ||
+                //#if MC >= 12000
+                //$$ blockState.isOf(Blocks.BAMBOO_SIGN) ||
+                //$$ blockState.isOf(Blocks.CHERRY_SIGN) ||
+                //$$ blockState.isOf(Blocks.MANGROVE_SIGN) ||
+                //#endif
                 blockState.isOf(Blocks.OAK_SIGN) ||
                 blockState.isOf(Blocks.SPRUCE_SIGN) ||
                 blockState.isOf(Blocks.WARPED_SIGN) ||
-                // blockState.isOf(Blocks.ACACIA_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.BAMBOO_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.BIRCH_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.CHERRY_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.CRIMSON_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.DARK_OAK_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.JUNGLE_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.MANGROVE_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.OAK_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.SPRUCE_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.WARPED_HANGING_SIGN) ||
-                // blockState.isOf(Blocks.DECORATED_POT) ||
+                //#if MC >= 12000
+                //$$ blockState.isOf(Blocks.ACACIA_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.BAMBOO_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.BIRCH_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.CHERRY_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.CRIMSON_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.DARK_OAK_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.JUNGLE_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.MANGROVE_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.OAK_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.SPRUCE_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.WARPED_HANGING_SIGN) ||
+                //$$ blockState.isOf(Blocks.DECORATED_POT) ||
+                //#endif
                 blockState.isOf(Blocks.RESPAWN_ANCHOR) ||
                 blockState.isOf(Blocks.CAKE);
     }
