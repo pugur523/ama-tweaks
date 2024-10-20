@@ -18,6 +18,9 @@ repositories {
     maven {
         url 'https://maven.fallenbreath.me/releases'
     }
+    maven {
+        url 'https://masa.dy.fi/maven'
+    }
 }
 
 // https://github.com/FabricMC/fabric-loader/issues/783
@@ -38,7 +41,8 @@ dependencies {
     modImplementation "com.github.Fallen-Breath:conditional-mixin:${project.conditional_mixin_version}"
 
     modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
-    modImplementation "maven.modrinth:malilib:${project.malilib_version}"
+    if (mcVersion > 11700) modImplementation "maven.modrinth:malilib:${project.malilib_version}"
+    else modCompile "fi.dy.masa.malilib:malilib-fabric-${project.minecraft_version}:${project.malilib_version}"
     modImplementation "maven.modrinth:tweakeroo:${project.tweakeroo_version}"
     // if (mcVersion >= 12100) modImplementation "maven.modrinth:tweakeroo:${project.tweakeroo_version}"
     // else modImplementation files("../../lib/tweakfork-fabric-${project.tweakfork_version}.jar")
