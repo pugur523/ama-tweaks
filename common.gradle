@@ -85,6 +85,18 @@ fullProjectVersion = project.minecraft_version + '-' + project.mod_version
 fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version
 version = fullProjectVersion
 
+static def getGitBranchName() {
+    def branch = 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+    return branch ?: 'unknown-branch'
+}
+
+def branchName = getGitBranchName()
+
+if (branchName != "main") {
+    // rename jar file when it's not main branch
+    base.archivesBaseName = "${base.archivesBaseName}-${branchName}"
+}
+
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 processResources {
