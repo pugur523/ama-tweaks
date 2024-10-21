@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.disablePlacementOnPortalSides;
+package org.amateras_smp.amatweaks.mixins.preventPlacementOnPortalSides;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -7,7 +7,7 @@ import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
-import org.amateras_smp.amatweaks.impl.features.PlacementOnPortalSides;
+import org.amateras_smp.amatweaks.impl.features.PreventPlacementOnPortalSides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -33,9 +33,8 @@ public class MixinClientPlayerInteractionManager {
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
 
-        if (PlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
-            cir.setReturnValue(ActionResult.CONSUME);
-            cir.cancel();
+        if (PreventPlacementOnPortalSides.restriction(ctx.getWorld(), ctx, hitResult)) {
+            cir.setReturnValue(ActionResult.PASS);
         }
     }
 }

@@ -2,6 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'fabric-loom'
 apply plugin: 'com.replaymod.preprocess'
 
+String mixinFile = "ama-tweaks.mixins.json"
 int mcVersion = project.mcVersion
 preprocess {
     tabIndentation = true
@@ -115,7 +116,7 @@ processResources {
         expand valueMap
     }
 
-    filesMatching("ama-tweaks.mixins.json") {
+    filesMatching(mixinFile) {
         filter { s -> s.replace('{{COMPATIBILITY_LEVEL}}', "JAVA_${MIXIN_COMPATIBILITY_LEVEL.ordinal() + 1}") }
     }
 }

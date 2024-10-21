@@ -8,9 +8,9 @@
   },
   "client": [
     "autoEat.MixinMinecraftClient",
-    "disablePlacementOnPortalSides.IMixinBellBlock",
-    "disablePlacementOnPortalSides.MixinClientPlayerInteractionManager",
-    "disablePlacementOnPortalSides.MixinPlacementTweaks",
+    "preventPlacementOnPortalSides.IMixinBellBlock",
+    "preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
+    "preventPlacementOnPortalSides.MixinPlacementTweaks",
     "holdForward.MixinMinecraftClient",
     "hotbarRestock.MixinClientPlayNetworkHandler",
     "hotbarRestock.MixinScreen",

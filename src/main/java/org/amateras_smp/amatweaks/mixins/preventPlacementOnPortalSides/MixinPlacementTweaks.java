@@ -1,5 +1,6 @@
-package org.amateras_smp.amatweaks.mixins.disablePlacementOnPortalSides;
+package org.amateras_smp.amatweaks.mixins.preventPlacementOnPortalSides;
 
+import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.util.InfoUtils;
 import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
@@ -21,7 +22,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.impl.features.PlacementOnPortalSides;
+import org.amateras_smp.amatweaks.impl.features.PreventPlacementOnPortalSides;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -106,13 +107,11 @@ public class MixinPlacementTweaks {
             cancellable = true
     )
     private static void onProcessRightClickBlockWrapper(ClientPlayerInteractionManager controller, ClientPlayerEntity player, ClientWorld world, BlockPos posIn, Direction sideIn, Vec3d hitVecIn, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if(!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return;
+        if(!FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return;
         BlockHitResult hitResult = getFinalHitResult(player, world, posIn, sideIn, hitVecIn, hand);
         ItemPlacementContext ctx = new ItemPlacementContext(new ItemUsageContext(player, hand, hitResult));
 
-        if (PlacementOnPortalSides.restriction(world, ctx, hitResult)) {
-            String message = "placement restricted by disablePlacementOnPortalSides";
-            InfoUtils.printActionbarMessage(message);
+        if (PreventPlacementOnPortalSides.restriction(world, ctx, hitResult)) {
             cir.setReturnValue(ActionResult.PASS);
         }
     }

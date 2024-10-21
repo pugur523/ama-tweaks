@@ -28,6 +28,8 @@
 
 package org.amateras_smp.amatweaks.impl.features;
 
+import fi.dy.masa.malilib.gui.GuiBase;
+import fi.dy.masa.malilib.util.InfoUtils;
 import net.minecraft.block.BellBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -41,13 +43,13 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
-import org.amateras_smp.amatweaks.mixins.disablePlacementOnPortalSides.IMixinBellBlock;
+import org.amateras_smp.amatweaks.mixins.preventPlacementOnPortalSides.IMixinBellBlock;
 
 import static net.minecraft.block.NetherPortalBlock.AXIS;
 
-public class PlacementOnPortalSides {
+public class PreventPlacementOnPortalSides {
     public static boolean restriction(World world, ItemPlacementContext ctx, BlockHitResult hitResult) {
-        if (!FeatureToggle.DISABLE_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
+        if (!FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
 
         if (ctx == null) {
             return false;
@@ -75,6 +77,10 @@ public class PlacementOnPortalSides {
                     checkNeighbors(world, blockPos2.up(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos()) ||
                     checkNeighbors(world, blockPos2.down(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos())
             ) {
+                String preRed = GuiBase.TXT_RED;
+                String rst = GuiBase.TXT_RST;
+                String message = preRed + "placement restricted by preventPlacementOnPortalSides" + rst;
+                InfoUtils.printActionbarMessage(message);
                 return true;
             }
 
@@ -148,21 +154,5 @@ public class PlacementOnPortalSides {
 
     public static boolean canRing(BellBlock bell, BlockState blockState, BlockHitResult hitResult, BlockPos blockPos) {
         return ((IMixinBellBlock) bell).ModIsPointOnBell(blockState, hitResult.getSide(), hitResult.getPos().y - (double)blockPos.getY());
-    }
-
-    public static boolean isFacingValidFor(Direction facing, ItemStack stack) {
-        Item item = stack.getItem();
-        if (!stack.isEmpty() && item instanceof BlockItem) {
-            Block block = ((BlockItem)item).getBlock();
-            BlockState state = block.getDefaultState();
-
-            for (Property<?> property : state.getProperties()) {
-                if (property instanceof DirectionProperty) {
-                    return ((DirectionProperty) property).getValues().contains(facing);
-                }
-            }
-        }
-
-        return false;
     }
 }

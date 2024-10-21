@@ -1,5 +1,7 @@
 package org.amateras_smp.amatweaks.mixins.safeStepProtection;
 
+import fi.dy.masa.malilib.gui.GuiBase;
+import fi.dy.masa.malilib.util.InfoUtils;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -19,6 +21,11 @@ public class MixinClientPlayerInteractionManager {
     @Inject(method = "attackBlock", at = @At("HEAD"), cancellable = true)
     private void handleBreakingRestriction(BlockPos pos, Direction side, CallbackInfoReturnable<Boolean> cir) {
         if (FeatureToggle.TWEAK_SAFE_STEP_PROTECTION.getBooleanValue() && !SafeStepProtection.isPositionAllowedByBreakingRestriction(pos)) {
+            String preRed = GuiBase.TXT_RED;
+            String rst = GuiBase.TXT_RST;
+            String message = preRed + "breaking restricted by tweakSafeStepProtection" + rst;
+            InfoUtils.printActionbarMessage(message);
+
             cir.setReturnValue(false);
         }
     }

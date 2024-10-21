@@ -1,5 +1,7 @@
 package org.amateras_smp.amatweaks.config;
 
+import fi.dy.masa.malilib.hotkeys.KeyCallbackAdjustable;
+import fi.dy.masa.malilib.util.InfoUtils;
 import org.amateras_smp.amatweaks.gui.GuiConfigs;
 import fi.dy.masa.malilib.config.IConfigBoolean;
 import fi.dy.masa.malilib.gui.GuiBase;
@@ -18,6 +20,14 @@ public class Callbacks {
         IHotkeyCallback callbackGeneric = new KeyCallbackHotkeysGeneric();
         Hotkeys.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
         FeatureToggle.TWEAK_HOLD_FORWARD.setValueChangeCallback(new FeatureCallbackHold(mc.options.forwardKey));
+
+        FeatureToggle.TWEAK_AUTO_EAT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_EAT));
+        FeatureToggle.TWEAK_HOLD_FORWARD.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_EAT));
+        FeatureToggle.TWEAK_HOTBAR_RESTOCK.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOTBAR_RESTOCK));
+        FeatureToggle.TWEAK_SAFE_STEP_PROTECTION.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SAFE_STEP_PROTECTION));
+
+        
+        // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback
@@ -61,6 +71,38 @@ public class Callbacks {
             {
                 KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(this.keyBind.getBoundKeyTranslationKey()), false);
             }
+        }
+    }
+
+    private static class KeyCallbackAdjustableFeature implements IHotkeyCallback
+    {
+        private final IConfigBoolean config;
+
+        private static IHotkeyCallback createCallback(IConfigBoolean config)
+        {
+            return new KeyCallbackAdjustable(config, new KeyCallbackAdjustableFeature(config));
+        }
+
+        private KeyCallbackAdjustableFeature(IConfigBoolean config)
+        {
+            this.config = config;
+        }
+
+        @Override
+        public boolean onKeyAction(KeyAction action, IKeybind key)
+        {
+            this.config.toggleBooleanValue();
+
+            boolean enabled = this.config.getBooleanValue();
+            String strStatus = enabled ? "On" : "Off";
+            String preGreen = GuiBase.TXT_GREEN;
+            String preRed = GuiBase.TXT_RED;
+            String rst = GuiBase.TXT_RST;
+            String prettyName = this.config.getPrettyName();
+            strStatus = (enabled ? preGreen : preRed) + strStatus + rst;
+
+            InfoUtils.printActionbarMessage("Toggled %s %s", prettyName, strStatus);
+            return true;
         }
     }
 
