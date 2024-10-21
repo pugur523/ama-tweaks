@@ -35,8 +35,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.*;
-import net.minecraft.state.property.DirectionProperty;
-import net.minecraft.state.property.Property;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -79,7 +77,7 @@ public class PreventPlacementOnPortalSides {
             ) {
                 String preRed = GuiBase.TXT_RED;
                 String rst = GuiBase.TXT_RST;
-                String message = preRed + "placement restricted by preventPlacementOnPortalSides" + rst;
+                String message = preRed + "placement restricted by tweakPreventPlacementOnPortalSides" + rst;
                 InfoUtils.printActionbarMessage(message);
                 return true;
             }

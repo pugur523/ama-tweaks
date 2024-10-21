@@ -1,6 +1,10 @@
 package org.amateras_smp.amatweaks.impl.features;
 
+import com.google.common.base.Joiner;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
+import fi.dy.masa.malilib.gui.GuiBase;
+import fi.dy.masa.malilib.gui.Message;
+import fi.dy.masa.malilib.util.InfoUtils;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
 import me.fallenbreath.tweakermore.util.RegistryUtil;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,6 +15,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.slot.Slot;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -22,6 +27,7 @@ import org.amateras_smp.amatweaks.impl.util.container.IContainerProcessor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class HotbarRestock implements IContainerProcessor {
@@ -66,10 +72,19 @@ public class HotbarRestock implements IContainerProcessor {
 
         if (shouldRestockSlots.isEmpty()) return new ProcessResult(false, false);
 
-        // first restock
-        HashMap<Item, Integer> remainingRestockableMap = executeRestock(containerScreen, shouldRestockSlots, containerInvSlots, restockableMap);
+        HashMap<String, Integer> restockedMap = executeRestock(containerScreen, shouldRestockSlots, containerInvSlots);
+        List<String> restockedContents = new ArrayList<>();
+
+        for (HashMap.Entry<String, Integer> entry : restockedMap.entrySet()) {
+            restockedContents.add(String.format("%s +%s", entry.getKey(), GuiBase.TXT_GREEN + entry.getValue() + GuiBase.TXT_RST));
+        }
+        String message = "restocked hotbar : " + Joiner.on(", ").join(restockedContents);
+        InfoUtils.printActionbarMessage(message);
 
         // これは、restockできるのにインベントリにそれが存在しないがためにリストックされなかったものを2度目のrestockで空スロットに補充しようという魂胆で試したが上手くいかなかった痕跡
+        // first restock
+        // HashMap<Item, Integer> remainingRestockableMap = executeRestock2(containerScreen, shouldRestockSlots, containerInvSlots, restockableMap);
+
         //  if (remainingRestockableMap.isEmpty()) {
         //      return new ProcessResult(true, true);
         //  }
@@ -88,8 +103,40 @@ public class HotbarRestock implements IContainerProcessor {
     private boolean isHotbarRestockListContains(String itemId) {
         return Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings().stream().anyMatch(target -> target.equals(itemId));
     }
+    private HashMap<String, Integer> executeRestock(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots) {
+        HashMap<String, Integer> restockedMap = new HashMap<>();
+        for (Slot playerSlot : shouldRestockSlots) {
+            ItemStack playerStack = playerSlot.getStack().copy();
+            int remainingRestockAmount = playerStack.getMaxCount() - playerStack.getCount();
+            int restockedAmount = 0;
+            for (int idx = containerSlots.size() - 1; idx >= 0; idx--) {
+                Slot containerSlot = containerSlots.get(idx);
+                // for (Slot containerSlot : containerSlots) {
+                ItemStack restockStack = containerSlot.getStack().copy();
+                if (restockStack.isEmpty()) continue;
+                if (restockStack.getItem() == playerStack.getItem()) {
+                    int restockAmount = Math.min(remainingRestockAmount, restockStack.getCount());
+                    moveToPlayerInventory(containerScreen, containerSlot, playerSlot, restockAmount);
+                    restockedAmount += restockAmount;
+                    remainingRestockAmount -= restockAmount;
+                }
+                if (remainingRestockAmount <= 0) {
+                    break;
+                }
+            }
+            Formatting formatting = playerStack.getRarity().
+                    //#if MC >= 12006
+                    //$$ getFormatting();
+                    //#else
+                    formatting;
+            //#endif
+            String stackName = formatting + playerStack.getName().getString() + GuiBase.TXT_RST;
+            restockedMap.put(stackName, restockedMap.getOrDefault(stackName, 0) + restockedAmount);
+        }
+        return restockedMap;
+    }
 
-    private HashMap<Item, Integer> executeRestock(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots, HashMap<Item, Integer> restockableMap) {
+    private HashMap<Item, Integer> executeRestock2(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots, HashMap<Item, Integer> restockableMap) {
         for (Slot playerSlot : shouldRestockSlots) {
             ItemStack playerStack = playerSlot.getStack().copy();
             int requireRestockAmount = playerStack.getMaxCount() - playerStack.getCount();
