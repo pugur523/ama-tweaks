@@ -27,7 +27,7 @@
   ],
   "depends": {
     "minecraft": "${minecraft_dependency}",
-    "fabricloader": ">=0.15.0",
+    "fabricloader": ">=0.15.4",
     "fabric": "*",
     "modmenu": "*",
     "malilib": "*",
