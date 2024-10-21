@@ -21,13 +21,13 @@ This can be useful for activities like perimeter digging.
 The `autoEatThreshold` can be configured in the generic tab of the configs.
 
 
-`tweakHotbarRestock`
+`tweakAutoRestockHotbar`
 
 > Automatically restocks items from a container when you open it.
 The `hotbarRestockList` can be specified in the list tab of the config.
 
 
-`disablePlacementOnPortalSides`
+`tweakPreventPlacementOnPortalSides`
 
 > Prevents block placement on sliced nether portal sides.
 This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)

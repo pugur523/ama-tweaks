@@ -3,7 +3,6 @@ package org.amateras_smp.amatweaks.impl.features;
 import com.google.common.base.Joiner;
 import fi.dy.masa.itemscroller.util.InventoryUtils;
 import fi.dy.masa.malilib.gui.GuiBase;
-import fi.dy.masa.malilib.gui.Message;
 import fi.dy.masa.malilib.util.InfoUtils;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
 import me.fallenbreath.tweakermore.util.RegistryUtil;
@@ -27,13 +26,12 @@ import org.amateras_smp.amatweaks.impl.util.container.IContainerProcessor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class HotbarRestock implements IContainerProcessor {
     @Override
     public FeatureToggle getConfig() {
-        return FeatureToggle.TWEAK_HOTBAR_RESTOCK;
+        return FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR;
     }
 
     public ProcessResult process(ClientPlayerEntity player, HandledScreen<?> containerScreen, List<Slot> allSlots, List<Slot> playerInvSlots, List<Slot> containerInvSlots) {
@@ -78,7 +76,7 @@ public class HotbarRestock implements IContainerProcessor {
         for (HashMap.Entry<String, Integer> entry : restockedMap.entrySet()) {
             restockedContents.add(String.format("%s +%s", entry.getKey(), GuiBase.TXT_GREEN + entry.getValue() + GuiBase.TXT_RST));
         }
-        String message = "restocked hotbar : " + Joiner.on(", ").join(restockedContents);
+        String message = "tweakAutoRestockHotbar : " + Joiner.on(", ").join(restockedContents);
         InfoUtils.printActionbarMessage(message);
 
         // これは、restockできるのにインベントリにそれが存在しないがためにリストックされなかったものを2度目のrestockで空スロットに補充しようという魂胆で試したが上手くいかなかった痕跡

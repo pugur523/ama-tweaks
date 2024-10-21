@@ -19,11 +19,11 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 閾値はconfigのgenericにある`autoEatThreshold`で設定できます。
 
 
-`tweakAutoRestock`
+`tweakAutoRestockHotbar`
 > コンテナを開けたとき、設定されたアイテムリスト内のアイテムをコンテナから探し出してホットバーに補充します。
 アイテムリストはconfigのlistにある`hotbarRestockList`で設定できます。
 
 
-`disablePlacementOnPortalSides`
+`tweakPreventPlacementOnPortalSides`
 > スライスされたネザーポータルの側面にブロックを置けなくなります。
 この機能は[taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)のアイデアをお借りしています。
