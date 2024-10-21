@@ -1,33 +1,34 @@
 # AmaTweaks
 
-[日本語の説明はこちら](README_ja.md)
+[日本語の説明はこちら](https://github.com/pugur523/ama-tweaks/blob/main/README_ja.md)
 
-AmaTweaks is client side minecraft fabric mod which has some useful features made for Amateras SMP.
+AmaTweaks is a client-side Minecraft Fabric mod which has some useful features made for Amateras SMP.
 
 ## Features
-`tweakSafeStepProtection`
+
+### tweakSafeStepProtection
 
 > Prevent breaking blocks below you while you're moving forward or sideways.
 This can be useful for activities like perimeter digging.
 
-`tweakHoldForward`
+### tweakHoldForward
 
 > Automatically keeps you moving forward.
 
 
-`tweakAutoEat`
+### tweakAutoEat
 
 > Automatically eat food from your inventory when your food level drops below a set threshold.
-The `autoEatThreshold` can be configured in the generic tab of the configs.
+The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 
 
-`tweakAutoRestockHotbar`
+### tweakAutoRestockHotbar
 
-> Automatically restocks items from a container when you open it.
-The `hotbarRestockList` can be specified in the list tab of the config.
+> Automatically restocks items from a container block (like chests, shulker-boxes, etc.) when you open it.
+The `hotbarRestockList` can be customized in the `List` tab of the config.
 
 
-`tweakPreventPlacementOnPortalSides`
+### tweakPreventPlacementOnPortalSides
 
 > Prevents block placement on sliced nether portal sides.
 This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
