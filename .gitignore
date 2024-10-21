@@ -103,7 +103,7 @@ $RECYCLE.BIN/
 .gradle
 build/
 lib/
-lib/
+artifacts/
 
 # Ignore Gradle GUI config
 gradle-app.setting
