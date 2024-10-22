@@ -84,7 +84,7 @@ public class Callbacks {
                 this.config.toggleBooleanValue();
 
                 boolean enabled = this.config.getBooleanValue();
-                String strStatus = enabled ? "On" : "Off";
+                String strStatus = enabled ? "ON" : "OFF";
                 String preGreen = GuiBase.TXT_GREEN;
                 String preRed = GuiBase.TXT_RED;
                 String rst = GuiBase.TXT_RST;
