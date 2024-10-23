@@ -27,6 +27,18 @@ public class MixinMinecraftClient {
             {
                 KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.forwardKey.getBoundKeyTranslationKey()), true);
             }
+            if (FeatureToggle.TWEAK_HOLD_BACK.getBooleanValue())
+            {
+                KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.backKey.getBoundKeyTranslationKey()), true);
+            }
+            if (FeatureToggle.TWEAK_HOLD_LEFT.getBooleanValue())
+            {
+                KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.leftKey.getBoundKeyTranslationKey()), true);
+            }
+            if (FeatureToggle.TWEAK_HOLD_RIGHT.getBooleanValue())
+            {
+                KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.rightKey.getBoundKeyTranslationKey()), true);
+            }
         }
     }
 }

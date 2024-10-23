@@ -20,6 +20,9 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
 {
     TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward"),
     TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward"),
+    TWEAK_HOLD_BACK("tweakHoldBack", false, "", "Hold moving back"),
+    TWEAK_HOLD_LEFT("tweakHoldLeft", false, "", "Hold moving left"),
+    TWEAK_HOLD_RIGHT("tweakHoldRight", false, "", "Hold moving right"),
     TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eat food when your food level is not full"),
     TWEAK_AUTO_RESTOCK_HOTBAR("tweakAutoRestockHotbar", false, "", "Restock a stack of items from container specified by hotbarRestockList"),
     TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "disable placement on sliced nether portal sides");
