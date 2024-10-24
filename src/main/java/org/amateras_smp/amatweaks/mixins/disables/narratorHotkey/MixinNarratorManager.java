@@ -18,7 +18,7 @@ public class MixinNarratorManager {
     //$$ @Inject(method = "getNarratorOption", at = @At("HEAD"), cancellable = true)
     //$$ private static void onGetNarratorOption(CallbackInfoReturnable<NarratorMode> ci) {
     //#endif
-        if (Configs.Disable.DISABLE_NARRATOR_HOTKEY.getBooleanValue()) {
+        if (Configs.Disable.DISABLE_NARRATOR.getBooleanValue()) {
             ci.setReturnValue(NarratorMode.OFF);
         }
     }
@@ -29,7 +29,7 @@ public class MixinNarratorManager {
     //$$ @Inject(method = "addToast", at = @At("HEAD"), cancellable = true)
     //#endif
     private void onModeChange(CallbackInfo ci) {
-        if (Configs.Disable.DISABLE_NARRATOR_HOTKEY.getBooleanValue()) {
+        if (Configs.Disable.DISABLE_NARRATOR.getBooleanValue()) {
             ci.cancel();
         }
     }

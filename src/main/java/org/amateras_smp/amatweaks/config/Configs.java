@@ -45,10 +45,10 @@ public class Configs implements IConfigHandler
 
     public static class Disable
     {
-        public static final ConfigBooleanHotkeyed DISABLE_NARRATOR_HOTKEY = new ConfigBooleanHotkeyed("disableNarratorHotkey", false, "", "Disables the hotkey of the narrator");
+        public static final ConfigBooleanHotkeyed DISABLE_NARRATOR = new ConfigBooleanHotkeyed("disableNarratorHotkey", false, "", "Disables the hotkey of the narrator");
 
         public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
-            DISABLE_NARRATOR_HOTKEY
+                DISABLE_NARRATOR
         );
     }
 
