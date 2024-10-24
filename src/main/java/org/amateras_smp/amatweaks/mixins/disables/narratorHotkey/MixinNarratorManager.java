@@ -13,10 +13,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class MixinNarratorManager {
     //#if MC >= 11900
     @Inject(method = "getNarratorMode", at = @At("HEAD"), cancellable = true)
+    private void onGetNarratorMode(CallbackInfoReturnable<NarratorMode> ci) {
     //#else
     //$$ @Inject(method = "getNarratorOption", at = @At("HEAD"), cancellable = true)
+    //$$ private static void onGetNarratorOption(CallbackInfoReturnable<NarratorMode> ci) {
     //#endif
-    private void getNarrator(CallbackInfoReturnable<NarratorMode> ci) {
         if (Configs.Disable.DISABLE_NARRATOR_HOTKEY.getBooleanValue()) {
             ci.setReturnValue(NarratorMode.OFF);
         }
