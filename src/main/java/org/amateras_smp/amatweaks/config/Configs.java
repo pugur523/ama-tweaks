@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
+import fi.dy.masa.malilib.config.IHotkeyTogglable;
+import fi.dy.masa.malilib.config.options.ConfigBooleanHotkeyed;
 import fi.dy.masa.malilib.config.options.ConfigDouble;
 import fi.dy.masa.malilib.config.options.ConfigInteger;
 import fi.dy.masa.malilib.config.options.ConfigStringList;
@@ -35,8 +37,18 @@ public class Configs implements IConfigHandler
     {
         public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "item list to restock with tweakHotbarRestock");
         public static final ItemRestriction HOTBAR_RESTOCK_ITEMS = new ItemRestriction();
-        public static final ImmutableList<IConfigBase> LISTS = ImmutableList.of(
+
+        public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 HOTBAR_RESTOCK_LIST
+        );
+    }
+
+    public static class Disable
+    {
+        public static final ConfigBooleanHotkeyed DISABLE_NARRATOR_HOTKEY = new ConfigBooleanHotkeyed("disableNarratorHotkey", false, "", "Disables the hotkey of the narrator");
+
+        public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
+            DISABLE_NARRATOR_HOTKEY
         );
     }
 
@@ -55,7 +67,7 @@ public class Configs implements IConfigHandler
             {
                 JsonObject root = element.getAsJsonObject();
                 ConfigUtils.readConfigBase(root, "Generic", Configs.Generic.OPTIONS);
-                ConfigUtils.readConfigBase(root, "Lists", Configs.Lists.LISTS);
+                ConfigUtils.readConfigBase(root, "Lists", Configs.Lists.OPTIONS);
                 ConfigUtils.readHotkeyToggleOptions(root, "TweakHotkeys", "TweakToggles", FeatureToggle.VALUES);
             }
         }
@@ -73,7 +85,7 @@ public class Configs implements IConfigHandler
             JsonObject root = new JsonObject();
 
             ConfigUtils.writeConfigBase(root, "Generic", Configs.Generic.OPTIONS);
-            ConfigUtils.writeConfigBase(root, "Lists", Configs.Lists.LISTS);
+            ConfigUtils.writeConfigBase(root, "Lists", Configs.Lists.OPTIONS);
             ConfigUtils.writeHotkeyToggleOptions(root, "TweakHotkeys", "TweakToggles", FeatureToggle.VALUES);
 
             JsonUtils.writeJsonToFile(root, new File(dir, CONFIG_FILE_NAME));

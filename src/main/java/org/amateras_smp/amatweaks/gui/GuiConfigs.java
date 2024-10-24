@@ -95,7 +95,7 @@ public class GuiConfigs extends GuiConfigsBase
         }
         else if (tab == ConfigGuiTab.LISTS)
         {
-            configs = Configs.Lists.LISTS;
+            configs = Configs.Lists.OPTIONS;
         }
         else if (tab == ConfigGuiTab.TWEAKS)
         {
@@ -104,6 +104,10 @@ public class GuiConfigs extends GuiConfigsBase
         else if (tab == ConfigGuiTab.GENERIC_HOTKEYS)
         {
             configs = Hotkeys.HOTKEY_LIST;
+        }
+        else if (tab == ConfigGuiTab.DISABLES)
+        {
+            configs = Configs.Disable.OPTIONS;
         }
         else
         {
