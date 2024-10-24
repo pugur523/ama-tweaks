@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.autoEat;
+package org.amateras_smp.amatweaks.mixins.features.autoEat;
 
 import net.minecraft.client.MinecraftClient;
 import org.amateras_smp.amatweaks.config.FeatureToggle;

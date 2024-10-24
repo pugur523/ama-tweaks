@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.preventPlacementOnPortalSides;
+package org.amateras_smp.amatweaks.mixins.features.preventPlacementOnPortalSides;
 
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.util.InfoUtils;

@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.preventPlacementOnPortalSides;
+package org.amateras_smp.amatweaks.mixins.features.preventPlacementOnPortalSides;
 
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;

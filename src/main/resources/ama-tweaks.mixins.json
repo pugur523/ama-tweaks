@@ -7,14 +7,15 @@
     "defaultRequire": 1
   },
   "client": [
-    "autoEat.MixinMinecraftClient",
-    "preventPlacementOnPortalSides.IMixinBellBlock",
-    "preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
-    "preventPlacementOnPortalSides.MixinPlacementTweaks",
-    "holdForward.MixinMinecraftClient",
-    "hotbarRestock.MixinClientPlayNetworkHandler",
-    "hotbarRestock.MixinScreen",
-    "hotbarRestock.MixinScreenHandler",
-    "safeStepProtection.MixinClientPlayerInteractionManager"
+    "disables.disableNarratorHotkey.MixinNarratorManager",
+    "features.autoEat.MixinMinecraftClient",
+    "features.holdForward.MixinMinecraftClient",
+    "features.hotbarRestock.MixinClientPlayNetworkHandler",
+    "features.hotbarRestock.MixinScreen",
+    "features.hotbarRestock.MixinScreenHandler",
+    "features.preventPlacementOnPortalSides.IMixinBellBlock",
+    "features.preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
+    "features.preventPlacementOnPortalSides.MixinPlacementTweaks",
+    "features.safeStepProtection.MixinClientPlayerInteractionManager"
   ]
 }

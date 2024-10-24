@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.hotbarRestock;
+package org.amateras_smp.amatweaks.mixins.features.hotbarRestock;
 
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;

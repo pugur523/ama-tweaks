@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.safeStepProtection;
+package org.amateras_smp.amatweaks.mixins.features.safeStepProtection;
 
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.util.InfoUtils;
