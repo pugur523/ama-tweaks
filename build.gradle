@@ -29,6 +29,12 @@ preprocess {
     mc1206.link(mc1211, file('versions/mapping-1.20.6-1.21.1.txt') as File)
 }
 
+static def getGitBranchName() {
+    def branch = 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
+    return branch ?: 'unknown-branch'
+}
+
+
 tasks.register('buildAndGather') {
     group = 'build'
     subprojects {
@@ -37,20 +43,32 @@ tasks.register('buildAndGather') {
     doFirst {
         println 'Gathering builds'
 
+        def branchName = getGitBranchName()
+        String targetLibsName
+        if (branchName == "main") {
+            targetLibsName = "libs/${project.mod_version}"
+        } else {
+            targetLibsName = branchName + "libs/${project.mod_version}"
+        }
+
         def buildLibs = {
             p -> p.buildDir.toPath().resolve("libs")
         }
 
-        delete fileTree(buildLibs(rootProject)) {
+        def targetLibs = {
+            p -> p.buildDir.toPath().resolve(targetLibsName)
+        }
+
+        delete fileTree(targetLibs(rootProject)) {
             include '*'
         }
         subprojects {
             copy {
                 from(buildLibs(project)) {
                     include "*-${project.mod_version}.jar"
-                    exclude '*-dev-*.jar', '*-sources.jar', '*-shadow.jar'
+                    exclude '*-sources.jar', '*-shadow.jar'
                 }
-                into buildLibs(rootProject)
+                into targetLibs(rootProject)
                 duplicatesStrategy DuplicatesStrategy.INCLUDE
             }
         }
@@ -61,6 +79,18 @@ tasks.register('cleanPreprocessSources') {
     doFirst {
         subprojects {
             def path = project.projectDir.toPath().resolve('build/preprocessed')
+            if (path.toFile().isDirectory()) {
+                path.toFile().deleteDir()
+            }
+        }
+    }
+}
+
+tasks.register('cleanBuilds') {
+    group = 'build'
+    doFirst {
+        subprojects {
+            def path = project.projectDir.toPath().resolve('build/libs')
             if (path.toFile().isDirectory()) {
                 path.toFile().deleteDir()
             }
