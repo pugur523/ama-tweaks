@@ -9,15 +9,6 @@ AmaTweaks is a client-side Minecraft Fabric mod which has some useful features m
 
 ## Features
 
-### tweakSafeStepProtection
-
-> Prevent breaking blocks below you while you're moving forward or sideways.
-This can be useful for activities like perimeter digging.
-
-### tweakHoldForward
-
-> Automatically keeps you moving forward.
-
 
 ### tweakAutoEat
 
@@ -29,9 +20,40 @@ The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 
 > Automatically restocks items from a container block (like chests, shulker-boxes, etc.) when you open it.
 The `hotbarRestockList` can be customized in the `List` tab of the config.
+ 
+
+### tweakHoldBack
+
+> Automatically keeps you moving back.
+
+
+### tweakHoldForward
+
+> Automatically keeps you moving forward.
+
+
+### tweakHoldLeft
+
+> Automatically keeps you moving left.
+
+
+### tweakHoldRight
+
+> Automatically keeps you moving right.
+
+
+### tweakPreventBreakingAdjacentPortal
+
+> Prevents breaking blocks that are adjacent to a nether portal.
 
 
 ### tweakPreventPlacementOnPortalSides
 
 > Prevents block placement on sliced nether portal sides.
 This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
+
+
+### tweakSafeStepProtection
+
+> Prevent breaking blocks below you while you're moving forward or sideways.
+This can be useful for activities like perimeter digging.
