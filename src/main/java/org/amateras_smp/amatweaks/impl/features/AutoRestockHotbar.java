@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class HotbarRestock implements IContainerProcessor {
+public class AutoRestockHotbar implements IContainerProcessor {
     @Override
     public FeatureToggle getConfig() {
         return FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR;

@@ -10,14 +10,14 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
-import org.amateras_smp.amatweaks.impl.features.HotbarRestock;
+import org.amateras_smp.amatweaks.impl.features.AutoRestockHotbar;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ContainerProcessManager {
     private static final List<IContainerProcessor> CONTAINER_PROCESSORS = ImmutableList.of(
-            new HotbarRestock()
+            new AutoRestockHotbar()
     );
 
     private static boolean hasTweakEnabled() {
