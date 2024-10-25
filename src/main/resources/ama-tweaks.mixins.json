@@ -13,6 +13,7 @@
     "features.hotbarRestock.MixinClientPlayNetworkHandler",
     "features.hotbarRestock.MixinScreen",
     "features.hotbarRestock.MixinScreenHandler",
+    "features.preventBreakingAdjacentPortal.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.IMixinBellBlock",
     "features.preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.MixinPlacementTweaks",

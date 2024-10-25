@@ -7,14 +7,14 @@ import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.IHotkeyTogglable;
-import fi.dy.masa.malilib.config.options.ConfigBooleanHotkeyed;
-import fi.dy.masa.malilib.config.options.ConfigDouble;
-import fi.dy.masa.malilib.config.options.ConfigInteger;
-import fi.dy.masa.malilib.config.options.ConfigStringList;
+import fi.dy.masa.malilib.config.options.*;
 import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
+import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
+import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
 import org.amateras_smp.amatweaks.Reference;
+import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 
 import java.io.File;
 
@@ -35,11 +35,20 @@ public class Configs implements IConfigHandler
 
     public static class Lists
     {
-        public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "item list to restock with tweakHotbarRestock");
+        public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "The items to restock with tweakAutoRestockHotbar.");
         public static final ItemRestriction HOTBAR_RESTOCK_ITEMS = new ItemRestriction();
 
+
+        public static final ConfigOptionList PORTAL_BREAKING_RESTRICTION_LIST_TYPE = new ConfigOptionList("portalBreakingRestrictionListType", UsageRestriction.ListType.WHITELIST, "The list type for breaking adjacent to portal restriction effects.");
+        public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_BLACKLIST = new ConfigStringList("portalBreakingRestrictionBlackList", ImmutableList.of(""), "The items that will be restricted by tweakPreventBreakingAdjacentPortal.");
+        public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_WHITELIST = new ConfigStringList("portalBreakingRestrictionWhiteList", ImmutableList.of("minecraft:obsidian"), "The items that will not be restricted by tweakPreventBreakingAdjacentPortal.");
+
+
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
-                HOTBAR_RESTOCK_LIST
+                HOTBAR_RESTOCK_LIST,
+                PORTAL_BREAKING_RESTRICTION_LIST_TYPE,
+                PORTAL_BREAKING_RESTRICTION_BLACKLIST,
+                PORTAL_BREAKING_RESTRICTION_WHITELIST
         );
     }
 
@@ -53,7 +62,12 @@ public class Configs implements IConfigHandler
     }
 
     public static void onConfigLoaded() {
-        Configs.Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
+        Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
+
+        PreventBreakingAdjacentPortal.PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListType((UsageRestriction.ListType) Lists.PORTAL_BREAKING_RESTRICTION_LIST_TYPE.getOptionListValue());
+        PreventBreakingAdjacentPortal.PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListContents(
+                Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.getStrings(),
+                Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.getStrings());
     }
 
     public static void loadFromFile() {
@@ -71,8 +85,6 @@ public class Configs implements IConfigHandler
                 ConfigUtils.readHotkeyToggleOptions(root, "TweakHotkeys", "TweakToggles", FeatureToggle.VALUES);
             }
         }
-
-
 
         onConfigLoaded();
     }
