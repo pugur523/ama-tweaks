@@ -43,9 +43,15 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 > 右に進むキーを自動で押し続けます。
 
 
+### tweakPersistentGammaOverride
+
+> tweakerooのtweakGammaOverrideが起動時に有効にならない問題を修正します。
+
+
 ### tweakPreventBreakingAdjacentPortal
 
 > ネザーポータルの枠組みにあたる位置のブロックが壊せなくなります。
+
 
 ### tweakPreventPlacementOnPortalSides
 

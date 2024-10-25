@@ -42,6 +42,11 @@ The `hotbarRestockList` can be customized in the `List` tab of the config.
 > Automatically keeps you moving right.
 
 
+### tweakPersistentGammaOverride
+
+> Fix a tweakeroo's bug that "tweakGammaOverride" will be not enabled on client restart.
+
+
 ### tweakPreventBreakingAdjacentPortal
 
 > Prevents breaking blocks that are adjacent to a nether portal.
