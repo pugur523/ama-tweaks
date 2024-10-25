@@ -48,7 +48,6 @@ import static net.minecraft.block.NetherPortalBlock.AXIS;
 public class PreventPlacementOnPortalSides {
     public static boolean restriction(World world, ItemPlacementContext ctx, BlockHitResult hitResult) {
         if (!FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES.getBooleanValue()) return false;
-
         if (ctx == null) {
             return false;
         }
@@ -65,15 +64,16 @@ public class PreventPlacementOnPortalSides {
                 return false;
             }
         }
-        BlockPos blockPos2 = ctx.getBlockPos();
+        BlockPos blockPos = ctx.getBlockPos();
+        boolean firstTime = true;
 
         while (true) {
-            if (checkNeighbors(world, blockPos2.north(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
-                    checkNeighbors(world, blockPos2.south(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
-                    checkNeighbors(world, blockPos2.east(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
-                    checkNeighbors(world, blockPos2.west(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
-                    checkNeighbors(world, blockPos2.up(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos()) ||
-                    checkNeighbors(world, blockPos2.down(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos())
+            if (checkNeighbors(world, blockPos.north(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
+                    checkNeighbors(world, blockPos.south(), Direction.Axis.Z, ctx, hitResult, hitResult.getBlockPos()) ||
+                    checkNeighbors(world, blockPos.east(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
+                    checkNeighbors(world, blockPos.west(), Direction.Axis.X, ctx, hitResult, hitResult.getBlockPos()) ||
+                    checkNeighbors(world, blockPos.up(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos()) ||
+                    checkNeighbors(world, blockPos.down(), Direction.Axis.Y, ctx, hitResult, hitResult.getBlockPos())
             ) {
                 String preRed = GuiBase.TXT_RED;
                 String rst = GuiBase.TXT_RST;
@@ -85,21 +85,26 @@ public class PreventPlacementOnPortalSides {
 
             //#if MC >= 12000
             if (itemStack.getItem() instanceof TallBlockItem || itemStack.isOf(Items.PITCHER_PLANT)) {
-                if (blockPos2.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
-                    blockPos2 = blockPos2.up();
+            //#else
+            //$$ if (itemStack.getItem() instanceof TallBlockItem) {
+            //#endif
+                if (blockPos.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
+                    blockPos = blockPos.up();
+                } else if (firstTime) {
+                    blockPos = blockPos.up();
                 } else {
                     break;
                 }
+                firstTime = false;
             } else
-            //#endif
             if (itemStack.getItem() instanceof BedItem) {
-                if (blockPos2.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
+                if (blockPos.equals(hitResult.getBlockPos().offset(hitResult.getSide()))) {
                     //#if MC > 11900
                     Direction direction = ctx.getHorizontalPlayerFacing();
                     //#else
                     //$$ Direction direction = ctx.getPlayerFacing();
                     //#endif
-                    blockPos2 = blockPos2.offset(direction);
+                    blockPos = blockPos.offset(direction);
                 } else {
                     break;
                 }
