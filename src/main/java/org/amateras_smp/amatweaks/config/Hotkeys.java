@@ -6,7 +6,7 @@ import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import java.util.List;
 
 public class Hotkeys {
-    public static final ConfigHotkey OPEN_CONFIG_GUI = new ConfigHotkey("openConfigGui","LEFT_ALT,K","Open GUI Config Screen (powered by malilib)");
+    public static final ConfigHotkey OPEN_CONFIG_GUI = new ConfigHotkey("openConfigGui","LEFT_ALT,A","Open Config GUI Screen");
 
     public static final List<ConfigHotkey> HOTKEY_LIST = ImmutableList.of(
             OPEN_CONFIG_GUI

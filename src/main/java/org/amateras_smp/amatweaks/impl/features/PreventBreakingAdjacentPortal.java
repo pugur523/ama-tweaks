@@ -18,9 +18,9 @@ public class PreventBreakingAdjacentPortal {
         ClientPlayerEntity player = mc.player;
         if (player == null) return false;
         if (!isThereAdjacentPortal(player.clientWorld, pos)) return false;
+        if (player.clientWorld.getBlockState(pos).isOf(Blocks.NETHER_PORTAL)) return false;
 
         Block block = player.clientWorld.getBlockState(pos).getBlock();
-
         return !PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.isAllowed(block);
     }
 
