@@ -112,7 +112,7 @@ public class AutoRestockHotbar implements IContainerProcessor {
                 // for (Slot containerSlot : containerSlots) {
                 ItemStack restockStack = containerSlot.getStack().copy();
                 if (restockStack.isEmpty()) continue;
-                if (restockStack.getItem() == playerStack.getItem()) {
+                if (InventoryUtils.areStacksEqual(restockStack, playerStack)) {
                     int restockAmount = Math.min(remainingRestockAmount, restockStack.getCount());
                     moveToPlayerInventory(containerScreen, containerSlot, playerSlot, restockAmount);
                     restockedAmount += restockAmount;
@@ -123,11 +123,11 @@ public class AutoRestockHotbar implements IContainerProcessor {
                 }
             }
             Formatting formatting = playerStack.getRarity().
-                    //#if MC >= 12006
-                    //$$ getFormatting();
-                    //#else
+                    //#if MC < 12006
                     formatting;
-            //#endif
+                    //#else
+                    //$$ getFormatting();
+                    //#endif
             String stackName = formatting + playerStack.getName().getString() + GuiBase.TXT_RST;
             restockedMap.put(stackName, restockedMap.getOrDefault(stackName, 0) + restockedAmount);
         }
@@ -144,7 +144,7 @@ public class AutoRestockHotbar implements IContainerProcessor {
             // for (Slot containerSlot : containerSlots) {
                 ItemStack restockStack = containerSlot.getStack().copy();
                 if (restockStack.isEmpty()) continue;
-                if (restockStack.getItem() == playerStack.getItem()) {
+                if (InventoryUtils.areStacksEqual(restockStack, playerStack)) {
                     int restockAmount = Math.min(remainingRestockAmount, restockStack.getCount());
                     moveToPlayerInventory(containerScreen, containerSlot, playerSlot, restockAmount);
                     remainingRestockAmount -= restockAmount;
