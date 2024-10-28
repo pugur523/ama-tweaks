@@ -79,10 +79,12 @@ public class Configs implements IConfigHandler
             if (element != null && element.isJsonObject())
             {
                 JsonObject root = element.getAsJsonObject();
-                ConfigUtils.readConfigBase(root, "Generic", Configs.Generic.OPTIONS);
-                ConfigUtils.readConfigBase(root, "Lists", Configs.Lists.OPTIONS);
+                ConfigUtils.readConfigBase(root, "Generic", Generic.OPTIONS);
+                // ConfigUtils.readConfigBase(root, "Fixes", Fixes.OPTIONS);
+                ConfigUtils.readConfigBase(root, "Lists", Lists.OPTIONS);
                 ConfigUtils.readHotkeys(root, "GenericHotkeys", Hotkeys.HOTKEY_LIST);
                 ConfigUtils.readHotkeyToggleOptions(root, "TweakHotkeys", "TweakToggles", FeatureToggle.VALUES);
+                ConfigUtils.readConfigBase(root, "Disables", Disable.OPTIONS);
             }
         }
 
@@ -97,9 +99,11 @@ public class Configs implements IConfigHandler
             JsonObject root = new JsonObject();
 
             ConfigUtils.writeConfigBase(root, "Generic", Configs.Generic.OPTIONS);
+            // ConfigUtils.writeConfigBase(root, "Fixes", Configs.Fixes.OPTIONS);
             ConfigUtils.writeConfigBase(root, "Lists", Configs.Lists.OPTIONS);
             ConfigUtils.writeHotkeys(root, "GenericHotkeys", Hotkeys.HOTKEY_LIST);
             ConfigUtils.writeHotkeyToggleOptions(root, "TweakHotkeys", "TweakToggles", FeatureToggle.VALUES);
+            ConfigUtils.writeConfigBase(root, "Disables", Disable.OPTIONS);
 
             JsonUtils.writeJsonToFile(root, new File(dir, CONFIG_FILE_NAME));
         }
