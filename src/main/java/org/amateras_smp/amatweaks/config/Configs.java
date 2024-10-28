@@ -12,7 +12,6 @@ import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
-import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 
