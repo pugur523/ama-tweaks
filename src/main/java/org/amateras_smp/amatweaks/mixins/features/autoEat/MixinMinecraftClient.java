@@ -2,7 +2,7 @@ package org.amateras_smp.amatweaks.mixins.features.autoEat;
 
 import net.minecraft.client.MinecraftClient;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
-import org.amateras_smp.amatweaks.impl.util.InventoryUtil;
+import org.amateras_smp.amatweaks.impl.features.AutoEat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,7 +18,7 @@ public class MixinMinecraftClient {
     private void onTick(CallbackInfo ci) {
         if (FeatureToggle.TWEAK_AUTO_EAT.getBooleanValue()) {
             if (instance.player != null && instance.player.networkHandler != null && instance.interactionManager != null) {
-                InventoryUtil.autoEat(instance, instance.player, instance.player.networkHandler);
+                AutoEat.autoEat(instance, instance.player, instance.player.networkHandler);
             }
         }
     }

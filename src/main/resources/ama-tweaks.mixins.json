@@ -10,6 +10,7 @@
     "disables.narratorHotkey.MixinNarratorManager",
     "features.autoEat.MixinMinecraftClient",
     "features.autoGlide.MixinClientPlayerEntity",
+    "features.autoGlide.MixinMinecraftClient",
     "features.holdForward.MixinMinecraftClient",
     "features.hotbarRestock.MixinClientPlayNetworkHandler",
     "features.hotbarRestock.MixinScreen",

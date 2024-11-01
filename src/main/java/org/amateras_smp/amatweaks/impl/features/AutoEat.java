@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.impl.util;
+package org.amateras_smp.amatweaks.impl.features;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
@@ -14,6 +14,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.Configs;
+import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
+
 import java.util.Objects;
 
 //#if MC >= 12006
@@ -22,7 +24,7 @@ import java.util.Objects;
 //#endif
 
 
-public class InventoryUtil {
+public class AutoEat {
     private static int beforeSlot;
     private static boolean eating = false;
 
