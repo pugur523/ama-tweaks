@@ -27,9 +27,11 @@ public class MixinClientPlayerEntity {
         if (!FeatureToggle.TWEAK_AUTO_FIREWORK_GLIDE.getBooleanValue()) return;
         if (falling) {
             tickCount++;
-            int interval = Configs.Generic.AUTO_FIREWORK_USE_INTERVAL.getIntegerValue();
-            if (tickCount % interval == 0 && tickCount != 0) {
-                AutoFireworkGlide.autoUseFirework(client, client.getNetworkHandler());
+            if (tickCount % Configs.Generic.AUTO_FIREWORK_USE_INTERVAL.getIntegerValue() == 0 && tickCount != 0) {
+                if (client.player == null) return;
+                if (client.player.getVelocity().length() <= Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue()) {
+                    AutoFireworkGlide.autoUseFirework(client, client.getNetworkHandler());
+                }
             }
         } else {
             tickCount = 0;
