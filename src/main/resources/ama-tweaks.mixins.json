@@ -9,6 +9,7 @@
   "client": [
     "disables.narratorHotkey.MixinNarratorManager",
     "features.autoEat.MixinMinecraftClient",
+    "features.autoGlide.MixinClientPlayerEntity",
     "features.holdForward.MixinMinecraftClient",
     "features.hotbarRestock.MixinClientPlayNetworkHandler",
     "features.hotbarRestock.MixinScreen",
