@@ -4,9 +4,9 @@ import fi.dy.masa.malilib.util.InventoryUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -14,8 +14,14 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
-
 import java.util.Objects;
+
+//#if MC < 12006
+import net.minecraft.nbt.NbtCompound;
+//#else
+//$$ import net.minecraft.component.ComponentMap;
+//$$ import net.minecraft.component.DataComponentTypes;
+//#endif
 
 public class AutoFireworkGlide {
     public static void autoUseFirework(MinecraftClient mc, ClientPlayNetworkHandler networkHandler) {
@@ -44,15 +50,23 @@ public class AutoFireworkGlide {
 
         int maxFlightLevelInInventory = 0;
         int targetSlot = -1;
-        for (int i = 0; i < player.getInventory().size(); i++) {
+        for (int i = 0; i < PlayerInventory.MAIN_SIZE; i++) {
             ItemStack stack = player.getInventory().getStack(i);
             if (stack.isOf(Items.FIREWORK_ROCKET)) {
+                //#if MC >= 12006
+                //$$ ComponentMap component = stack.getComponents();
+                //$$ if (component.contains(DataComponentTypes.FIREWORKS)) {
+                //$$ int flightLevel = Objects.requireNonNull(component.get(DataComponentTypes.FIREWORKS)).flightDuration();
+                //#else
                 NbtCompound nbt = stack.getNbt();
-                if (nbt != null && nbt.contains("Flight")) {
-                    int flightLevel = nbt.getByte("Flight");
+                if (nbt != null && nbt.contains("Fireworks")) {
+                    int flightLevel = nbt.getCompound("Fireworks").getInt("Flight");
+                //#endif
+                    System.out.print(flightLevel);
                     if (flightLevel > maxFlightLevelInInventory) {
                         maxFlightLevelInInventory = flightLevel;
                         targetSlot = i;
+                        System.out.println("changed value" + targetSlot + " " + maxFlightLevelInInventory);
                     }
                 }
             }
