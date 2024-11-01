@@ -56,17 +56,16 @@ public class AutoFireworkGlide {
                 //#if MC >= 12006
                 //$$ ComponentMap component = stack.getComponents();
                 //$$ if (component.contains(DataComponentTypes.FIREWORKS)) {
+                //$$ if (component.get(DataComponentTypes.FIREWORKS) == null) return;
                 //$$ int flightLevel = Objects.requireNonNull(component.get(DataComponentTypes.FIREWORKS)).flightDuration();
                 //#else
                 NbtCompound nbt = stack.getNbt();
                 if (nbt != null && nbt.contains("Fireworks")) {
                     int flightLevel = nbt.getCompound("Fireworks").getInt("Flight");
                 //#endif
-                    System.out.print(flightLevel);
                     if (flightLevel > maxFlightLevelInInventory) {
                         maxFlightLevelInInventory = flightLevel;
                         targetSlot = i;
-                        System.out.println("changed value" + targetSlot + " " + maxFlightLevelInInventory);
                     }
                 }
             }
@@ -74,18 +73,21 @@ public class AutoFireworkGlide {
         if (targetSlot == -1) return;
         int originSlot = player.getInventory().selectedSlot;
         if (originSlot != targetSlot) {
-            InventoryUtils.swapSlots(player.playerScreenHandler, targetSlot, Configs.Generic.FIREWORK_SWITCHABLE_SLOT.getIntegerValue());
-            player.getInventory().selectedSlot = targetSlot;
-            networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(targetSlot));
+            if (targetSlot != Configs.Generic.FIREWORK_SWITCHABLE_SLOT.getIntegerValue()) {
+                InventoryUtils.swapSlots(player.playerScreenHandler, targetSlot, Configs.Generic.FIREWORK_SWITCHABLE_SLOT.getIntegerValue());
+            }
+            player.getInventory().selectedSlot = Configs.Generic.FIREWORK_SWITCHABLE_SLOT.getIntegerValue();
+            networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(player.getInventory().selectedSlot));
         }
         use(mc, player);
     }
 
     private static void use(MinecraftClient mc, ClientPlayerEntity player) {
+        if (mc.interactionManager == null) return;
         //#if MC >= 11900
-        Objects.requireNonNull(mc.interactionManager).interactItem(player, Hand.MAIN_HAND);
+        mc.interactionManager.interactItem(player, Hand.MAIN_HAND);
         //#else
-        //$$ Objects.requireNonNull(mc.interactionManager).interactItem(player, player.clientWorld, Hand.MAIN_HAND);
+        //$$ mc.interactionManager.interactItem(player, player.clientWorld, Hand.MAIN_HAND);
         //#endif
     }
 }

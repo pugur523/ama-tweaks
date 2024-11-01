@@ -28,11 +28,11 @@ public class MixinClientPlayerEntity {
         if (falling) {
             tickCount++;
             int interval = Configs.Generic.AUTO_FIREWORK_USE_INTERVAL.getIntegerValue();
-            if (tickCount % interval == 0) {
+            if (tickCount % interval == 0 && tickCount != 0) {
                 AutoFireworkGlide.autoUseFirework(client, client.getNetworkHandler());
             }
         } else {
-            tickCount = 20;
+            tickCount = 0;
         }
     }
 }
