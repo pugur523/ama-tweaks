@@ -43,7 +43,7 @@ public class Configs implements IConfigHandler
         public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "The items to restock with tweakAutoRestockHotbar.");
         public static final ItemRestriction HOTBAR_RESTOCK_ITEMS = new ItemRestriction();
 
-        public static final ConfigStringList PICK_SUBSTITUTES_MAP = new ConfigStringList("pickSubstituteMap", ImmutableList.of("minecraft:farmland, minecraft:dirt", "minecraft:dirt_path, minecraft:dirt", "minecraft:water, minecraft:ice"), "replacement reference of litematica block pick");
+        public static final ConfigStringList PICK_REDIRECT_MAP = new ConfigStringList("pickRedirectMap", ImmutableList.of("minecraft:farmland, minecraft:dirt", "minecraft:dirt_path, minecraft:dirt", "minecraft:water, minecraft:ice"), "replacement reference of litematica block pick");
 
         public static final ConfigOptionList PORTAL_BREAKING_RESTRICTION_LIST_TYPE = new ConfigOptionList("portalBreakingRestrictionListType", UsageRestriction.ListType.WHITELIST, "The type of the list used for breaking adjacent to portal restriction effects.");
         public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_BLACKLIST = new ConfigStringList("portalBreakingRestrictionBlackList", ImmutableList.of(""), "The items that will be restricted by tweakPreventBreakingAdjacentPortal.");
@@ -52,7 +52,7 @@ public class Configs implements IConfigHandler
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 HOTBAR_RESTOCK_LIST,
-                PICK_SUBSTITUTES_MAP,
+                PICK_REDIRECT_MAP,
                 PORTAL_BREAKING_RESTRICTION_LIST_TYPE,
                 PORTAL_BREAKING_RESTRICTION_BLACKLIST,
                 PORTAL_BREAKING_RESTRICTION_WHITELIST

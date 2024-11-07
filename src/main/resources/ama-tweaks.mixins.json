@@ -20,6 +20,7 @@
     "features.preventPlacementOnPortalSides.IMixinBellBlock",
     "features.preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.MixinPlacementTweaks",
-    "features.safeStepProtection.MixinClientPlayerInteractionManager"
+    "features.safeStepProtection.MixinClientPlayerInteractionManager",
+    "litematica.MixinMaterialCache"
   ]
 }

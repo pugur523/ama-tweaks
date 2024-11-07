@@ -25,7 +25,7 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward"),
     TWEAK_HOLD_LEFT("tweakHoldLeft", false, "", "Hold moving left"),
     TWEAK_HOLD_RIGHT("tweakHoldRight", false, "", "Hold moving right"),
-    TWEAK_PICK_BLOCK_SUBSTITUTE("tweakPickBlockSubstitute", false, "", "Automatically replaces blocks that should be picked by litematica or tweakermore."),
+    TWEAK_PICK_BLOCK_REDIRECT("tweakPickBlockRedirect", false, "", "Automatically replaces blocks that should be picked by litematica or tweakermore."),
     TWEAK_PERSISTENT_GAMMA_OVERRIDE("tweakPersistentGammaOverride", false, "", "Fix a tweakeroo's \"tweakGammaOverride\" will not be enabled on client restart"),
     TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentToPortal", false, "", "Prevents breaking nether portals frame"),
     TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "Disables placement on sliced nether portal sides"),
