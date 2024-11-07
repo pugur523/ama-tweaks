@@ -15,6 +15,10 @@ AmaTweaks is a client-side Minecraft Fabric mod which has some useful features m
 > Automatically eat food from your inventory when your food level drops below a set threshold.
 The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 
+### tweakAutoFireworkGlide
+
+> Automatically glide with firework rocket in you inventory when you're flying and flying speed is less than the value `autoGlideSpeedThreshold` that can be configured in the config `Generic`.
+
 
 ### tweakAutoRestockHotbar
 

@@ -16,6 +16,9 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 > 設定された閾値より食料ゲージが少なくなったときに、インベントリから食料を探して自動で食べます。
 閾値はconfigの`Generic`タブにある`autoEatThreshold`で設定できます。
 
+### tweakAutoFireworkGlide
+
+> エリトラで滑空中、`Generic`タブの`autoGlideSpeedThreshold`で設定された値よりもプレイヤーの速度が小さくなったときに自動でインベントリからロケット花火を取り出して使用します。
 
 ### tweakAutoRestockHotbar
 
