@@ -1,5 +1,7 @@
 package org.amateras_smp.amatweaks.config;
 
+import fi.dy.masa.litematica.data.DataManager;
+import fi.dy.masa.litematica.materials.MaterialListBase;
 import org.amateras_smp.amatweaks.gui.GuiConfigs;
 import fi.dy.masa.malilib.hotkeys.KeyCallbackAdjustable;
 import fi.dy.masa.malilib.util.InfoUtils;
@@ -40,10 +42,17 @@ public class Callbacks {
         @Override
         public boolean onKeyAction(KeyAction action, IKeybind key)
         {
-            if (key == Hotkeys.OPEN_CONFIG_GUI.getKeybind())
-            {
+            if (key == Hotkeys.OPEN_CONFIG_GUI.getKeybind()) {
                 GuiBase.openGui(new GuiConfigs());
                 return true;
+            } else if (key == Hotkeys.REFRESH_MATERIAL_LIST.getKeybind()) {
+                MaterialListBase materialList = DataManager.getMaterialList();
+                if (materialList != null) {
+                    materialList.reCreateMaterialList();
+                    return true;
+                } else {
+                    return false;
+                }
             }
 
             return false;
