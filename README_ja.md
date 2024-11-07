@@ -50,6 +50,10 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 
 > tweakerooのtweakGammaOverrideが起動時に有効にならない問題を修正します。
 
+### tweakPickBlockRedirect
+
+> litematicaでpickを行う時に、リダイレクトが指定されていればpickするべきブロックをそれに置き換えます。リダイレクトマップはconfigの`List`タブにある`pickRedirectMap`で設定できます。(この機能は耕地ブロックや土の道などの入手不可能アイテムを土としてpickしたり、水を氷としてpickするなどの用途を意図しています。)
+
 
 ### tweakPreventBreakingAdjacentPortal
 
