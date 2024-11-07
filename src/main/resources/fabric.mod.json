@@ -29,10 +29,13 @@
     "minecraft": "${minecraft_dependency}",
     "fabricloader": ">=0.15.4",
     "fabric": "*",
+    "malilib": "*"
+  },
+  "recommends": {
     "modmenu": "*",
-    "malilib": "*",
+    "litematica": "*",
+    "itemscroller": "*",
     "tweakeroo": "*",
-    "tweakermore": "*",
-    "itemscroller": "*"
+    "tweakermore": "*"
   }
 }
