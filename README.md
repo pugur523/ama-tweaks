@@ -50,6 +50,10 @@ The `hotbarRestockList` can be customized in the `List` tab of the config.
 
 > Fix a tweakeroo's bug that "tweakGammaOverride" will be not enabled on client restart.
 
+### tweakPickBlockRedirect
+
+> Replace the block to be picked with litematica's pick block feature. `pickRedirectMap` can be configured in the `List` tab of the config.
+
 
 ### tweakPreventBreakingAdjacentPortal
 
