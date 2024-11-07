@@ -20,7 +20,10 @@ public class Callbacks {
     public static void init() {
         MinecraftClient mc = MinecraftClient.getInstance();
         IHotkeyCallback callbackGeneric = new KeyCallbackHotkeysGeneric();
+
         Hotkeys.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
+        Hotkeys.REFRESH_MATERIAL_LIST.getKeybind().setCallback(callbackGeneric);
+
         FeatureToggle.TWEAK_HOLD_FORWARD.setValueChangeCallback(new FeatureCallbackHold(mc.options.forwardKey));
 
         FeatureToggle.TWEAK_AUTO_EAT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_EAT));
