@@ -46,11 +46,16 @@ public class Callbacks {
                 GuiBase.openGui(new GuiConfigs());
                 return true;
             } else if (key == Hotkeys.REFRESH_MATERIAL_LIST.getKeybind()) {
-                MaterialListBase materialList = DataManager.getMaterialList();
-                if (materialList != null) {
-                    materialList.reCreateMaterialList();
-                    return true;
-                } else {
+                try {
+                    Class.forName("fi.dy.masa.litematica.Litematica");
+                    MaterialListBase materialList = DataManager.getMaterialList();
+                    if (materialList != null) {
+                        materialList.reCreateMaterialList();
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } catch (ClassNotFoundException e) {
                     return false;
                 }
             }
