@@ -28,13 +28,15 @@ public class Configs implements IConfigHandler
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "the speed threshold for tweakAutoFireworkGlide to use firework rocket");
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
+        public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", true, "disable auto eat feature when you're gliding with elytra.");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 AUTO_EAT_THRESHOLD,
                 AUTO_FIREWORK_USE_INTERVAL,
                 AUTO_GLIDE_SPEED_THRESHOLD,
                 FIREWORK_SWITCHABLE_SLOT,
-                FOOD_SWITCHABLE_SLOT
+                FOOD_SWITCHABLE_SLOT,
+                GLIDING_AUTO_EAT_DISABLED
         );
     }
 
