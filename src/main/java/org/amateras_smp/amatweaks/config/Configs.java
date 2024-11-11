@@ -29,6 +29,7 @@ public class Configs implements IConfigHandler
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
         public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", true, "disable auto eat feature when you're gliding with elytra.");
+        public static final ConfigBoolean REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL = new ConfigBoolean("refreshPrefilteredPostAutoCollectMaterial", false, "refresh pre-filtered material list at the end of auto collect material.(tweakermore feature)");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 AUTO_EAT_THRESHOLD,
@@ -36,7 +37,8 @@ public class Configs implements IConfigHandler
                 AUTO_GLIDE_SPEED_THRESHOLD,
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
-                GLIDING_AUTO_EAT_DISABLED
+                GLIDING_AUTO_EAT_DISABLED,
+                REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL
         );
     }
 
