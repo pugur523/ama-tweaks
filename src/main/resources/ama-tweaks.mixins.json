@@ -11,6 +11,7 @@
     "features.autoEat.MixinMinecraftClient",
     "features.autoGlide.MixinClientPlayerEntity",
     "features.autoGlide.MixinMinecraftClient",
+    "features.compactScoreboard.MixinInGameHud",
     "features.holdForward.MixinMinecraftClient",
     "features.hotbarRestock.MixinClientPlayNetworkHandler",
     "features.hotbarRestock.MixinScreen",
@@ -21,9 +22,7 @@
     "features.preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.MixinPlacementTweaks",
     "features.safeStepProtection.MixinClientPlayerInteractionManager",
-    "litematica.MixinMaterialCache"
-  ],
-  "mixins": [
+    "litematica.MixinMaterialCache",
     "tweakermore.MixinContainerMaterialListItemCollector"
   ]
 }

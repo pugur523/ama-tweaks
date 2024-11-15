@@ -25,6 +25,10 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 > チェストやシュルカーボックスなどのコンテナ系ブロックを開けたとき、設定されたアイテムリスト内のアイテムをコンテナから探し出してホットバーに補充します。
 補充するアイテムのリストはconfigの`List`タブにある`hotbarRestockList`で設定できます。デフォルトではロケット花火、金のニンジンがリストに設定されています。
 
+### tweakCompactScoreboard
+
+> サイドバーに表示されるスコアボードの数値をフォーマットしてコンパクトにします。1.20.4以上のバージョンにおける実装は[techutil](https://github.com/Kikugie/techutils)からお借りしました。
+
 
 ### tweakHoldBack
 

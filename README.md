@@ -25,6 +25,10 @@ The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 > Automatically restocks items from a container block (like chests, shulker-boxes, etc.) when you open it.
 The `hotbarRestockList` can be customized in the `List` tab of the config.
  
+### tweakCompactScoreboard
+
+> Displays formatted scoreboard value in the sidebar. Implementation of >=mc1.20.4 is ported from [techutils](https://github.com/Kikugie/techutils).
+
 
 ### tweakHoldBack
 
