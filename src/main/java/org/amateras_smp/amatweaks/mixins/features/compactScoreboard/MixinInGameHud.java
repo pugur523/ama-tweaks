@@ -33,7 +33,7 @@ public class MixinInGameHud {
     //#if MC < 12004
     @Shadow
     private int scaledWidth;
-    //#if MC < 11900
+    //#if MC < 12000
     //$$ @ModifyArgs(method = "renderScoreboardSidebar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/font/TextRenderer;draw(Lnet/minecraft/client/util/math/MatrixStack;Ljava/lang/String;FFI)I"))
     //#else
     @ModifyArgs(method = "renderScoreboardSidebar", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/DrawContext;drawText(Lnet/minecraft/client/font/TextRenderer;Ljava/lang/String;IIIZ)I"))
