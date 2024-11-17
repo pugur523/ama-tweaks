@@ -47,6 +47,7 @@ public class MixinWorldRenderer {
     }
 
 
+    // conflicts with sodium
     @Redirect(method = "renderLayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/GlUniform;upload()V"))
     private void onRenderBlock(GlUniform instance, @Local BlockPos blockPos) {
         // if (client.world == null) return;
