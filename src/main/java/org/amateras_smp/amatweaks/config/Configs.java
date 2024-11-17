@@ -14,6 +14,7 @@ import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
+import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
 
 import java.io.File;
 
@@ -53,13 +54,26 @@ public class Configs implements IConfigHandler
         public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_BLACKLIST = new ConfigStringList("portalBreakingRestrictionBlackList", ImmutableList.of(""), "The items that will be restricted by tweakPreventBreakingAdjacentPortal.");
         public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_WHITELIST = new ConfigStringList("portalBreakingRestrictionWhiteList", ImmutableList.of("minecraft:obsidian"), "The items that will not be restricted by tweakPreventBreakingAdjacentPortal.");
 
+        public static final ConfigOptionList SELECTIVE_BLOCK_RENDERING_LIST_TYPE = new ConfigOptionList("selectiveBlockRenderingListType", UsageRestriction.ListType.NONE, "The type of the list used for selective block rendering.");
+        public static final ConfigStringList SELECTIVE_BLOCK_RENDERING_WHITELIST = new ConfigStringList("selectiveBlockRenderingWhiteList", ImmutableList.of(), "The blocks that will be rendered.");
+        public static final ConfigStringList SELECTIVE_BLOCK_RENDERING_BLACKLIST = new ConfigStringList("selectiveBlockRenderingBlackList", ImmutableList.of(), "The blocks that will not be rendered");
+
+        public static final ConfigOptionList SELECTIVE_ENTITY_RENDERING_LIST_TYPE = new ConfigOptionList("selectiveEntityRenderingListType", UsageRestriction.ListType.NONE, "The type of the list used for selective entity rendering.");
+        public static final ConfigStringList SELECTIVE_ENTITY_RENDERING_WHITELIST = new ConfigStringList("selectiveEntityRenderingWhiteList", ImmutableList.of(), "The entities that will be rendered.");
+        public static final ConfigStringList SELECTIVE_ENTITY_RENDERING_BLACKLIST = new ConfigStringList("selectiveEntityRenderingBlackList", ImmutableList.of(), "The entities that will not be rendered");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 HOTBAR_RESTOCK_LIST,
                 PICK_REDIRECT_MAP,
                 PORTAL_BREAKING_RESTRICTION_LIST_TYPE,
                 PORTAL_BREAKING_RESTRICTION_BLACKLIST,
-                PORTAL_BREAKING_RESTRICTION_WHITELIST
+                PORTAL_BREAKING_RESTRICTION_WHITELIST,
+                SELECTIVE_BLOCK_RENDERING_LIST_TYPE,
+                SELECTIVE_BLOCK_RENDERING_WHITELIST,
+                SELECTIVE_BLOCK_RENDERING_BLACKLIST,
+                SELECTIVE_ENTITY_RENDERING_LIST_TYPE,
+                SELECTIVE_ENTITY_RENDERING_WHITELIST,
+                SELECTIVE_ENTITY_RENDERING_BLACKLIST
         );
     }
 
@@ -79,6 +93,12 @@ public class Configs implements IConfigHandler
         PreventBreakingAdjacentPortal.PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListContents(
                 Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.getStrings(),
                 Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.getStrings());
+
+        SelectiveRendering.BLOCKS_LIST.setListType((UsageRestriction.ListType) Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.getOptionListValue());
+        SelectiveRendering.BLOCKS_LIST.setListContents(
+                Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.getStrings(),
+                Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.getStrings()
+        );
     }
 
     public static void loadFromFile() {

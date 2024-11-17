@@ -22,6 +22,7 @@
     "features.preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.MixinPlacementTweaks",
     "features.safeStepProtection.MixinClientPlayerInteractionManager",
+    "features.selectiveRendering.MixinWorldRenderer",
     "litematica.MixinMaterialCache",
     "tweakermore.MixinContainerMaterialListItemCollector"
   ]

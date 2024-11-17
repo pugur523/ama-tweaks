@@ -30,7 +30,10 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     TWEAK_PERSISTENT_GAMMA_OVERRIDE("tweakPersistentGammaOverride", false, "", "Fix a tweakeroo's \"tweakGammaOverride\" will not be enabled on client restart"),
     TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentToPortal", false, "", "Prevents breaking nether portals frame"),
     TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "Disables placement on sliced nether portal sides"),
-    TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward");
+    TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward"),
+    TWEAK_SELECTIVE_BLOCK_RENDERING("tweakSelectiveBlockRendering", false, "", "Renders blocks in accordance with custom selected list"),
+    TWEAK_SELECTIVE_ENTITY_RENDERING("tweakSelectiveEntityRendering", false, "", "Renders entities in accordance with custom selected list");
+
 
     public static final ImmutableList<FeatureToggle> VALUES = ImmutableList.copyOf(values());
 
