@@ -25,5 +25,8 @@
     "features.selectiveRendering.MixinWorldRenderer",
     "litematica.MixinMaterialCache",
     "tweakermore.MixinContainerMaterialListItemCollector"
+  ],
+  "mixins": [
+    "features.selectiveRendering.MixinAbstractBlock"
   ]
 }

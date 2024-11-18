@@ -14,6 +14,8 @@ import fi.dy.masa.malilib.interfaces.IValueChangeCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
+import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
 
 public class Callbacks {
 
@@ -30,9 +32,15 @@ public class Callbacks {
         FeatureToggle.TWEAK_HOLD_FORWARD.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_EAT));
         FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR));
         FeatureToggle.TWEAK_SAFE_STEP_PROTECTION.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SAFE_STEP_PROTECTION));
-
-        
         // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
+
+        Configs.Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
+        Configs.Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
+        Configs.Lists.PORTAL_BREAKING_RESTRICTION_LIST_TYPE.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
+
+        Configs.Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
+        Configs.Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
+        Configs.Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback

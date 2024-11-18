@@ -1,6 +1,7 @@
 package org.amateras_smp.amatweaks.impl.features;
 
 import fi.dy.masa.malilib.util.restrictions.BlockRestriction;
+import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.NetherPortalBlock;
@@ -9,9 +10,17 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import org.amateras_smp.amatweaks.config.Configs;
 
 public class PreventBreakingAdjacentPortal {
     public static final BlockRestriction PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION = new BlockRestriction();
+
+    public static void buildLists() {
+        PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListType((UsageRestriction.ListType) Configs.Lists.PORTAL_BREAKING_RESTRICTION_LIST_TYPE.getOptionListValue());
+        PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListContents(
+                Configs.Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.getStrings(),
+                Configs.Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.getStrings());
+    }
 
     public static boolean restriction(BlockPos pos) {
         MinecraftClient mc = MinecraftClient.getInstance();

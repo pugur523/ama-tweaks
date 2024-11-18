@@ -6,7 +6,7 @@
 [![Modrinth](https://img.shields.io/modrinth/dt/amatweaks?label=Modrinth%20Downloads)](https://modrinth.com/mod/amatweaks)
 
 
-AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機能を提供するclient-sideのMinecraft Fabric modです。
+AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric modです。
 
 ## Features
 
@@ -22,8 +22,8 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 
 ### tweakAutoRestockHotbar
 
-> チェストやシュルカーボックスなどのコンテナ系ブロックを開けたとき、設定されたアイテムリスト内のアイテムをコンテナから探し出してホットバーに補充します。
-補充するアイテムのリストはconfigの`List`タブにある`hotbarRestockList`で設定できます。デフォルトではロケット花火、金のニンジンがリストに設定されています。
+> チェストやシュルカーボックスなどのコンテナ系ブロックを開いたとき、設定されたアイテムリスト内のアイテムをコンテナから探し出してホットバー(インベントリ)に補充します。
+補充するアイテムのリストはconfigの`List`タブにある`hotbarRestockList`で設定できます。デフォルトではロケット花火と金のニンジンがリストに設定されています。
 
 ### tweakCompactScoreboard
 
@@ -74,3 +74,18 @@ AmaTweaksは、Amateras SMPのために作られたいくつかの便利な機�
 
 > 前進中、または横に動いているときに自分より下のブロックを壊せなくなります。
 これは露天掘りなどの場面で便利かもしれません。
+
+
+### tweakSelectiveBlockRendering
+
+> ブロックの種類ごとに描画を行うかどうかカスタムできます。ブロックの設定はリストタブで指定できます。
+この機能はリストの設定が変わるたびにワールドレンダラーを再読み込みします。
+リストに追加するエントリーの記法は、ネームスペースを含めたブロックidを採用しています。(例: `minecraft:black_stained_glass`, `minecraft:grass_block`, `minecraft:bedrock`など)<br>
+> [!NOTE]
+> この機能はまだブロックエンティティのカスタマイズをサポートしていません。
+
+### tweakSelectiveEntityRendering
+
+> エンティティの種類ごとに描画を行うかどうかカスタムできます。基本は`tweakSelectiveBlockRendering`のエンティティ版と捉えて問題ないですが、リストの記法が異なるので注意してください。
+リストの記法はネームスペースを含めないエンティティタイプ名を採用しています(例: `player`, `tnt`, `zombie`, `item`など)。
+<br>この機能は[taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)のアイデアをお借りしました。

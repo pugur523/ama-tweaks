@@ -31,6 +31,7 @@ public class Configs implements IConfigHandler
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
         public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", true, "disable auto eat feature when you're gliding with elytra.");
         public static final ConfigBoolean REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL = new ConfigBoolean("refreshPrefilteredPostAutoCollectMaterial", false, "refresh pre-filtered material list at the end of auto collect material.(tweakermore feature)");
+        public static final ConfigBoolean REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED = new ConfigBoolean("refreshWorldRendererOnRenderBlocksChanged", true, "refresh client world renderer when config lists of tweakSelectiveBlockRendering changed");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 AUTO_EAT_THRESHOLD,
@@ -39,7 +40,8 @@ public class Configs implements IConfigHandler
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,
-                REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL
+                REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL,
+                REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED
         );
     }
 
@@ -89,16 +91,9 @@ public class Configs implements IConfigHandler
     public static void onConfigLoaded() {
         Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
 
-        PreventBreakingAdjacentPortal.PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListType((UsageRestriction.ListType) Lists.PORTAL_BREAKING_RESTRICTION_LIST_TYPE.getOptionListValue());
-        PreventBreakingAdjacentPortal.PREVENT_BREAKING_ADJACENT_PORTAL_RESTRICTION.setListContents(
-                Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.getStrings(),
-                Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.getStrings());
+        PreventBreakingAdjacentPortal.buildLists();
 
-        SelectiveRendering.BLOCKS_LIST.setListType((UsageRestriction.ListType) Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.getOptionListValue());
-        SelectiveRendering.BLOCKS_LIST.setListContents(
-                Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.getStrings(),
-                Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.getStrings()
-        );
+        SelectiveRendering.buildLists();
     }
 
     public static void loadFromFile() {
