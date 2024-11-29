@@ -3,29 +3,38 @@ package org.amateras_smp.amatweaks.impl.features;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
+import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.util.LimitedQueue;
 
 public class InteractionCache {
 
-    private static final InteractionCache instance = new InteractionCache();
-    private LimitedQueue<BlockInteraction> blockInteractionCache = new LimitedQueue<>(60);
-    private LimitedQueue<EntityInteraction> entityInteractionCache;
+    private static final LimitedQueue<BlockInteraction> blockInteractionCache = new LimitedQueue<>(10);
+    private static final LimitedQueue<EntityInteraction> entityInteractionCache = new LimitedQueue<>(10);
 
-    public static InteractionCache getInstance() {
-        return instance;
+    public static void resize() {
+        blockInteractionCache.setMaxSize(Configs.Generic.INTERACTION_CACHE_COUNT.getIntegerValue());
+        entityInteractionCache.setMaxSize(Configs.Generic.INTERACTION_CACHE_COUNT.getIntegerValue());
     }
 
-    public void onBlockInteraction(ClientPlayerEntity player, BlockHitResult result) {
+    public static void onBlockInteraction(ClientPlayerEntity player, BlockHitResult result) {
         String name = player.clientWorld.getBlockState(result.getBlockPos()).getBlock().getName().toString();
         BlockInteraction interaction = new BlockInteraction(name, result.getBlockPos());
         blockInteractionCache.add(interaction);
     }
 
-    public void onEntityInteraction(ClientPlayerEntity player) {
+    public static void onEntityInteraction(ClientPlayerEntity player) {
 
     }
 
-    private static class BlockInteraction {
+    public static BlockInteraction getBlockInteraction(int index) {
+        return blockInteractionCache.get(index);
+    }
+
+    public static EntityInteraction getEntityInteraction(int index) {
+        return entityInteractionCache.get(index);
+    }
+
+    public static class BlockInteraction {
         public String blockName;
         public BlockPos pos;
 
@@ -35,7 +44,7 @@ public class InteractionCache {
         }
     }
 
-    private static class EntityInteraction {
+    public static class EntityInteraction {
         public String entityName;
         public BlockPos pos;
 

@@ -13,6 +13,7 @@ import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
 import org.amateras_smp.amatweaks.Reference;
+import org.amateras_smp.amatweaks.impl.features.InteractionCache;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
 
@@ -92,6 +93,8 @@ public class Configs implements IConfigHandler
 
     public static void onConfigLoaded() {
         Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
+
+        InteractionCache.resize();
 
         PreventBreakingAdjacentPortal.buildLists();
 
