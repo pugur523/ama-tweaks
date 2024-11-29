@@ -18,14 +18,14 @@ import org.amateras_smp.amatweaks.AmaTweaks;
 
 public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfigBoolean>
 {
-    TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eat food when your food level is not full"),
-    TWEAK_AUTO_FIREWORK_GLIDE("tweakAutoFireworkGlide", false, "", "Use fireworks rocket automatically while elytra gliding"),
-    TWEAK_AUTO_RESTOCK_HOTBAR("tweakAutoRestockHotbar", false, "", "Restock a stack of items from container specified by hotbarRestockList"),
+    TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eats food automatically when your food level is not full."),
+    TWEAK_AUTO_FIREWORK_GLIDE("tweakAutoFireworkGlide", false, "", "Use fireworks rocket automatically while elytra gliding."),
+    TWEAK_AUTO_RESTOCK_HOTBAR("tweakAutoRestockHotbar", false, "", "Restock a stack of items from container specified by hotbarRestockList."),
     TWEAK_COMPACT_SCOREBOARD("tweakCompactScoreboard", false, "", "Displays compact values in scoreboard. §7like this: 12345 -> 1.2K, 98765432 -> 9.87M"),
-    TWEAK_HOLD_BACK("tweakHoldBack", false, "", "Hold moving back"),
-    TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward"),
-    TWEAK_HOLD_LEFT("tweakHoldLeft", false, "", "Hold moving left"),
-    TWEAK_HOLD_RIGHT("tweakHoldRight", false, "", "Hold moving right"),
+    TWEAK_HOLD_BACK("tweakHoldBack", false, "", "Hold moving back."),
+    TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward."),
+    TWEAK_HOLD_LEFT("tweakHoldLeft", false, "", "Hold moving left."),
+    TWEAK_HOLD_RIGHT("tweakHoldRight", false, "", "Hold moving right."),
     TWEAK_INTERACTION_CACHE("tweakInteractionCache", false, "", "Remember some interaction to block to place, break, modify."),
     TWEAK_PICK_BLOCK_REDIRECT("tweakPickBlockRedirect", false, "", "Automatically replaces blocks that should be picked by litematica or tweakermore."),
     TWEAK_PERSISTENT_GAMMA_OVERRIDE("tweakPersistentGammaOverride", false, "", "Fix a tweakeroo's \"tweakGammaOverride\" will not be enabled on client restart"),

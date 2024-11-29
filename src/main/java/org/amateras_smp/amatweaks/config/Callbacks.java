@@ -26,12 +26,27 @@ public class Callbacks {
         Hotkeys.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
         Hotkeys.REFRESH_MATERIAL_LIST.getKeybind().setCallback(callbackGeneric);
 
+        FeatureToggle.TWEAK_HOLD_BACK.setValueChangeCallback(new FeatureCallbackHold(mc.options.backKey));
         FeatureToggle.TWEAK_HOLD_FORWARD.setValueChangeCallback(new FeatureCallbackHold(mc.options.forwardKey));
+        FeatureToggle.TWEAK_HOLD_LEFT.setValueChangeCallback(new FeatureCallbackHold(mc.options.leftKey));
+        FeatureToggle.TWEAK_HOLD_RIGHT.setValueChangeCallback(new FeatureCallbackHold(mc.options.rightKey));
 
         FeatureToggle.TWEAK_AUTO_EAT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_EAT));
-        FeatureToggle.TWEAK_HOLD_FORWARD.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_EAT));
+        FeatureToggle.TWEAK_AUTO_FIREWORK_GLIDE.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_FIREWORK_GLIDE));
         FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR));
+        FeatureToggle.TWEAK_COMPACT_SCOREBOARD.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_COMPACT_SCOREBOARD));
+        FeatureToggle.TWEAK_HOLD_BACK.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_BACK));
+        FeatureToggle.TWEAK_HOLD_FORWARD.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_FORWARD));
+        FeatureToggle.TWEAK_HOLD_LEFT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_LEFT));
+        FeatureToggle.TWEAK_HOLD_RIGHT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_RIGHT));
+        FeatureToggle.TWEAK_INTERACTION_CACHE.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_INTERACTION_CACHE));
+        FeatureToggle.TWEAK_PICK_BLOCK_REDIRECT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PICK_BLOCK_REDIRECT));
+        FeatureToggle.TWEAK_PERSISTENT_GAMMA_OVERRIDE.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PERSISTENT_GAMMA_OVERRIDE));
+        FeatureToggle.TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL));
+        FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES));
         FeatureToggle.TWEAK_SAFE_STEP_PROTECTION.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SAFE_STEP_PROTECTION));
+        FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING));
+        FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING));
         // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
 
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());

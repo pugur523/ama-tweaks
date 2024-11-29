@@ -30,6 +30,7 @@ public class Configs implements IConfigHandler
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
         public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", true, "disable auto eat feature when you're gliding with elytra.");
+        public static final ConfigInteger INTERACTION_CACHE_COUNT = new ConfigInteger("interactionCacheCount", 10, 10, 1000, "number of interactions to keep by tweakInteractionCache.");
         public static final ConfigBoolean REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL = new ConfigBoolean("refreshPrefilteredPostAutoCollectMaterial", false, "refresh pre-filtered material list at the end of auto collect material.(tweakermore feature)");
         public static final ConfigBoolean REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED = new ConfigBoolean("refreshWorldRendererOnRenderBlocksChanged", true, "refresh client world renderer when config lists of tweakSelectiveBlockRendering changed");
 
@@ -40,6 +41,7 @@ public class Configs implements IConfigHandler
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,
+                INTERACTION_CACHE_COUNT,
                 REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL,
                 REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED
         );
