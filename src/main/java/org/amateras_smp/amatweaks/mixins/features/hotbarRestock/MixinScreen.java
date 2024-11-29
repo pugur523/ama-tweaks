@@ -2,13 +2,13 @@ package org.amateras_smp.amatweaks.mixins.features.hotbarRestock;
 
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.fallenbreath.tweakermore.util.ModIds;
 import net.minecraft.client.gui.screen.Screen;
+import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.impl.util.container.AutoProcessableScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 
-@Restriction(require = @Condition(ModIds.itemscroller))
+@Restriction(require = @Condition(Reference.ModIds.itemscroller))
 @Mixin(Screen.class)
 public abstract class MixinScreen implements AutoProcessableScreen
 {

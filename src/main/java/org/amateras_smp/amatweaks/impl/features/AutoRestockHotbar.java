@@ -5,7 +5,6 @@ import fi.dy.masa.itemscroller.util.InventoryUtils;
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.util.InfoUtils;
 import me.fallenbreath.tweakermore.impl.features.autoContainerProcess.processors.ProcessResult;
-import me.fallenbreath.tweakermore.util.RegistryUtil;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.EnderChestBlockEntity;
 import net.minecraft.client.MinecraftClient;
@@ -13,6 +12,7 @@ import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.hit.BlockHitResult;
@@ -53,7 +53,7 @@ public class AutoRestockHotbar implements IContainerProcessor {
         List<Slot> shouldRestockSlots = new ArrayList<>();
 
         for (Slot containerSlot : containerInvSlots) {
-            String itemId = RegistryUtil.getItemId(containerSlot.getStack().getItem());
+            String itemId = Registries.ITEM.getId(containerSlot.getStack().getItem()).toString();
             if (isHotbarRestockListContains(itemId)) {
                 restockableMap.put(containerSlot.getStack().getItem(), restockableMap.getOrDefault(containerSlot.getStack().getItem(), 0) + containerSlot.getStack().getCount());
             }
@@ -79,7 +79,6 @@ public class AutoRestockHotbar implements IContainerProcessor {
         String message = "tweakAutoRestockHotbar : " + Joiner.on(", ").join(restockedContents);
         InfoUtils.printActionbarMessage(message);
 
-        // これは、restockできるのにインベントリにそれが存在しないがためにリストックされなかったものを2度目のrestockで空スロットに補充しようという魂胆で試したが上手くいかなかった痕跡
         // first restock
         // HashMap<Item, Integer> remainingRestockableMap = executeRestock2(containerScreen, shouldRestockSlots, containerInvSlots, restockableMap);
 

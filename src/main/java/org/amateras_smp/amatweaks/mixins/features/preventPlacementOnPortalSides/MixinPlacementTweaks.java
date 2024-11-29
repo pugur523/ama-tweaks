@@ -3,7 +3,6 @@ package org.amateras_smp.amatweaks.mixins.features.preventPlacementOnPortalSides
 import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
-import me.fallenbreath.tweakermore.util.BlockUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -37,7 +36,13 @@ public class MixinPlacementTweaks {
     @Shadow
     private static ItemStack[] stackBeforeUse;
 
-    public MixinPlacementTweaks() {
+    @Unique
+    private static boolean isReplaceable(BlockState state) {
+        //#if MC >= 12000
+        return state.isReplaceable();
+        //#else
+        //$$ return state.getMaterial().isReplaceable();
+        //#endif
     }
 
     @Shadow
@@ -57,7 +62,7 @@ public class MixinPlacementTweaks {
             stackOriginal = player.getStackInHand(hand).copy();
         }
 
-        if (fi.dy.masa.tweakeroo.config.FeatureToggle.TWEAK_PLACEMENT_RESTRICTION.getBooleanValue() && !state.canReplace(ctx) && BlockUtil.isReplaceable(state)) {
+        if (fi.dy.masa.tweakeroo.config.FeatureToggle.TWEAK_PLACEMENT_RESTRICTION.getBooleanValue() && !state.canReplace(ctx) && isReplaceable(state)) {
             posIn = posIn.offset(sideIn.getOpposite());
         }
 
@@ -77,9 +82,9 @@ public class MixinPlacementTweaks {
         if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.CARPET_ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidFor(sideIn, stackOriginal)) {
         //#endif
             Direction facing = sideIn.getOpposite();
-            x = (double)(posIn.getX() + 2 + facing.getId() * 2);
+            x = posIn.getX() + 2 + facing.getId() * 2;
             if (fi.dy.masa.tweakeroo.config.FeatureToggle.TWEAK_AFTER_CLICKER.getBooleanValue()) {
-                x += (double)(afterClickerClickCount * 16);
+                x += afterClickerClickCount * 16;
             }
 
             hitVecIn = new Vec3d(x, hitVecIn.y, hitVecIn.z);

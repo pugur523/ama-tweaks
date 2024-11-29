@@ -21,12 +21,10 @@
     "features.preventPlacementOnPortalSides.IMixinBellBlock",
     "features.preventPlacementOnPortalSides.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.MixinPlacementTweaks",
+    "features.selectiveRendering.MixinAbstractBlock",
     "features.safeStepProtection.MixinClientPlayerInteractionManager",
     "features.selectiveRendering.MixinWorldRenderer",
     "litematica.MixinMaterialCache",
     "tweakermore.MixinContainerMaterialListItemCollector"
-  ],
-  "mixins": [
-    "features.selectiveRendering.MixinAbstractBlock"
   ]
 }

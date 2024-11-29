@@ -14,11 +14,11 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
-import java.util.Objects;
 
 //#if MC < 12006
 import net.minecraft.nbt.NbtCompound;
 //#else
+//$$ import java.util.Objects;
 //$$ import net.minecraft.component.ComponentMap;
 //$$ import net.minecraft.component.DataComponentTypes;
 //#endif

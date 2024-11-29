@@ -1,6 +1,5 @@
 package org.amateras_smp.amatweaks.mixins.features.compactScoreboard;
 
-import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.hud.InGameHud;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.spongepowered.asm.mixin.Mixin;
