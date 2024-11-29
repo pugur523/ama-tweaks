@@ -3,13 +3,24 @@ package org.amateras_smp.amatweaks.impl.util;
 import java.util.LinkedList;
 
 public class LimitedQueue<E> extends LinkedList<E> {
-    private final int maxSize;
+    private int maxSize;
 
     public LimitedQueue(int maxSize) {
         if (maxSize <= 0) {
             throw new IllegalArgumentException("maxSize is lower than 1.");
         }
         this.maxSize = maxSize;
+    }
+
+    public void setMaxSize(int newSize) {
+        if (newSize <= 0) {
+            throw new IllegalArgumentException("maxSize is lower than 1.");
+        }
+        this.maxSize = newSize;
+
+        while (size() > maxSize) {
+            poll();
+        }
     }
 
     @Override
