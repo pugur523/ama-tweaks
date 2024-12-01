@@ -25,6 +25,7 @@ public class LimitedQueue<E> extends LinkedList<E> {
 
     @Override
     public boolean add(E element) {
+        System.out.println("limited list : add() called");
         if (size() >= maxSize) {
             poll();
         }
