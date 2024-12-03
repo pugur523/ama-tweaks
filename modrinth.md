@@ -14,6 +14,7 @@ AmaTweaks is a client-side Minecraft Fabric mod which has some useful features m
 > Automatically eat food from your inventory when your food level drops below a set threshold.
 The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 
+
 ### tweakAutoFireworkGlide
 
 > Automatically glide with firework rocket in you inventory when you're flying and flying speed is less than the value `autoGlideSpeedThreshold` that can be configured in the config `Generic`.
@@ -23,6 +24,7 @@ The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 
 > Automatically restocks items from a container block (like chests, shulker-boxes, etc.) when you open it.
 The `hotbarRestockList` can be customized in the `List` tab of the config.
+
 
 ### tweakCompactScoreboard
 
@@ -49,9 +51,17 @@ The `hotbarRestockList` can be customized in the `List` tab of the config.
 > Automatically keeps you moving right.
 
 
+### tweakInteractionHistory
+
+> Cache specified number of player interactions.
+The interactions can be checked with `/history` command in the game and cleared with `/clearinteractions`.
+The number of interaction to keep can be set by `interactionHistoryMaxSize` in config generic.
+
+
 ### tweakPersistentGammaOverride
 
 > Fix a tweakeroo's bug that "tweakGammaOverride" will be not enabled on client restart.
+
 
 ### tweakPickBlockRedirect
 
@@ -74,11 +84,13 @@ This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/tai
 > Prevent breaking blocks below you while you're moving forward or sideways.
 This can be useful for activities like perimeter digging.
 
+
 ### tweakSelectiveBlockRendering
 
 > Renders only specified blocks. The blocks can be configured in the list tab so check it. This feature will reload the entire world (renderer) on settings changed.
 List entries example: `minecraft:white_stained_glass`, `minecraft:dirt`, `minecraft:bedrock`, etc.
 This feature has not support block entity render selection yet.
+
 
 ### tweakSelectiveEntityRendering
 

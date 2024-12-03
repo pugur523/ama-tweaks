@@ -72,17 +72,17 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 
 ### tweakSafeStepProtection
 
-> 前進中、または横に動いているときに自分より下のブロックを壊せなくなります。
-これは露天掘りなどの場面で便利かもしれません。
-
+> 前、または横に動いているときに自分より下のブロックを壊せなくなります。
+露天掘りのような場面での使用を想定しています。
 
 ### tweakSelectiveBlockRendering
 
+> [!CAUTION]
+> この機能はブロックエンティティのカスタマイズをまだサポートしていません。<br>
 > ブロックの種類ごとに描画を行うかどうかカスタムできます。ブロックの設定はリストタブで指定できます。
 この機能はリストの設定が変わるたびにワールドレンダラーを再読み込みします。
-リストに追加するエントリーの記法は、ネームスペースを含めたブロックidを採用しています。(例: `minecraft:black_stained_glass`, `minecraft:grass_block`, `minecraft:bedrock`など)<br>
-> [!NOTE]
-> この機能はまだブロックエンティティのカスタマイズをサポートしていません。
+リストに追加するエントリーの記法は、ネームスペースを含めたブロックidを採用しています。(例: `minecraft:black_stained_glass`, `minecraft:grass_block`, `minecraft:bedrock`など)
+
 
 ### tweakSelectiveEntityRendering
 

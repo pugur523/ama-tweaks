@@ -25,9 +25,11 @@ The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 > Automatically restocks items from a container block (like chests, shulker-boxes, etc.) when you open it.
 The `hotbarRestockList` can be customized in the `List` tab of the config.
  
+
 ### tweakCompactScoreboard
 
-> Displays formatted scoreboard value in the sidebar. Implementation of >=mc1.20.4 is ported from [techutils](https://github.com/Kikugie/techutils).
+> Displays formatted scoreboard value in the sidebar.
+Implementation of >=mc1.20.4 is ported from [techutils](https://github.com/Kikugie/techutils).
 
 
 ### tweakHoldBack
@@ -50,9 +52,17 @@ The `hotbarRestockList` can be customized in the `List` tab of the config.
 > Automatically keeps you moving right.
 
 
+### tweakInteractionHistory
+
+> Cache specified number of player interactions.
+The interactions can be checked with `/history` command in the game and cleared with `/clearinteractions`.
+The number of interaction to keep can be set by `interactionHistoryMaxSize` in config generic.
+
+
 ### tweakPersistentGammaOverride
 
 > Fix a tweakeroo's bug that "tweakGammaOverride" will be not enabled on client restart.
+
 
 ### tweakPickBlockRedirect
 
@@ -75,12 +85,14 @@ This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/tai
 > Prevent breaking blocks below you while you're moving forward or sideways.
 This can be useful for activities like perimeter digging.
 
+
 ### tweakSelectiveBlockRendering
 
+> [!CAUTION]
+> This feature has not supported block entity render selection yet.<br>
 > Renders only specified blocks. The blocks can be configured in the list tab so check it. This feature will reload the entire world (renderer) on settings changed.
-List entries example: `minecraft:white_stained_glass`, `minecraft:dirt`, `minecraft:bedrock`, etc.<br>
-> [!NOTE]
-> This feature has not support block entity render selection yet.
+List entries example: `minecraft:white_stained_glass`, `minecraft:dirt`, `minecraft:bedrock`, etc.
+
 
 ### tweakSelectiveEntityRendering
 
