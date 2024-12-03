@@ -18,14 +18,14 @@ public class SelectiveRendering {
 
 
     private static boolean isChanged() {
-        return  isEnabled != FeatureToggle.TWEAK_INTERACTION_CACHE.getBooleanValue() ||
+        return  isEnabled != FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.getBooleanValue() ||
                 listType != Configs.Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.getOptionListValue() ||
                 !Objects.equals(blackListString, Configs.Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.getStrings().toString()) ||
                 !Objects.equals(whiteListString, Configs.Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.getStrings().toString());
     }
 
     public static void applyConfig() {
-        isEnabled = FeatureToggle.TWEAK_INTERACTION_CACHE.getBooleanValue();
+        isEnabled = FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.getBooleanValue();
         listType = (UsageRestriction.ListType) Configs.Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.getOptionListValue();
         blackListString = Configs.Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.getStrings().toString();
         whiteListString = Configs.Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.getStrings().toString();

@@ -6,7 +6,7 @@ import fi.dy.masa.malilib.interfaces.IInitializationHandler;
 import org.amateras_smp.amatweaks.config.Callbacks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.event.InputHandler;
-import org.amateras_smp.amatweaks.command.LookBackInteractionCommand;
+import org.amateras_smp.amatweaks.command.HistoryCommand;
 
 //#if MC >= 11900
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -32,11 +32,15 @@ public class InitHandler implements IInitializationHandler
 
     public static void registerCommands() {
         //#if MC >= 11900
-        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(literal("lookBack")
-                .executes(LookBackInteractionCommand.command)));
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(literal("history")
+                .executes(HistoryCommand.command)));
+        ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(literal("interactionHistory")
+                .executes(HistoryCommand.command)));
         //#else
-        //$$ ClientCommandManager.DISPATCHER.register(literal("lookBack")
-        //$$    .executes(LookBackInteractionCommand.command));
+        //$$ ClientCommandManager.DISPATCHER.register(literal("history")
+        //$$    .executes(HistoryCommand.command));
+        //$$ ClientCommandManager.DISPATCHER.register(literal("interactionHistory")
+        //$$    .executes(HistoryCommand.command));
         //#endif
     }
 }

@@ -14,7 +14,7 @@ import fi.dy.masa.malilib.interfaces.IValueChangeCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import org.amateras_smp.amatweaks.impl.features.InteractionCache;
+import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
 
@@ -40,7 +40,7 @@ public class Callbacks {
         FeatureToggle.TWEAK_HOLD_FORWARD.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_FORWARD));
         FeatureToggle.TWEAK_HOLD_LEFT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_LEFT));
         FeatureToggle.TWEAK_HOLD_RIGHT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_HOLD_RIGHT));
-        FeatureToggle.TWEAK_INTERACTION_CACHE.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_INTERACTION_CACHE));
+        FeatureToggle.TWEAK_INTERACTION_HISTORY.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_INTERACTION_HISTORY));
         FeatureToggle.TWEAK_PICK_BLOCK_REDIRECT.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PICK_BLOCK_REDIRECT));
         FeatureToggle.TWEAK_PERSISTENT_GAMMA_OVERRIDE.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PERSISTENT_GAMMA_OVERRIDE));
         FeatureToggle.TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL));
@@ -50,12 +50,13 @@ public class Callbacks {
         FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING));
         // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
 
-        Configs.Generic.INTERACTION_CACHE_COUNT.setValueChangeCallback((cfg) -> InteractionCache.resize());
+        Configs.Generic.INTERACTION_HISTORY_MAX_SIZE.setValueChangeCallback((cfg) -> InteractionHistory.resize());
 
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_LIST_TYPE.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
 
+        FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());

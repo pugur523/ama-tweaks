@@ -13,7 +13,7 @@ import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
 import org.amateras_smp.amatweaks.Reference;
-import org.amateras_smp.amatweaks.impl.features.InteractionCache;
+import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
 
@@ -30,8 +30,8 @@ public class Configs implements IConfigHandler
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "the speed threshold for tweakAutoFireworkGlide to use firework rocket");
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
-        public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", true, "disable auto eat feature when you're gliding with elytra.");
-        public static final ConfigInteger INTERACTION_CACHE_COUNT = new ConfigInteger("interactionCacheCount", 10, 10, 1000, "number of interactions to keep by tweakInteractionCache.");
+        public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", false, "disable auto eat feature when you're gliding with elytra.");
+        public static final ConfigInteger INTERACTION_HISTORY_MAX_SIZE = new ConfigInteger("interactionHistoryMaxSize", 10, 10, 1000, "number of interactions to keep by tweakInteractionCache.");
         public static final ConfigBoolean REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL = new ConfigBoolean("refreshPrefilteredPostAutoCollectMaterial", false, "refresh pre-filtered material list at the end of auto collect material.(tweakermore feature)");
         public static final ConfigBoolean REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED = new ConfigBoolean("refreshWorldRendererOnRenderBlocksChanged", true, "refresh client world renderer when config lists of tweakSelectiveBlockRendering changed");
 
@@ -42,7 +42,7 @@ public class Configs implements IConfigHandler
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,
-                INTERACTION_CACHE_COUNT,
+                INTERACTION_HISTORY_MAX_SIZE,
                 REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL,
                 REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED
         );
@@ -94,7 +94,7 @@ public class Configs implements IConfigHandler
     public static void onConfigLoaded() {
         Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
 
-        InteractionCache.resize();
+        InteractionHistory.resize();
 
         PreventBreakingAdjacentPortal.buildLists();
 

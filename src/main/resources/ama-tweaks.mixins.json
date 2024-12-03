@@ -16,7 +16,7 @@
     "features.hotbarRestock.MixinClientPlayNetworkHandler",
     "features.hotbarRestock.MixinScreen",
     "features.hotbarRestock.MixinScreenHandler",
-    "features.interactionCache.MixinClientPlayerInteractionManager",
+    "features.interactionHistory.MixinClientPlayerInteractionManager",
     "features.persistentGammaOverride.MixinClientPlayNetworkHandler",
     "features.preventBreakingAdjacentPortal.MixinClientPlayerInteractionManager",
     "features.preventPlacementOnPortalSides.IMixinBellBlock",

@@ -3,7 +3,7 @@ package org.amateras_smp.amatweaks.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import org.amateras_smp.amatweaks.impl.features.InteractionCache;
+import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 
 //#if MC >= 11900
 import net.minecraft.text.Text;
@@ -12,30 +12,27 @@ import net.minecraft.text.Text;
 //#endif
 
 
-public class LookBackInteractionCommand {
-    public static Command<FabricClientCommandSource> command = LookBackInteractionCommand::callback;
+public class HistoryCommand {
+    public static Command<FabricClientCommandSource> command = HistoryCommand::callback;
 
 
     public static int callback(CommandContext<FabricClientCommandSource> context) {
-        InteractionCache.printInteraction();
+        InteractionHistory.printInteraction();
         StringBuilder message = new StringBuilder();
-        if (!InteractionCache.blockInteractionCache.isEmpty()) {
+        if (!InteractionHistory.blockInteractionHistory.isEmpty()) {
             message.append("=== Block Interactions ===\n");
-            for (var b : InteractionCache.blockInteractionCache) {
+            for (var b : InteractionHistory.blockInteractionHistory) {
                 message.append(b.toString()).append("\n");
             }
         }
-        if (!InteractionCache.itemInteractionCache.isEmpty()) {
-            message.append("=== Item Interactions ===\n");
-            for (var i : InteractionCache.itemInteractionCache) {
-                message.append(i.toString()).append("\n");
-            }
-        }
-        if (!InteractionCache.entityInteractionCache.isEmpty()) {
+        if (!InteractionHistory.entityInteractionHistory.isEmpty()) {
             message.append("=== Entity Interactions ===\n");
-            for (var e : InteractionCache.entityInteractionCache) {
+            for (var e : InteractionHistory.entityInteractionHistory) {
                 message.append(e.toString()).append("\n");
             }
+        }
+        if (!message.isEmpty() && message.charAt(message.length() - 1) == '\n') {
+            message.deleteCharAt(message.length() - 1);
         }
 
         //#if MC >= 11900
