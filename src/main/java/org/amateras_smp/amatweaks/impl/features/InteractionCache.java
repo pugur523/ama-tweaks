@@ -1,6 +1,7 @@
 package org.amateras_smp.amatweaks.impl.features;
 
 import fi.dy.masa.malilib.util.StringUtils;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -14,17 +15,25 @@ import java.math.RoundingMode;
 public class InteractionCache {
 
     public static final LimitedQueue<BlockInteraction> blockInteractionCache = new LimitedQueue<>(10);
+    public static final LimitedQueue<ItemInteraction> itemInteractionCache = new LimitedQueue<>(10);
     public static final LimitedQueue<EntityInteraction> entityInteractionCache = new LimitedQueue<>(10);
 
     public static void resize() {
         blockInteractionCache.setMaxSize(Configs.Generic.INTERACTION_CACHE_COUNT.getIntegerValue());
+        itemInteractionCache.setMaxSize(Configs.Generic.INTERACTION_CACHE_COUNT.getIntegerValue());
         entityInteractionCache.setMaxSize(Configs.Generic.INTERACTION_CACHE_COUNT.getIntegerValue());
     }
 
-    public static void onBlockInteraction(Item item, @Nullable BlockPos pos) {
-        String name = StringUtils.translate(item.getTranslationKey());
+    public static void onBlockInteraction(Block block, BlockPos pos) {
+        String name = StringUtils.translate(block.getTranslationKey());
         BlockInteraction interaction = new BlockInteraction(name, pos);
         blockInteractionCache.add(interaction);
+    }
+
+    public static void onItemInteraction(Item item) {
+        String name = StringUtils.translate(item.getTranslationKey());
+        ItemInteraction interaction = new ItemInteraction(name);
+        itemInteractionCache.add(interaction);
     }
 
     public static void onEntityInteraction(Entity entity) {
@@ -36,6 +45,9 @@ public class InteractionCache {
     public static void printInteraction() {
         for (BlockInteraction b : blockInteractionCache) {
             System.out.println(b.toString());
+        }
+        for (ItemInteraction i : itemInteractionCache) {
+            System.out.println(i.toString());
         }
         for (EntityInteraction e : entityInteractionCache) {
             System.out.println(e.toString());
@@ -52,11 +64,19 @@ public class InteractionCache {
         }
 
         public String toString() {
-            if (pos == null) {
-                return this.blockName;
-            } else {
-                return this.blockName + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
-            }
+            return this.blockName + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
+        }
+    }
+
+    public static class ItemInteraction {
+        public String itemName;
+
+        ItemInteraction(String itemName) {
+            this.itemName = itemName;
+        }
+
+        public String toString() {
+            return this.itemName;
         }
     }
 

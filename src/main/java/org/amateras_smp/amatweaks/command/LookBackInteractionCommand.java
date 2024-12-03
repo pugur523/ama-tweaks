@@ -18,12 +18,30 @@ public class LookBackInteractionCommand {
 
     public static int callback(CommandContext<FabricClientCommandSource> context) {
         InteractionCache.printInteraction();
+        StringBuilder message = new StringBuilder();
+        if (!InteractionCache.blockInteractionCache.isEmpty()) {
+            message.append("=== Block Interactions ===\n");
+            for (var b : InteractionCache.blockInteractionCache) {
+                message.append(b.toString()).append("\n");
+            }
+        }
+        if (!InteractionCache.itemInteractionCache.isEmpty()) {
+            message.append("=== Item Interactions ===\n");
+            for (var i : InteractionCache.itemInteractionCache) {
+                message.append(i.toString()).append("\n");
+            }
+        }
+        if (!InteractionCache.entityInteractionCache.isEmpty()) {
+            message.append("=== Entity Interactions ===\n");
+            for (var e : InteractionCache.entityInteractionCache) {
+                message.append(e.toString()).append("\n");
+            }
+        }
+
         //#if MC >= 11900
-        context.getSource().sendFeedback(Text.literal(InteractionCache.blockInteractionCache.toString()));
-        context.getSource().sendFeedback(Text.literal(InteractionCache.entityInteractionCache.toString()));
+        context.getSource().sendFeedback(Text.literal(message.toString()));
         //#else
-        //$$ context.getSource().sendFeedback(new LiteralText(InteractionCache.blockInteractionCache.toString()));
-        //$$ context.getSource().sendFeedback(new LiteralText(InteractionCache.entityInteractionCache.toString()));
+        //$$ context.getSource().sendFeedback(new LiteralText(message.toString()));
         //#endif
 
         return Command.SINGLE_SUCCESS;

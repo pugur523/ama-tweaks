@@ -99,6 +99,7 @@ public class Configs implements IConfigHandler
         PreventBreakingAdjacentPortal.buildLists();
 
         SelectiveRendering.buildLists();
+        SelectiveRendering.applyConfig();
     }
 
     public static void loadFromFile() {
