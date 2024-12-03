@@ -1,4 +1,4 @@
-package org.amateras_smp.amatweaks.mixins.features.holdForward;
+package org.amateras_smp.amatweaks.mixins.features.holdMove;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;

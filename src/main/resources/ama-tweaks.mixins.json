@@ -12,7 +12,7 @@
     "features.autoGlide.MixinClientPlayerEntity",
     "features.autoGlide.MixinMinecraftClient",
     "features.compactScoreboard.MixinInGameHud",
-    "features.holdForward.MixinMinecraftClient",
+    "features.holdMove.MixinMinecraftClient",
     "features.hotbarRestock.MixinClientPlayNetworkHandler",
     "features.hotbarRestock.MixinScreen",
     "features.hotbarRestock.MixinScreenHandler",

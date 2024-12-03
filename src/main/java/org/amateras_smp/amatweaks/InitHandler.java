@@ -44,6 +44,6 @@ public class InitHandler implements IInitializationHandler
 
     public static void registerCommands() {
         registerCommand("history", HistoryCommand.command);
-        registerCommand("clearHistory", HistoryCommand.clearCommand);
+        registerCommand("clearinteraction", HistoryCommand.clearCommand);
     }
 }
