@@ -29,7 +29,7 @@ public class AutoEat {
     private static boolean eating = false;
 
     public static void autoEat(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
-        if ((double) player.getHungerManager().getFoodLevel() / 10 / 2 <= Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue() && player.getHungerManager().isNotFull()) {
+        if ((double) player.getHungerManager().getFoodLevel() / 20 <= Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue() && player.getHungerManager().isNotFull()) {
             HitResult hit = mc.crosshairTarget;
             if (hit == null) return;
             if (hit.getType() == HitResult.Type.BLOCK) {
@@ -54,13 +54,16 @@ public class AutoEat {
                 if (stack.getItem().isFood()) {
                 //#endif
                     tryToSwap(i);
-                    KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
+                    if (eating) {
+                        KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
+                    }
                     eating = true;
                     return;
                 }
             }
+        } else {
+            autoEatCheck(mc, player, networkHandler);
         }
-        autoEatCheck(mc, player, networkHandler);
 
     }
 

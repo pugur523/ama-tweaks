@@ -1,7 +1,6 @@
 package org.amateras_smp.amatweaks.impl.features;
 
 import fi.dy.masa.malilib.util.StringUtils;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -9,6 +8,8 @@ import net.minecraft.util.math.Vec3d;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.util.LimitedQueue;
 import org.jetbrains.annotations.Nullable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class InteractionCache {
 
@@ -69,7 +70,13 @@ public class InteractionCache {
         }
 
         public String toString() {
-            return this.entityName + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
+            return this.entityName + " (" + roundDouble(pos.getX()) + ", " + roundDouble(pos.getY()) + ", " + roundDouble(pos.getZ()) + ")";
+        }
+
+        private double roundDouble(double d) {
+            BigDecimal bd = new BigDecimal(d);
+            BigDecimal rounded = bd.setScale(2, RoundingMode.HALF_UP);
+            return rounded.doubleValue();
         }
     }
 }

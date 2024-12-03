@@ -6,7 +6,7 @@ import fi.dy.masa.malilib.interfaces.IInitializationHandler;
 import org.amateras_smp.amatweaks.config.Callbacks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.event.InputHandler;
-import org.amateras_smp.amatweaks.impl.command.LookBackInteractionCommand;
+import org.amateras_smp.amatweaks.command.LookBackInteractionCommand;
 
 //#if MC >= 11900
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;

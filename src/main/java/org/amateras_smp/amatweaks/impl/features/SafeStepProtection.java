@@ -10,12 +10,14 @@ public class SafeStepProtection {
         ClientPlayerEntity player = mc.player;
 
         if (player != null) {
-            boolean isMovingBack = mc.options.backKey.isPressed();
-            boolean isMoving = mc.player.getVelocity().x != 0 || mc.player.getVelocity().z != 0;
+            boolean isMovingForward = mc.options.forwardKey.isPressed() || mc.options.rightKey.isPressed() || mc.options.leftKey.isPressed();
+            // boolean isMoving = mc.player.getVelocity().x != 0 || mc.player.getVelocity().z != 0;
+            // boolean isMovingBack = mc.options.backKey.isPressed();
 
             boolean isPosBelowPlayer = pos.getY() < player.getY();
 
-            return (!isMoving || isMovingBack) || !isPosBelowPlayer;
+            return !isMovingForward || !isPosBelowPlayer;
+            // return (!isMoving || isMovingBack) || !isPosBelowPlayer;
         }
 
         return true;
