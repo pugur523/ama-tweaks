@@ -48,12 +48,9 @@ public class MixinClientPlayerInteractionManager {
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
         if (cir.getReturnValue() == ActionResult.SUCCESS) {
-            if (player.getStackInHand(hand).getItem() instanceof BlockItem) {
-                // if (ctx.canPlace() && !BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos()))) {
-                if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos()))) {
-                    InteractionHistory.onBlockInteraction(ctx.getStack().getItem(), ctx.getBlockPos(), "place");
-                    return;
-                }
+            if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
+                InteractionHistory.onBlockInteraction(ctx.getStack().getItem(), ctx.getBlockPos(), "place");
+                return;
             }
             InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock().asItem(), hitResult.getBlockPos(), "interact");
         }
