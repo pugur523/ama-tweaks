@@ -1,12 +1,14 @@
 package org.amateras_smp.amatweaks.impl.features;
 
+import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.util.LimitedQueue;
+import org.jetbrains.annotations.Nullable;
 
 public class InteractionCache {
 
@@ -18,14 +20,14 @@ public class InteractionCache {
         entityInteractionCache.setMaxSize(Configs.Generic.INTERACTION_CACHE_COUNT.getIntegerValue());
     }
 
-    public static void onBlockInteraction(ClientPlayerEntity player, BlockHitResult result) {
-        String name = player.clientWorld.getBlockState(result.getBlockPos()).getBlock().getName().toString();
-        BlockInteraction interaction = new BlockInteraction(name, result.getBlockPos());
+    public static void onBlockInteraction(Item item, @Nullable BlockPos pos) {
+        String name = StringUtils.translate(item.getTranslationKey());
+        BlockInteraction interaction = new BlockInteraction(name, pos);
         blockInteractionCache.add(interaction);
     }
 
     public static void onEntityInteraction(Entity entity) {
-        String name = entity.getName().toString();
+        String name = StringUtils.translate(entity.getType().getTranslationKey());
         EntityInteraction interaction = new EntityInteraction(name, entity.getPos());
         entityInteractionCache.add(interaction);
     }
@@ -43,13 +45,17 @@ public class InteractionCache {
         public String blockName;
         public BlockPos pos;
 
-        BlockInteraction(String blockName, BlockPos pos) {
+        BlockInteraction(String blockName, @Nullable BlockPos pos) {
             this.blockName = blockName;
             this.pos = pos;
         }
 
         public String toString() {
-            return this.blockName + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
+            if (pos == null) {
+                return this.blockName;
+            } else {
+                return this.blockName + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
+            }
         }
     }
 

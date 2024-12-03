@@ -22,7 +22,7 @@ public class MixinClientPlayerInteractionManager {
     @Inject(method = "interactBlock", at = @At("HEAD"))
     private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
         if (!FeatureToggle.TWEAK_INTERACTION_CACHE.getBooleanValue()) return;
-        InteractionCache.onBlockInteraction(player, player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock().asItem(), hitResult.getBlockPos());
+        InteractionCache.onBlockInteraction(player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock().asItem(), hitResult.getBlockPos());
     }
 
     @Inject(method = "attackEntity", at = @At("HEAD"))
@@ -34,6 +34,6 @@ public class MixinClientPlayerInteractionManager {
     @Inject(method = "interactItem", at = @At("HEAD"))
     private void onInteractItem(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
         if (!FeatureToggle.TWEAK_INTERACTION_CACHE.getBooleanValue()) return;
-        InteractionCache.onBlockInteraction(player, player.getStackInHand(hand).getItem(), );
+        InteractionCache.onBlockInteraction(player.getStackInHand(hand).getItem(), null);
     }
 }
