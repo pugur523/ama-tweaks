@@ -16,14 +16,17 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 > 設定された閾値より食料ゲージが少なくなったときに、インベントリから食料を探して自動で食べます。
 閾値はconfigの`Generic`タブにある`autoEatThreshold`で設定できます。
 
+
 ### tweakAutoFireworkGlide
 
 > エリトラで滑空中、`Generic`タブの`autoGlideSpeedThreshold`で設定された値よりもプレイヤーの速度が小さくなったときに自動でインベントリからロケット花火を取り出して使用します。
+
 
 ### tweakAutoRestockHotbar
 
 > チェストやシュルカーボックスなどのコンテナ系ブロックを開いたとき、設定されたアイテムリスト内のアイテムをコンテナから探し出してホットバー(インベントリ)に補充します。
 補充するアイテムのリストはconfigの`List`タブにある`hotbarRestockList`で設定できます。デフォルトではロケット花火と金のニンジンがリストに設定されています。
+
 
 ### tweakCompactScoreboard
 
@@ -50,9 +53,18 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 > 右に進むキーを自動で押し続けます。
 
 
+### tweakInteractionHistory
+
+> プレイヤーによるインタラクションを指定数記録します。
+記録したインタラクションは`/history`コマンドで確認でき、`clearhistory`で破棄できます。
+記録するインタラクションの最大数はGenericタブの`interactionHistoryMaxSize`で指定でき、これをオーバーした場合は最も古いインタラクションが破棄されて新しいものが記録されます。
+
+
+
 ### tweakPersistentGammaOverride
 
 > tweakerooのtweakGammaOverrideが起動時に有効にならない問題を修正します。
+
 
 ### tweakPickBlockRedirect
 
@@ -74,6 +86,7 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 
 > 前、または横に動いているときに自分より下のブロックを壊せなくなります。
 露天掘りのような場面での使用を想定しています。
+
 
 ### tweakSelectiveBlockRendering
 
