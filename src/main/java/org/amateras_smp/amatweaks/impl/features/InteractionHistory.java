@@ -22,14 +22,14 @@ public class InteractionHistory {
         entityInteractionHistory.setMaxSize(Configs.Generic.INTERACTION_HISTORY_MAX_SIZE.getIntegerValue());
     }
 
-    public static void onBlockInteraction(Item blockItem, BlockPos pos, String interactionType) {
-        String name = StringUtils.translate(blockItem.getTranslationKey());
+    public static void onBlockInteraction(Block block, BlockPos pos, String interactionType) {
+        String name = block.getTranslationKey();
         BlockInteraction interaction = new BlockInteraction(interactionType, name, pos);
         blockInteractionHistory.add(interaction);
     }
 
     public static void onEntityInteraction(Entity entity) {
-        String name = StringUtils.translate(entity.getType().getTranslationKey());
+        String name = entity.getType().getTranslationKey();
         EntityInteraction interaction = new EntityInteraction(name, entity.getPos());
         entityInteractionHistory.add(interaction);
     }
@@ -56,7 +56,7 @@ public class InteractionHistory {
         }
 
         public String toString() {
-            return this.type + ": " + this.blockName + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
+            return this.type + ": " + StringUtils.translate(this.blockName) + " (" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")";
         }
     }
 
@@ -71,7 +71,7 @@ public class InteractionHistory {
         }
 
         public String toString() {
-            return this.entityName + " (" + roundDouble(pos.getX()) + ", " + roundDouble(pos.getY()) + ", " + roundDouble(pos.getZ()) + ")";
+            return StringUtils.translate(this.entityName) + " (" + roundDouble(pos.getX()) + ", " + roundDouble(pos.getY()) + ", " + roundDouble(pos.getZ()) + ")";
         }
 
         private double roundDouble(double d) {

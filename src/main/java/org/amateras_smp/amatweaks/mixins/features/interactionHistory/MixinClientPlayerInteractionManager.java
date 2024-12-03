@@ -33,7 +33,7 @@ public class MixinClientPlayerInteractionManager {
     private void onBreakBlock(BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         if (!FeatureToggle.TWEAK_INTERACTION_HISTORY.getBooleanValue()) return;
         if (MinecraftClient.getInstance().player != null) {
-            InteractionHistory.onBlockInteraction(MinecraftClient.getInstance().player.getWorld().getBlockState(pos).getBlock().asItem(), pos, "break");
+            InteractionHistory.onBlockInteraction(MinecraftClient.getInstance().player.getWorld().getBlockState(pos).getBlock(), pos, "break");
         }
     }
 
@@ -49,10 +49,10 @@ public class MixinClientPlayerInteractionManager {
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
         if (cir.getReturnValue() == ActionResult.SUCCESS) {
             if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
-                InteractionHistory.onBlockInteraction(player.getStackInHand(hand).getItem(), ctx.getBlockPos(), "place");
+                InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(ctx.getBlockPos()).getBlock(), ctx.getBlockPos(), "place");
                 return;
             }
-            InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock().asItem(), hitResult.getBlockPos(), "interact");
+            InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock(), hitResult.getBlockPos(), "interact");
         }
     }
 

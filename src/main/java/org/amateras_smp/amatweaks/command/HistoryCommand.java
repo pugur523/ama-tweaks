@@ -14,7 +14,7 @@ import net.minecraft.text.Text;
 
 public class HistoryCommand {
     public static Command<FabricClientCommandSource> command = HistoryCommand::callback;
-
+    public static Command<FabricClientCommandSource> clearCommand = HistoryCommand::clear;
 
     public static int callback(CommandContext<FabricClientCommandSource> context) {
         InteractionHistory.printInteraction();
@@ -41,6 +41,18 @@ public class HistoryCommand {
         //$$ context.getSource().sendFeedback(new LiteralText(message.toString()));
         //#endif
 
+        return Command.SINGLE_SUCCESS;
+    }
+    public static int clear(CommandContext<FabricClientCommandSource> context) {
+        InteractionHistory.blockInteractionHistory.clear();
+        InteractionHistory.entityInteractionHistory.clear();
+
+        String message = "Cleared interaction history cache";
+        //#if MC >= 11900
+        context.getSource().sendFeedback(Text.literal(message));
+        //#else
+        //$$ context.getSource().sendFeedback(new LiteralText(message));
+        //#endif
         return Command.SINGLE_SUCCESS;
     }
 }
