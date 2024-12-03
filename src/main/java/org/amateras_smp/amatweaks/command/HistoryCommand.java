@@ -35,11 +35,13 @@ public class HistoryCommand {
             message.deleteCharAt(message.length() - 1);
         }
 
-        //#if MC >= 11900
-        context.getSource().sendFeedback(Text.literal(message.toString()));
-        //#else
-        //$$ context.getSource().sendFeedback(new LiteralText(message.toString()));
-        //#endif
+        if (!message.toString().isBlank()) {
+            //#if MC >= 11900
+            context.getSource().sendFeedback(Text.literal(message.toString()));
+            //#else
+            //$$ context.getSource().sendFeedback(new LiteralText(message.toString()));
+            //#endif
+        }
 
         return Command.SINGLE_SUCCESS;
     }
