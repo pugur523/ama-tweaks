@@ -16,14 +16,8 @@ public class MixinMinecraftClient {
     @Shadow
     static MinecraftClient instance;
 
-    @Unique
-    int cnt = 0;
-
     @Inject(method = "run", at = @At(value = "INVOKE", target = "Lnet/minecraft/util/profiler/Recorder;endTick()V"))
     private void onTick(CallbackInfo ci) {
-        // for optimize
-        if (++cnt % 4 != 0) return;
-        cnt = 0;
         if (FeatureToggle.TWEAK_AUTO_EAT.getBooleanValue()) {
             if (instance.player != null && instance.player.networkHandler != null && instance.interactionManager != null) {
                 if (instance.player.isFallFlying()) {
