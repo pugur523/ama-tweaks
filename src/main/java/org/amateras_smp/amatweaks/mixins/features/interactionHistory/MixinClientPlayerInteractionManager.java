@@ -1,5 +1,6 @@
 package org.amateras_smp.amatweaks.mixins.features.interactionHistory;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
@@ -49,8 +50,10 @@ public class MixinClientPlayerInteractionManager {
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
         if (cir.getReturnValue() == ActionResult.SUCCESS) {
             if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
-                InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(ctx.getBlockPos()).getBlock(), ctx.getBlockPos(), "place");
-                return;
+                if (!ctx.getWorld().getBlockState(hitResult.getBlockPos()).isOf(Blocks.AIR)) {
+                    InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(ctx.getBlockPos()).getBlock(), ctx.getBlockPos(), "place");
+                    return;
+                }
             }
             InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock(), hitResult.getBlockPos(), "interact");
         }
