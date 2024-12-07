@@ -10,6 +10,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
+import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.features.AutoRestockHotbar;
 
 import java.util.List;
@@ -32,10 +33,9 @@ public class ContainerProcessManager {
         if (!hasTweakEnabled()) return;
         Screen screen = MinecraftClient.getInstance().currentScreen;
         ClientPlayerEntity player = MinecraftClient.getInstance().player;
-        if (player != null && screen instanceof HandledScreen<?>) {
+        if (player != null && screen instanceof HandledScreen<?> containerScreen) {
             if (player.isSpectator()) return;
 
-            HandledScreen<?> containerScreen = (HandledScreen<?>)screen;
             if (containerScreen.getScreenHandler() != container || !((AutoProcessableScreen)screen).shouldProcess$AMT())
             {
                 return;
@@ -67,7 +67,7 @@ public class ContainerProcessManager {
                     }
                 }
             }
-            if (closeGui)
+            if (closeGui && Configs.Generic.ON_AUTO_RESTOCK_CLOSE_GUI.getBooleanValue())
             {
                 player.closeHandledScreen();
             }
