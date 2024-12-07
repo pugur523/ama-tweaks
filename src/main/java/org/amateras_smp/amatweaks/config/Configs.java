@@ -44,6 +44,7 @@ public class Configs implements IConfigHandler
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,
                 INTERACTION_HISTORY_MAX_SIZE,
+                ON_AUTO_RESTOCK_CLOSE_GUI,
                 REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL,
                 REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED
         );
