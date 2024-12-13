@@ -48,7 +48,7 @@ public class MixinClientPlayerInteractionManager {
         if (!FeatureToggle.TWEAK_INTERACTION_HISTORY.getBooleanValue()) return;
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
-        if (cir.getReturnValue() == ActionResult.SUCCESS) {k
+        if (cir.getReturnValue() == ActionResult.SUCCESS) {
             if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
                 if (!ctx.getWorld().getBlockState(hitResult.getBlockPos()).isOf(Blocks.AIR)) {
                     InteractionHistory.onBlockInteraction(ctx.getWorld().getBlockState(ctx.getBlockPos()).getBlock(), ctx.getBlockPos(), "place");
