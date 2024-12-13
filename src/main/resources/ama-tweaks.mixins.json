@@ -17,7 +17,7 @@
     "features.hotbarRestock.MixinScreen",
     "features.hotbarRestock.MixinScreenHandler",
     "features.interactionHistory.MixinClientPlayerInteractionManager",
-    "features.monoGui.MixinChatHud",
+    "features.monoGui.MixinChatMessages",
     "features.monoGui.MixinTextRenderer",
     "features.persistentGammaOverride.MixinClientPlayNetworkHandler",
     "features.preventBreakingAdjacentPortal.MixinClientPlayerInteractionManager",
