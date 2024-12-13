@@ -61,6 +61,37 @@ if (mcVersion >= 12005) {
 }
 JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
 
+loom {
+    accessWidenerPath = file("${project.mod_id}.accesswidener")
+
+    def commonVmArgs = ['-Dmixin.debug.export=true']
+    if (mcVersion < 11904) {
+        // carpet 1.4.100+v230314 for mc1.19.4 and above
+        // fail to pass the check on at MinecraftServer_pingPlayerSampleLimit#modifyPlayerSampleLimit
+        // see https://github.com/gnembon/fabric-carpet/pull/1938
+        commonVmArgs.add('-Dmixin.debug.countInjections=true')
+    }
+    runConfigs.configureEach {
+        runDir '../../run'
+        vmArgs commonVmArgs
+        ideConfigGenerated true
+    }
+
+    runs {
+        def auditVmArgs = ["-D${project.mod_id}.mixin_audit=true"]
+        serverMixinAudit {
+            server()
+            vmArgs auditVmArgs
+            ideConfigGenerated false
+        }
+        clientMixinAudit {
+            client()
+            vmArgs auditVmArgs
+            ideConfigGenerated false
+        }
+    }
+}
+
 remapJar {
     remapperIsolation = true
 }
@@ -94,6 +125,7 @@ static def getGitBranchName() {
 
 def branchName = getGitBranchName()
 
+
 if (branchName != "main") {
     // rename jar file when it's not main branch
     base.archivesName = project.archives_base_name + "-" + branchName
@@ -102,6 +134,8 @@ if (branchName != "main") {
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 processResources {
+    from "${project.mod_id}.accesswidener"
+
     inputs.property "id", project.mod_id
     inputs.property "name", project.mod_name
     inputs.property "version", artifactVersion
