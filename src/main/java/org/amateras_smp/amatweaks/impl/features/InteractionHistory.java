@@ -17,6 +17,11 @@ public class InteractionHistory {
     public static final LimitedQueue<BlockInteraction> blockInteractionHistory = new LimitedQueue<>(10);
     public static final LimitedQueue<EntityInteraction> entityInteractionHistory = new LimitedQueue<>(10);
 
+    public static void clear() {
+        blockInteractionHistory.clear();
+        entityInteractionHistory.clear();
+    }
+
     public static void resize() {
         blockInteractionHistory.setMaxSize(Configs.Generic.INTERACTION_HISTORY_MAX_SIZE.getIntegerValue());
         entityInteractionHistory.setMaxSize(Configs.Generic.INTERACTION_HISTORY_MAX_SIZE.getIntegerValue());

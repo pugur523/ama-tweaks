@@ -11,6 +11,7 @@ import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.UseAction;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
@@ -49,6 +50,7 @@ public class MixinClientPlayerInteractionManager {
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
         if (cir.getReturnValue() == ActionResult.SUCCESS) {
+            if (player.getStackInHand(hand).getUseAction() != UseAction.BLOCK) return;
             if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
                 if (!ctx.getWorld().getBlockState(hitResult.getBlockPos()).isOf(Blocks.AIR)) {
                     InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(ctx.getBlockPos()).getBlock(), ctx.getBlockPos(), "place");
