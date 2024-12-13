@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -18,6 +19,7 @@ import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.util.BlockTypeEquals;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -39,7 +41,7 @@ public class MixinClientPlayerInteractionManager {
         }
     }
 
-    @Inject(method = "interactBlock", at = @At("RETURN"))
+    @Inject(method = "interactBlock", at = @At("HEAD"))
     //#if MC >= 11900
     private void onInteractBlock(ClientPlayerEntity player, Hand hand, BlockHitResult hitResult, CallbackInfoReturnable<ActionResult> cir) {
     //#else
@@ -50,11 +52,13 @@ public class MixinClientPlayerInteractionManager {
         ItemUsageContext itemUsageContext = new ItemUsageContext(player, hand, hitResult);
         ItemPlacementContext ctx = new ItemPlacementContext(itemUsageContext);
         if (cir.getReturnValue() == ActionResult.SUCCESS) {
-            if (player.getStackInHand(hand).getUseAction() != UseAction.BLOCK) return;
-            if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
-                if (!ctx.getWorld().getBlockState(hitResult.getBlockPos()).isOf(Blocks.AIR)) {
-                    InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(ctx.getBlockPos()).getBlock(), ctx.getBlockPos(), "place");
-                    return;
+            System.out.println(player.getStackInHand(hand).getUseAction().toString());
+            if (player.getStackInHand(hand).getItem() instanceof BlockItem blockItem) {
+                if (!BlockTypeEquals.isSneakingInteractionCancel(ctx.getWorld().getBlockState(hitResult.getBlockPos())) || ctx.shouldCancelInteraction()) {
+                    if (!ctx.getWorld().getBlockState(hitResult.getBlockPos()).isOf(Blocks.AIR)) {
+                        InteractionHistory.onBlockInteraction(blockItem.getBlock(), ctx.getBlockPos(), "place");
+                        return;
+                    }
                 }
             }
             InteractionHistory.onBlockInteraction(player.getWorld().getBlockState(hitResult.getBlockPos()).getBlock(), hitResult.getBlockPos(), "interact");
