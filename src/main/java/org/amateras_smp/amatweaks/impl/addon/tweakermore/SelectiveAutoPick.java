@@ -19,7 +19,9 @@ public class SelectiveAutoPick {
 
     public static boolean restrict(ClientPlayerEntity player, Hand hand) {
         ItemStack stack = player.getStackInHand(hand);
-        if (stack.isEmpty()) return false;
+        if (stack.isEmpty()) {
+            return false;
+        }
         return !AUTO_PICK_RESTRICTION.isAllowed(stack.getItem());
     }
 }

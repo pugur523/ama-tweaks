@@ -24,7 +24,6 @@ public abstract class MixinChatMessages {
     @Inject(method = "breakRenderedChatMessageLines", at = @At(value = "INVOKE", target = "Lnet/minecraft/text/StringVisitable;visit(Lnet/minecraft/text/StringVisitable$StyledVisitor;Lnet/minecraft/text/Style;)Ljava/util/Optional;", shift = At.Shift.AFTER))
     private static void onBreakRenderedChatMessageLines(StringVisitable message, int width, TextRenderer textRenderer, CallbackInfoReturnable<List<OrderedText>> cir, @Local TextCollector textCollector) {
         if (!FeatureToggle.TWEAK_MONO_CHAT.getBooleanValue()) return;
-        System.out.println("debug print 3");
         textCollector.clear();
         message.visit((style, message2) -> {
             textCollector.add(StringVisitable.styled(message2, style.withColor(Formatting.WHITE)));

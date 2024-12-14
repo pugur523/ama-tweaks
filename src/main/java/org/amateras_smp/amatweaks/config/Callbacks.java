@@ -15,6 +15,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.amateras_smp.amatweaks.impl.addon.tweakermore.SelectiveAutoPick;
+import org.amateras_smp.amatweaks.impl.addon.tweakeroo.SelectiveToolSwitch;
 import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
@@ -52,6 +53,7 @@ public class Callbacks {
         FeatureToggle.TWEAK_SELECTIVE_AUTO_PICK.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_AUTO_PICK));
         FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING));
         FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING));
+        FeatureToggle.TWEAK_SELECTIVE_TOOL_SWITCH.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_TOOL_SWITCH));
         // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
 
         Configs.Generic.INTERACTION_HISTORY_MAX_SIZE.setValueChangeCallback((cfg) -> InteractionHistory.resize());
@@ -69,6 +71,11 @@ public class Callbacks {
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_WHITELIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_LIST_TYPE.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
+
+        FeatureToggle.TWEAK_SELECTIVE_TOOL_SWITCH.setValueChangeCallback((cfg) -> SelectiveToolSwitch.buildLists());
+        Configs.Lists.SELECTIVE_TOOL_SWITCH_BLACKLIST.setValueChangeCallback((cfg) -> SelectiveToolSwitch.buildLists());
+        Configs.Lists.SELECTIVE_TOOL_SWITCH_WHITELIST.setValueChangeCallback((cfg) -> SelectiveToolSwitch.buildLists());
+        Configs.Lists.SELECTIVE_TOOL_SWITCH_LIST_TYPE.setValueChangeCallback((cfg) -> SelectiveToolSwitch.buildLists());
     }
 
     private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback
