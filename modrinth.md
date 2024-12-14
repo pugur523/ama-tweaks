@@ -14,7 +14,6 @@ AmaTweaks is a client-side Minecraft Fabric mod which has some useful features m
 > Automatically eat food from your inventory when your food level drops below a set threshold.
 The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 
-
 ### tweakAutoFireworkGlide
 
 > Automatically glide with firework rocket in you inventory when you're flying and flying speed is less than the value `autoGlideSpeedThreshold` that can be configured in the config `Generic`.
@@ -28,7 +27,8 @@ The `hotbarRestockList` can be customized in the `List` tab of the config.
 
 ### tweakCompactScoreboard
 
-> Displays formatted scoreboard value in the sidebar. Implementation of >=mc1.20.4 is ported from [techutils](https://github.com/Kikugie/techutils).
+> Displays formatted scoreboard value in the sidebar.
+Implementation of >=mc1.20.4 is ported from [techutils](https://github.com/Kikugie/techutils).
 
 
 ### tweakHoldBack
@@ -56,6 +56,16 @@ The `hotbarRestockList` can be customized in the `List` tab of the config.
 > Cache specified number of player interactions.
 The interactions can be checked with `/history` command in the game and cleared with `/clearinteractions`.
 The number of interaction to keep can be set by `interactionHistoryMaxSize` in config generic.
+
+
+### tweakMonoChat
+
+> Overrides chat color with white.
+
+
+### tweakMonoGui
+
+> Overrides text color in gui with white.
 
 
 ### tweakPersistentGammaOverride
@@ -87,13 +97,14 @@ This can be useful for activities like perimeter digging.
 
 ### tweakSelectiveBlockRendering
 
+> [!CAUTION]
+> This feature has not supported block entity render selection yet.<br>
 > Renders only specified blocks. The blocks can be configured in the list tab so check it. This feature will reload the entire world (renderer) on settings changed.
 List entries example: `minecraft:white_stained_glass`, `minecraft:dirt`, `minecraft:bedrock`, etc.
-This feature has not support block entity render selection yet.
 
 
 ### tweakSelectiveEntityRendering
 
 > Renders only specified entities. The entities can be configured in the list tab.
-List entries example: `player`, `tnt`, `slime`, `item`.<br>
-This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
+List entries example: `player`, `tnt`, `slime`, `item`.
+<br> This feature was ported from [taichi-tweaks](https://github.com/TaichiServer/taichi-tweaks)
