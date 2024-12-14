@@ -14,6 +14,7 @@ import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.impl.addon.tweakermore.SelectiveAutoPick;
+import org.amateras_smp.amatweaks.impl.addon.tweakeroo.SelectiveToolSwitch;
 import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
@@ -116,6 +117,7 @@ public class Configs implements IConfigHandler
         PreventBreakingAdjacentPortal.buildLists();
 
         SelectiveAutoPick.buildLists();
+        SelectiveToolSwitch.buildLists();
         SelectiveRendering.buildLists();
         SelectiveRendering.applyConfig();
     }
