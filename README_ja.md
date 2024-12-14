@@ -60,6 +60,16 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 記録するインタラクションの最大数はGenericタブの`interactionHistoryMaxSize`で指定でき、これをオーバーした場合は最も古いインタラクションが破棄されて新しいものが記録されます。
 
 
+### tweakMonoChat
+
+> チャットをモノクロにします。
+プレイヤーに送られたすべてのテキストチャットは白色として表示されるようになります。
+
+
+### tweakMonoGui
+
+> guiに表示されるすべてのテキストを白色として表示します。
+
 
 ### tweakPersistentGammaOverride
 
