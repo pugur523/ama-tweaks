@@ -13,6 +13,7 @@ import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
 import org.amateras_smp.amatweaks.Reference;
+import org.amateras_smp.amatweaks.impl.addon.tweakermore.SelectiveAutoPick;
 import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
@@ -61,6 +62,10 @@ public class Configs implements IConfigHandler
         public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_BLACKLIST = new ConfigStringList("portalBreakingRestrictionBlackList", ImmutableList.of(""), "The items that will be restricted by tweakPreventBreakingAdjacentPortal.");
         public static final ConfigStringList PORTAL_BREAKING_RESTRICTION_WHITELIST = new ConfigStringList("portalBreakingRestrictionWhiteList", ImmutableList.of("minecraft:obsidian"), "The items that will not be restricted by tweakPreventBreakingAdjacentPortal.");
 
+        public static final ConfigOptionList SELECTIVE_AUTO_PICK_LIST_TYPE = new ConfigOptionList("selectiveAutoPickListType", UsageRestriction.ListType.NONE, "The type of the list used for selective auto pick.");
+        public static final ConfigStringList SELECTIVE_AUTO_PICK_WHITELIST = new ConfigStringList("selectiveAutoPickWhiteList", ImmutableList.of(), "The items when it is in hand auto pick will work.");
+        public static final ConfigStringList SELECTIVE_AUTO_PICK_BLACKLIST = new ConfigStringList("selectiveAutoPickBlackList", ImmutableList.of("minecraft:golden_carrot", "minecraft:ender_chest", "minecraft:shulker_box"), "The items when it is in hand auto pick will not work.");
+
         public static final ConfigOptionList SELECTIVE_BLOCK_RENDERING_LIST_TYPE = new ConfigOptionList("selectiveBlockRenderingListType", UsageRestriction.ListType.NONE, "The type of the list used for selective block rendering.");
         public static final ConfigStringList SELECTIVE_BLOCK_RENDERING_WHITELIST = new ConfigStringList("selectiveBlockRenderingWhiteList", ImmutableList.of(), "The blocks that will be rendered.");
         public static final ConfigStringList SELECTIVE_BLOCK_RENDERING_BLACKLIST = new ConfigStringList("selectiveBlockRenderingBlackList", ImmutableList.of(), "The blocks that will not be rendered");
@@ -75,6 +80,9 @@ public class Configs implements IConfigHandler
                 PORTAL_BREAKING_RESTRICTION_LIST_TYPE,
                 PORTAL_BREAKING_RESTRICTION_BLACKLIST,
                 PORTAL_BREAKING_RESTRICTION_WHITELIST,
+                SELECTIVE_AUTO_PICK_LIST_TYPE,
+                SELECTIVE_AUTO_PICK_WHITELIST,
+                SELECTIVE_AUTO_PICK_BLACKLIST,
                 SELECTIVE_BLOCK_RENDERING_LIST_TYPE,
                 SELECTIVE_BLOCK_RENDERING_WHITELIST,
                 SELECTIVE_BLOCK_RENDERING_BLACKLIST,
@@ -100,6 +108,7 @@ public class Configs implements IConfigHandler
 
         PreventBreakingAdjacentPortal.buildLists();
 
+        SelectiveAutoPick.buildLists();
         SelectiveRendering.buildLists();
         SelectiveRendering.applyConfig();
     }

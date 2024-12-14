@@ -34,6 +34,7 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentToPortal", false, "", "Prevents breaking nether portals frame"),
     TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "Disables placement on sliced nether portal sides"),
     TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward"),
+    TWEAK_SELECTIVE_AUTO_PICK("tweakSelectiveAutoPick", false, "", "Adds whitelist/blacklist for autoPickSchematicBlock(in tweakermore)"),
     TWEAK_SELECTIVE_BLOCK_RENDERING("tweakSelectiveBlockRendering", false, "", "Renders blocks in accordance with custom selected list"),
     TWEAK_SELECTIVE_ENTITY_RENDERING("tweakSelectiveEntityRendering", false, "", "Renders entities in accordance with custom selected list");
 

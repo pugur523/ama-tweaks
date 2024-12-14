@@ -14,6 +14,7 @@ import fi.dy.masa.malilib.interfaces.IValueChangeCallback;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import org.amateras_smp.amatweaks.impl.addon.tweakermore.SelectiveAutoPick;
 import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
@@ -48,6 +49,7 @@ public class Callbacks {
         FeatureToggle.TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL));
         FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES));
         FeatureToggle.TWEAK_SAFE_STEP_PROTECTION.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SAFE_STEP_PROTECTION));
+        FeatureToggle.TWEAK_SELECTIVE_AUTO_PICK.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_AUTO_PICK));
         FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING));
         FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_SELECTIVE_ENTITY_RENDERING));
         // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
@@ -57,6 +59,11 @@ public class Callbacks {
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_LIST_TYPE.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
+
+        FeatureToggle.TWEAK_SELECTIVE_AUTO_PICK.setValueChangeCallback((cfg) -> SelectiveAutoPick.buildLists());
+        Configs.Lists.SELECTIVE_AUTO_PICK_BLACKLIST.setValueChangeCallback((cfg) -> SelectiveAutoPick.buildLists());
+        Configs.Lists.SELECTIVE_AUTO_PICK_WHITELIST.setValueChangeCallback((cfg) -> SelectiveAutoPick.buildLists());
+        Configs.Lists.SELECTIVE_AUTO_PICK_LIST_TYPE.setValueChangeCallback((cfg) -> SelectiveAutoPick.buildLists());
 
         FeatureToggle.TWEAK_SELECTIVE_BLOCK_RENDERING.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
         Configs.Lists.SELECTIVE_BLOCK_RENDERING_BLACKLIST.setValueChangeCallback((cfg) -> SelectiveRendering.buildLists());
