@@ -64,7 +64,7 @@ public class Configs implements IConfigHandler
 
         public static final ConfigOptionList SELECTIVE_AUTO_PICK_LIST_TYPE = new ConfigOptionList("selectiveAutoPickListType", UsageRestriction.ListType.NONE, "The type of the list used for selective auto pick.");
         public static final ConfigStringList SELECTIVE_AUTO_PICK_WHITELIST = new ConfigStringList("selectiveAutoPickWhiteList", ImmutableList.of(), "The items when it is in hand auto pick will work.");
-        public static final ConfigStringList SELECTIVE_AUTO_PICK_BLACKLIST = new ConfigStringList("selectiveAutoPickBlackList", ImmutableList.of("minecraft:golden_carrot", "minecraft:ender_chest", "minecraft:shulker_box"), "The items when it is in hand auto pick will not work.");
+        public static final ConfigStringList SELECTIVE_AUTO_PICK_BLACKLIST = new ConfigStringList("selectiveAutoPickBlackList", ImmutableList.of("minecraft:golden_carrot", "minecraft:ender_chest", "minecraft:shulker_box", "minecraft:totem_of_undying"), "The items when it is in hand auto pick will not work.");
 
         public static final ConfigOptionList SELECTIVE_BLOCK_RENDERING_LIST_TYPE = new ConfigOptionList("selectiveBlockRenderingListType", UsageRestriction.ListType.NONE, "The type of the list used for selective block rendering.");
         public static final ConfigStringList SELECTIVE_BLOCK_RENDERING_WHITELIST = new ConfigStringList("selectiveBlockRenderingWhiteList", ImmutableList.of(), "The blocks that will be rendered.");
