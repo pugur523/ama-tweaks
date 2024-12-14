@@ -74,6 +74,10 @@ public class Configs implements IConfigHandler
         public static final ConfigStringList SELECTIVE_ENTITY_RENDERING_WHITELIST = new ConfigStringList("selectiveEntityRenderingWhiteList", ImmutableList.of(), "The entities that will be rendered.");
         public static final ConfigStringList SELECTIVE_ENTITY_RENDERING_BLACKLIST = new ConfigStringList("selectiveEntityRenderingBlackList", ImmutableList.of(), "The entities that will not be rendered");
 
+        public static final ConfigOptionList SELECTIVE_TOOL_SWITCH_LIST_TYPE = new ConfigOptionList("selectiveToolSwitchListType", UsageRestriction.ListType.NONE, "The type of the list used for selective tool switch.");
+        public static final ConfigStringList SELECTIVE_TOOL_SWITCH_WHITELIST = new ConfigStringList("selectiveToolSwitchWhiteList", ImmutableList.of(), "The blocks that tweakToolSwitch will work on break.");
+        public static final ConfigStringList SELECTIVE_TOOL_SWITCH_BLACKLIST = new ConfigStringList("selectiveToolSwitchBlackList", ImmutableList.of(), "The blocks that tweakToolSwitch will not work on break");
+
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 HOTBAR_RESTOCK_LIST,
                 PICK_REDIRECT_MAP,
@@ -88,7 +92,10 @@ public class Configs implements IConfigHandler
                 SELECTIVE_BLOCK_RENDERING_BLACKLIST,
                 SELECTIVE_ENTITY_RENDERING_LIST_TYPE,
                 SELECTIVE_ENTITY_RENDERING_WHITELIST,
-                SELECTIVE_ENTITY_RENDERING_BLACKLIST
+                SELECTIVE_ENTITY_RENDERING_BLACKLIST,
+                SELECTIVE_TOOL_SWITCH_LIST_TYPE,
+                SELECTIVE_TOOL_SWITCH_WHITELIST,
+                SELECTIVE_TOOL_SWITCH_BLACKLIST
         );
     }
 
