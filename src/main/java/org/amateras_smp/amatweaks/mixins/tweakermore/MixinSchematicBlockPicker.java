@@ -1,9 +1,12 @@
 package org.amateras_smp.amatweaks.mixins.tweakermore;
 
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
 import me.fallenbreath.tweakermore.impl.features.schematicProPlace.SchematicBlockPicker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.impl.addon.tweakermore.SelectiveAutoPick;
 import org.spongepowered.asm.mixin.Mixin;
@@ -11,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+@Restriction(require = @Condition(Reference.ModIds.tweakermore))
 @Mixin(SchematicBlockPicker.class)
 public class MixinSchematicBlockPicker {
     @Inject(method = "doSchematicWorldPickBlock(Lnet/minecraft/client/MinecraftClient;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/Hand;)V", at = @At("HEAD"), cancellable = true)
