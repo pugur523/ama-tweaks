@@ -59,6 +59,16 @@ The interactions can be checked with `/history` command in the game and cleared 
 The number of interaction to keep can be set by `interactionHistoryMaxSize` in config generic.
 
 
+### tweakMonoChat
+
+> Overrides chat color with white.
+
+
+### tweakMonoGui
+
+> Overrides text color in gui with white.
+
+
 ### tweakPersistentGammaOverride
 
 > Fix a tweakeroo's bug that "tweakGammaOverride" will be not enabled on client restart.
