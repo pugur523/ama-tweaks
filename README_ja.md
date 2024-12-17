@@ -102,6 +102,7 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 
 > [!CAUTION]
 > この機能はブロックエンティティのカスタマイズをまだサポートしていません。<br>
+
 > ブロックの種類ごとに描画を行うかどうかカスタムできます。ブロックの設定はリストタブで指定できます。
 この機能はリストの設定が変わるたびにワールドレンダラーを再読み込みします。
 リストに追加するエントリーの記法は、ネームスペースを含めたブロックidを採用しています。(例: `minecraft:black_stained_glass`, `minecraft:grass_block`, `minecraft:bedrock`など)
