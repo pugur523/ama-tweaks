@@ -99,6 +99,7 @@ This can be useful for activities like perimeter digging.
 
 > [!CAUTION]
 > This feature has not supported block entity render selection yet.<br>
+
 > Renders only specified blocks. The blocks can be configured in the list tab so check it. This feature will reload the entire world (renderer) on settings changed.
 List entries example: `minecraft:white_stained_glass`, `minecraft:dirt`, `minecraft:bedrock`, etc.
 
