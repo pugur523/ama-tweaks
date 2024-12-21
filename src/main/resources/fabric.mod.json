@@ -37,6 +37,7 @@
     "modmenu": "*",
     "litematica": "*",
     "itemscroller": "*",
-    "tweakeroo": "*"
+    "tweakeroo": "*",
+    "syncmatica": "*"
   }
 }

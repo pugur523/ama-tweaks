@@ -3,6 +3,9 @@ package org.amateras_smp.amatweaks.mixins.syncmatica;
 import ch.endte.syncmatica.ServerPlacement;
 import ch.endte.syncmatica.litematica.gui.WidgetSyncmaticaServerPlacementEntry;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
+import me.fallenbreath.conditionalmixin.api.annotation.Condition;
+import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.impl.addon.syncmatica.EnhancedRemoveButton;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,6 +13,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
+@Restriction(require = @Condition(Reference.ModIds.syncmatica))
 @Mixin(value = WidgetSyncmaticaServerPlacementEntry.class, remap = false)
 public class MixinWidgetSyncmaticaServerPlacementEntry {
     @Shadow @Final
