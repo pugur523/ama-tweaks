@@ -54,7 +54,7 @@ public class MixinInGameHud {
         args.set(1, string);
         InGameHud instance = (InGameHud)(Object) this;
         int u = scaledWidth - 3 + 2;
-        //#if MC >= 11900
+        //#if MC >= 12000
         args.set(2, u - instance.getTextRenderer().getWidth(string));
         //#else
         //$$ args.set(2, (float) (u - instance.getTextRenderer().getWidth(string)));
