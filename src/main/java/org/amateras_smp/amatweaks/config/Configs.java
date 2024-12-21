@@ -30,6 +30,7 @@ public class Configs implements IConfigHandler
         public static final ConfigDouble AUTO_EAT_THRESHOLD = new ConfigDouble("autoEatThreshold", 1.0, 0, 1.0, "hunger level threshold for tweakAutoEat.");
         public static final ConfigInteger AUTO_FIREWORK_USE_INTERVAL = new ConfigInteger("autoFireworkUseInterval", 60, 1, 1000, "the interval game tick for automatically use firework rocket with tweakAutoFireworkGlide.");
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "the speed threshold for tweakAutoFireworkGlide to use firework rocket.");
+        public static final ConfigBoolean AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX = new ConfigBoolean("autoRestockOnlyAllowShulkerBox", false, "autoRestock will be only triggered when you open shulker boxes");
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
         public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", false, "disable auto eat feature when you're gliding with elytra.");
@@ -43,6 +44,7 @@ public class Configs implements IConfigHandler
                 AUTO_EAT_THRESHOLD,
                 AUTO_FIREWORK_USE_INTERVAL,
                 AUTO_GLIDE_SPEED_THRESHOLD,
+                AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX,
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,

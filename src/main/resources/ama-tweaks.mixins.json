@@ -31,5 +31,9 @@
     "litematica.MixinMaterialCache",
     "syncmatica.MixinWidgetSyncmaticaServerPlacementEntry",
     "tweakermore.MixinContainerMaterialListItemCollector"
+  ],
+  "mixins": [
+    "tweakermore.MixinSchematicBlockPicker",
+    "tweakeroo.MixinInventoryUtils"
   ]
 }
