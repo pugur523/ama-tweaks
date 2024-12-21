@@ -19,6 +19,7 @@ import org.amateras_smp.amatweaks.impl.addon.tweakeroo.SelectiveToolSwitch;
 import org.amateras_smp.amatweaks.impl.features.InteractionHistory;
 import org.amateras_smp.amatweaks.impl.features.PreventBreakingAdjacentPortal;
 import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
+import org.amateras_smp.amatweaks.impl.util.ClientCommandUtil;
 
 public class Callbacks {
 
@@ -28,6 +29,7 @@ public class Callbacks {
 
         Hotkeys.OPEN_CONFIG_GUI.getKeybind().setCallback(callbackGeneric);
         Hotkeys.REFRESH_MATERIAL_LIST.getKeybind().setCallback(callbackGeneric);
+        Hotkeys.SEE_INTERACTION_HISTORY.getKeybind().setCallback(callbackGeneric);
 
         FeatureToggle.TWEAK_HOLD_BACK.setValueChangeCallback(new FeatureCallbackHold(mc.options.backKey));
         FeatureToggle.TWEAK_HOLD_FORWARD.setValueChangeCallback(new FeatureCallbackHold(mc.options.forwardKey));
@@ -104,6 +106,8 @@ public class Callbacks {
                 } catch (ClassNotFoundException e) {
                     return false;
                 }
+            } else if (key == Hotkeys.SEE_INTERACTION_HISTORY.getKeybind()) {
+                return ClientCommandUtil.executeCommand("history");
             }
 
             return false;

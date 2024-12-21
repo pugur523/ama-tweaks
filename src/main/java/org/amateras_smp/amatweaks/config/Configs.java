@@ -37,6 +37,7 @@ public class Configs implements IConfigHandler
         public static final ConfigBoolean ON_AUTO_RESTOCK_CLOSE_GUI = new ConfigBoolean("onAutoRestockCloseGui", true, "close container gui screen on tweakAutoRestockHotbar restocks.");
         public static final ConfigBoolean REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL = new ConfigBoolean("refreshPrefilteredPostAutoCollectMaterial", false, "refresh pre-filtered material list at the end of autoCollectMaterial (tweakermore feature).");
         public static final ConfigBoolean REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED = new ConfigBoolean("refreshWorldRendererOnRenderBlocksChanged", true, "refresh client world renderer when config lists of tweakSelectiveBlockRendering changed.");
+        public static final ConfigBoolean SYNCMATICA_REMOVE_REQUIRE_SHIFT = new ConfigBoolean("syncmaticaRemoveRequireShift", false, "", "require shift to remove syncmatics from server");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
                 AUTO_EAT_THRESHOLD,
@@ -48,7 +49,8 @@ public class Configs implements IConfigHandler
                 INTERACTION_HISTORY_MAX_SIZE,
                 ON_AUTO_RESTOCK_CLOSE_GUI,
                 REFRESH_PREFILTERED_POST_AUTO_COLLECT_MATERIAL,
-                REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED
+                REFRESH_WORLD_RENDERER_ON_RENDER_BLOCKS_CHANGED,
+                SYNCMATICA_REMOVE_REQUIRE_SHIFT
         );
     }
 
@@ -103,9 +105,11 @@ public class Configs implements IConfigHandler
     public static class Disable
     {
         public static final ConfigBooleanHotkeyed DISABLE_NARRATOR = new ConfigBooleanHotkeyed("disableNarratorHotkey", false, "", "Disables the hotkey of the narrator");
+        public static final ConfigBooleanHotkeyed DISABLE_SYNCMATICA_REMOVE_BUTTON = new ConfigBooleanHotkeyed("disableSyncmaticaRemoveButton", false, "", "Disables the remove gui button of Syncmatica");
 
         public static final ImmutableList<IHotkeyTogglable> OPTIONS = ImmutableList.of(
-                DISABLE_NARRATOR
+                DISABLE_NARRATOR,
+                DISABLE_SYNCMATICA_REMOVE_BUTTON
         );
     }
 

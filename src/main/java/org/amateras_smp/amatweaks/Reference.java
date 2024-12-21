@@ -17,6 +17,7 @@ public class Reference {
         public static final String tweakermore = "tweakermore";
         public static final String itemscroller = "itemscroller";
         public static final String litematica = "litematica";
+        public static final String syncmatica = "syncmatica";
         public static final String minihud = "minihud";
         public static final String cheat_utils = "cheatutils";
         public static final String compact_chat = "compactchat";

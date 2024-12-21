@@ -46,7 +46,7 @@ dependencies {
     modImplementation "maven.modrinth:tweakermore:${project.tweakermore_version}"
     modImplementation "maven.modrinth:item-scroller:${project.itemscroller_version}"
     modImplementation "maven.modrinth:litematica:${project.litematica_version}"
-    // modImplementation "maven.modrinth:syncmatica:${project.syncmatica_version}"
+    modImplementation "maven.modrinth:syncmatica:${project.syncmatica_version}"
 }
 
 JavaVersion JAVA_COMPATIBILITY
