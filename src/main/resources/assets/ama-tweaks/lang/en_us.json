@@ -1,0 +1,4 @@
+{
+  "ama_tweaks.error.syncmatica_placements.remove_disabled" : "couldn't remove syncmatic : remove disabled.",
+  "ama_tweaks.error.syncmatica_placements.remove_require_shift" : "couldn't remove syncmatic : remove require shift."
+}
