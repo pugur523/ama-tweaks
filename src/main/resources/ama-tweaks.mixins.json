@@ -30,7 +30,7 @@
     "features.selectiveRendering.MixinWorldRenderer",
     "litematica.MixinMaterialCache",
     "syncmatica.MixinWidgetSyncmaticaServerPlacementEntry",
-    "tweakermore.MixinContainerMaterialListItemCollector"
+    "tweakermore.MixinContainerMaterialListItemCollector",
     "tweakeroo.MixinInventoryUtils",
     "tweakermore.MixinSchematicBlockPicker"
   ]
