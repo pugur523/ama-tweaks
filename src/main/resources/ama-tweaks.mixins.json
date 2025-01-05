@@ -19,6 +19,7 @@
     "features.interactionHistory.MixinClientPlayerInteractionManager",
     "features.interactionHistory.MixinMinecraftClient",
     "features.monoGui.MixinChatMessages",
+    "features.monoGui.MixinTeam",
     "features.monoGui.MixinTextRenderer",
     "features.persistentGammaOverride.MixinClientPlayNetworkHandler",
     "features.preventBreakingAdjacentPortal.MixinClientPlayerInteractionManager",
@@ -31,7 +32,7 @@
     "litematica.MixinMaterialCache",
     "syncmatica.MixinWidgetSyncmaticaServerPlacementEntry",
     "tweakermore.MixinContainerMaterialListItemCollector",
-    "tweakeroo.MixinInventoryUtils",
-    "tweakermore.MixinSchematicBlockPicker"
+    "tweakermore.MixinSchematicBlockPicker",
+    "tweakeroo.MixinInventoryUtils"
   ]
 }
