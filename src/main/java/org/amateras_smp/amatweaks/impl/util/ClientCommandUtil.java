@@ -20,11 +20,12 @@ public class ClientCommandUtil {
             if (!entry.contains(";")) continue;
             entry = entry.strip();
             String[] splitted = entry.split("\s*;\s*");
-            AmaTweaks.LOGGER.debug(splitted[0], " ", splitted[1]);
             CommandMeta aliasMeta = getCommandMeta(splitted[0].strip());
             CommandMeta fullCommandMeta = getCommandMeta(splitted[1].strip());
             commandsList.add(aliasMeta.command);
             commandAliasMap.put(aliasMeta, fullCommandMeta);
+
+            AmaTweaks.LOGGER.debug(aliasMeta + "\n" + fullCommandMeta);
         }
         return commandsList;
     }
@@ -110,11 +111,16 @@ public class ClientCommandUtil {
         public String asString() {
             return (this.command + " " + this.arguments).strip();
         }
+
+        @Override
+        public String toString() {
+            return ("command: \"" + this.command + "\", arguments : \"" + this.arguments + "\"").strip();
+        }
     }
 
     private static CommandMeta getCommandMeta(String s) {
         int endIndex = getCommandEndIndex(s);
-        if (endIndex == s.length()) {
+        if (endIndex == s.length() || endIndex < 0) {
             return new CommandMeta(s, "");
         }
         String command = s.substring(0, endIndex);
