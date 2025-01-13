@@ -3,6 +3,7 @@ package org.amateras_smp.amatweaks.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.impl.util.ClientCommandUtil;
 
@@ -13,6 +14,7 @@ public class LiteralCommandAliases {
         if (!Configs.Generic.CUSTOM_COMMAND_ALIASES.getBooleanValue()) return 0;
         String aliasInput = context.getInput();
         aliasInput = aliasInput.strip();
+        AmaTweaks.LOGGER.debug(aliasInput);
         String fullCommand = ClientCommandUtil.getCommandFromCustomAlias(aliasInput);
         if (fullCommand.isBlank()) return 0;
         ClientCommandUtil.executeCommand(fullCommand);
