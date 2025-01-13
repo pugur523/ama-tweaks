@@ -31,6 +31,7 @@ public class Configs implements IConfigHandler
         public static final ConfigInteger AUTO_FIREWORK_USE_INTERVAL = new ConfigInteger("autoFireworkUseInterval", 60, 1, 1000, "the interval game tick for automatically use firework rocket with tweakAutoFireworkGlide.");
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "the speed threshold for tweakAutoFireworkGlide to use firework rocket.");
         public static final ConfigBoolean AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX = new ConfigBoolean("autoRestockOnlyAllowShulkerBox", false, "autoRestock will be only triggered when you open shulker boxes");
+        public static final ConfigBoolean CUSTOM_COMMAND_ALIASES = new ConfigBoolean("customCommandAliases", false, "set custom aliases of command that can be configured in customCommandAliasesMap in list tab.");
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
         public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", false, "disable auto eat feature when you're gliding with elytra.");
@@ -45,6 +46,7 @@ public class Configs implements IConfigHandler
                 AUTO_FIREWORK_USE_INTERVAL,
                 AUTO_GLIDE_SPEED_THRESHOLD,
                 AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX,
+                CUSTOM_COMMAND_ALIASES,
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,
@@ -58,6 +60,8 @@ public class Configs implements IConfigHandler
 
     public static class Lists
     {
+        public static final ConfigStringList CUSTOM_COMMAND_ALIASES_MAP = new ConfigStringList("customCommandAliasesMap", ImmutableList.of("gr *; gamerule *", "cp *; carpet *", "s1; ch s1"), "The mapping of command aliases.");
+
         public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "The items to restock with tweakAutoRestockHotbar.");
         public static final ItemRestriction HOTBAR_RESTOCK_ITEMS = new ItemRestriction();
 
@@ -84,6 +88,7 @@ public class Configs implements IConfigHandler
         public static final ConfigStringList SELECTIVE_TOOL_SWITCH_BLACKLIST = new ConfigStringList("selectiveToolSwitchBlackList", ImmutableList.of(), "The blocks that tweakToolSwitch will not work on break");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
+                CUSTOM_COMMAND_ALIASES_MAP,
                 HOTBAR_RESTOCK_LIST,
                 PICK_REDIRECT_MAP,
                 PORTAL_BREAKING_RESTRICTION_LIST_TYPE,

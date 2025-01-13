@@ -5,24 +5,23 @@ import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.interfaces.IInitializationHandler;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
+import org.amateras_smp.amatweaks.command.LiteralCommandAliases;
 import org.amateras_smp.amatweaks.config.Callbacks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.event.InputHandler;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 import org.amateras_smp.amatweaks.command.HistoryCommand;
+import org.amateras_smp.amatweaks.impl.util.ClientCommandUtil;
 
 //#if MC >= 11900
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
-import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 //#else
 //$$ import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
-//$$ import static net.fabricmc.fabric.api.client.command.v1.ClientCommandManager.literal;
 //#endif
 
-public class InitHandler implements IInitializationHandler
-{
+public class InitHandler implements IInitializationHandler {
     @Override
-    public void registerModHandlers()
-    {
+    public void registerModHandlers() {
         ConfigManager.getInstance().registerConfigHandler(Reference.MOD_ID, new Configs());
 
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
@@ -45,5 +44,10 @@ public class InitHandler implements IInitializationHandler
     public static void registerCommands() {
         registerCommand("history", HistoryCommand.command);
         registerCommand("clearinteraction", HistoryCommand.clearCommand);
+
+        for (String alias : ClientCommandUtil.getAliases()) {
+            AmaTweaks.LOGGER.debug(alias);
+            registerCommand(alias, LiteralCommandAliases.command);
+        }
     }
 }
