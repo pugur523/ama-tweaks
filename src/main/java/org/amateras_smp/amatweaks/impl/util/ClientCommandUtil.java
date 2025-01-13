@@ -1,28 +1,43 @@
 package org.amateras_smp.amatweaks.impl.util;
 
 import net.minecraft.client.MinecraftClient;
+import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.config.Configs;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 //#if MC < 11900
 //$$ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 //#endif
 
 public class ClientCommandUtil {
-    public static ArrayList<String> getAliases() {
-        ArrayList<String> ret = new ArrayList<>();
-        for (String aliasString : Configs.Lists.CUSTOM_COMMAND_ALIASES_MAP.getStrings()) {
-            ret.add(getCommand(aliasString));
+    // The pairs of (alias, fullCommand).
+    private static final HashMap<CommandMeta, CommandMeta> commandAliasMap = new HashMap<>();
+
+    public static ArrayList<String> initAndGetCommands() {
+        ArrayList<String> commandsList = new ArrayList<>();
+        for (String entry : Configs.Lists.CUSTOM_COMMAND_ALIASES_MAP.getStrings()) {
+            if (!entry.contains(";")) continue;
+            entry = entry.strip();
+            String[] splitted = entry.split("\s*;\s*");
+            AmaTweaks.LOGGER.debug(splitted[0], " ", splitted[1]);
+            CommandMeta aliasMeta = getCommandMeta(splitted[0].strip());
+            CommandMeta fullCommandMeta = getCommandMeta(splitted[1].strip());
+            commandsList.add(aliasMeta.command);
+            commandAliasMap.put(aliasMeta, fullCommandMeta);
         }
-        return ret;
+        return commandsList;
     }
 
     public static boolean executeCommand(String input) {
-        if (MinecraftClient.getInstance().getNetworkHandler() == null) return false;
+        MinecraftClient client = MinecraftClient.getInstance();
+        if (client.getNetworkHandler() == null) return false;
         //#if MC >= 11900
-        return MinecraftClient.getInstance().getNetworkHandler().sendCommand(input);
+        return client.getNetworkHandler().sendCommand(input);
         //#else
         //$$ try {
-        //$$     MinecraftClient.getInstance().getNetworkHandler().getCommandDispatcher().execute(input, MinecraftClient.getInstance().getNetworkHandler().getCommandSource());
+        //$$     client.getNetworkHandler().getCommandDispatcher()
+        //$$         .execute(input, client.getNetworkHandler().getCommandSource());
         //$$ } catch (CommandSyntaxException e) {
         //$$     throw new RuntimeException(e);
         //$$ }
@@ -30,49 +45,15 @@ public class ClientCommandUtil {
         //#endif
     }
 
-    public static String getCommandFromCustomAlias(String command, String arguments) {
-        if (!Configs.Generic.CUSTOM_COMMAND_ALIASES.getBooleanValue()) return "";
-        for (String aliasString : Configs.Lists.CUSTOM_COMMAND_ALIASES_MAP.getStrings()) {
-            String firstCommand = getCommand(aliasString);
-            if (firstCommand.equals(command)) {
-                ArrayList<String> parsedAlias = parseCommandAlias(aliasString);
-                if (aliasString.contains("*")) {
-                    if (isWildcardMatch(parsedAlias.get(1), parsedAlias.get(3))) {
-                        return parsedAlias.get(0) + " " + arguments;
-                    }
-                } else if (parsedAlias.get(1).equals(arguments)) {
-                    return parsedAlias.get(0) + " " + parsedAlias.get(1);
-                }
+    public static String getCommandFromCustomAlias(String input) {
+        CommandMeta meta = getCommandMeta(input);
+        for (CommandMeta meta2 : commandAliasMap.keySet()) {
+            if (meta.command.equals(meta2.command)) {
+                if (meta.arguments.isBlank() || meta2.arguments.isBlank() || !meta2.arguments.contains("*")) return meta2.asString();
+                if (isWildcardMatch(meta.arguments, meta2.arguments)) return meta2.command + " " + meta.arguments;
             }
         }
         return "";
-    }
-
-    private static ArrayList<String> parseCommandAlias(String aliasString) {
-        int i = 0;
-        for (; i < aliasString.length(); i++) {
-            char c = aliasString.charAt(i);
-            if (c == ';') {
-                break;
-            }
-        }
-        String first = aliasString.substring(0, i);
-        String second = aliasString.substring(i + 1);
-
-        ArrayList<String> splitFirst = splitCommandAndArguments(first);
-        ArrayList<String> splitSecond = splitCommandAndArguments(second);
-
-        splitFirst.addAll(splitSecond);
-        return splitFirst;
-    }
-
-    public static ArrayList<String> splitCommandAndArguments(String rawInput) {
-        int start = getCommandStartIndex(rawInput);
-        int end = getCommandEndIndex(rawInput, start);
-        ArrayList<String> ret = new ArrayList<>();
-        ret.add(rawInput.substring(start, end));
-        ret.add(rawInput.substring(end + 1));
-        return ret;
     }
 
     private static boolean isWildcardMatch(String str, String pattern) {
@@ -80,14 +61,11 @@ public class ClientCommandUtil {
         int n = pattern.length();
 
         boolean[][] dp = new boolean[m + 1][n + 1];
-
         dp[0][0] = true;
 
         for (int j = 1; j <= n; j++) {
             if (pattern.charAt(j - 1) == '*') {
                 dp[0][j] = dp[0][j - 1];
-            } else {
-                break;
             }
         }
 
@@ -107,30 +85,40 @@ public class ClientCommandUtil {
         return dp[m][n];
     }
 
-    private static String getCommand(String commandWithArguments) {
+    private static int getCommandEndIndex(String commandWithArguments) {
         if (commandWithArguments == null || commandWithArguments.isBlank()) {
-            return "";
+            return -1;
         }
-        int start = getCommandStartIndex(commandWithArguments);
-        int end = getCommandEndIndex(commandWithArguments, start);
-        return commandWithArguments.substring(start, end);
+        int firstSpaceIndex = commandWithArguments.indexOf(' ');
+        int firstTabIndex = commandWithArguments.indexOf('\t');
+        int firstSemicolonIndex = commandWithArguments.indexOf(';');
+
+        return (firstSpaceIndex == -1) ? firstTabIndex :
+                (firstTabIndex == -1) ? firstSpaceIndex :
+                        (firstSemicolonIndex == -1) ? firstSemicolonIndex :
+                                Math.min(firstSemicolonIndex, (Math.min(firstSpaceIndex, firstTabIndex)));
     }
 
-    private static int getCommandStartIndex(String commandWithArguments) {
-        return searchBlank(commandWithArguments, 0, commandWithArguments.length());
-    }
-
-    private static int getCommandEndIndex(String commandWithArguments, int startIdx) {
-        return searchBlank(commandWithArguments, startIdx, commandWithArguments.length());
-    }
-
-    private static int searchBlank(String input, int start, int end) {
-        if (input == null || input.isBlank()) return 0;
-        int i = start;
-        for (; i < end; i++) {
-            boolean isBlank = input.charAt(i) == ' ' || input.charAt(i) == '\t';
-            if (isBlank) break;
+    private static class CommandMeta {
+        String command;
+        String arguments;
+        public CommandMeta(String command, String arguments) {
+            this.command = command;
+            this.arguments = arguments;
         }
-        return i;
+
+        public String asString() {
+            return (this.command + " " + this.arguments).strip();
+        }
+    }
+
+    private static CommandMeta getCommandMeta(String s) {
+        int endIndex = getCommandEndIndex(s);
+        if (endIndex == s.length()) {
+            return new CommandMeta(s, "");
+        }
+        String command = s.substring(0, endIndex);
+        String arguments = s.substring(endIndex);
+        return new CommandMeta(command, arguments);
     }
 }

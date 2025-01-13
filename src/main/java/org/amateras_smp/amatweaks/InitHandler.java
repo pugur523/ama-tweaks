@@ -1,6 +1,7 @@
 package org.amateras_smp.amatweaks;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.StringArgumentType;
 import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.interfaces.IInitializationHandler;
@@ -9,6 +10,7 @@ import org.amateras_smp.amatweaks.command.LiteralCommandAliases;
 import org.amateras_smp.amatweaks.config.Callbacks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.event.InputHandler;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 import org.amateras_smp.amatweaks.command.HistoryCommand;
 import org.amateras_smp.amatweaks.impl.util.ClientCommandUtil;
@@ -34,7 +36,9 @@ public class InitHandler implements IInitializationHandler {
     private static void registerCommand(String name, Command<FabricClientCommandSource> command) {
         //#if MC >= 11900
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(literal(name)
-                .executes(command)));
+                .executes(command)
+                .then(argument("arguments", StringArgumentType.string())
+                        .executes(command))));
         //#else
         //$$ ClientCommandManager.DISPATCHER.register(literal(name)
         //$$    .executes(command));
@@ -45,7 +49,7 @@ public class InitHandler implements IInitializationHandler {
         registerCommand("history", HistoryCommand.command);
         registerCommand("clearinteraction", HistoryCommand.clearCommand);
 
-        for (String alias : ClientCommandUtil.getAliases()) {
+        for (String alias : ClientCommandUtil.initAndGetCommands()) {
             AmaTweaks.LOGGER.debug(alias);
             registerCommand(alias, LiteralCommandAliases.command);
         }

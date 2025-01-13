@@ -45,7 +45,7 @@ public class HistoryCommand {
 
         return Command.SINGLE_SUCCESS;
     }
-    public static int clear(CommandContext<FabricClientCommandSource> context) {
+    private static int clear(CommandContext<FabricClientCommandSource> context) {
         InteractionHistory.blockInteractionHistory.clear();
         InteractionHistory.entityInteractionHistory.clear();
 
