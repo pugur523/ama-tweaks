@@ -2,6 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'fabric-loom'
 apply plugin: 'com.replaymod.preprocess'
 
+String mixinFile = "ama-tweaks.mixins.json"
 int mcVersion = project.mcVersion
 preprocess {
     tabIndentation = true
@@ -31,12 +32,16 @@ configurations {
     modImplementation.exclude group: 'io.github.prospector', module: 'modmenu'
 }
 // String tweakeroo_dependency = mcVersion >= 12100 ? "maven.modrinth:tweakeroo:${project.tweakeroo_version}" : "com.github.Andrews54757:tweakfork:${project.tweakfork_version}"
+String syncmatica_dependency = mcVersion >= 12004 ? "com.github.sakura-ryoko:syncmatica:${project.syncmatica_version}" : "maven.modrinth:syncmatica:${project.syncmatica_version}"
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    modImplementation "org.apache.logging.log4j:log4j-core:${project.log4j_version}"
+    modImplementation "org.apache.logging.log4j:log4j-api:${project.log4j_version}"
 
     modImplementation "com.github.Fallen-Breath:conditional-mixin:${project.conditional_mixin_version}"
 
@@ -48,7 +53,12 @@ dependencies {
     // else modImplementation files("../../lib/tweakfork-fabric-${project.tweakfork_version}.jar")
     modImplementation "maven.modrinth:tweakermore:${project.tweakermore_version}"
     modImplementation "maven.modrinth:item-scroller:${project.itemscroller_version}"
-    // modImplementation "maven.modrinth:syncmatica:${project.syncmatica_version}"
+    modImplementation "maven.modrinth:litematica:${project.litematica_version}"
+
+    modImplementation(syncmatica_dependency) {
+        exclude group: 'com.github.sakura-ryoko', module: 'malilib'
+        if (mcVersion == 12004 || mcVersion == 12006) exclude group: 'fi.dy.masa.malilib', module: 'malilib-fabric-1.20.6'
+    }
 }
 
 JavaVersion JAVA_COMPATIBILITY
@@ -63,47 +73,80 @@ if (mcVersion >= 12005) {
 }
 JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
 
+loom {
+    accessWidenerPath = file("${project.mod_id}.accesswidener")
+
+    def commonVmArgs = ['-Dmixin.debug.export=true']
+    if (mcVersion < 11904) {
+        // carpet 1.4.100+v230314 for mc1.19.4 and above
+        // fail to pass the check on at MinecraftServer_pingPlayerSampleLimit#modifyPlayerSampleLimit
+        // see https://github.com/gnembon/fabric-carpet/pull/1938
+        commonVmArgs.add('-Dmixin.debug.countInjections=true')
+    }
+    runConfigs.configureEach {
+        runDir '../../run'
+        vmArgs commonVmArgs
+        ideConfigGenerated true
+    }
+
+    runs {
+        def auditVmArgs = ["-D${project.mod_id}.mixin_audit=true"]
+        serverMixinAudit {
+            server()
+            vmArgs auditVmArgs
+            ideConfigGenerated false
+        }
+        clientMixinAudit {
+            client()
+            vmArgs auditVmArgs
+            ideConfigGenerated false
+        }
+    }
+}
+
 remapJar {
     remapperIsolation = true
 }
 
+String modVersionSuffix = ''
 String artifactVersion = project.mod_version
-String fullProjectVersion, fullArtifactVersion
-
+String artifactVersionSuffix = ''
+// detect github action environment variables
+// https://docs.github.com/en/actions/learn-github-actions/environment-variables#default-environment-variables
+if (System.getenv("BUILD_RELEASE") != "true") {
+    String buildNumber = System.getenv("BUILD_ID")
+    modVersionSuffix += buildNumber != null ? ('+build.' + buildNumber) : '-SNAPSHOT'
+    artifactVersionSuffix = '-SNAPSHOT'  // A non-release artifact is always a SNAPSHOT artifact
+}
+String fullModVersion = project.mod_version + modVersionSuffix
+String fullProjectVersion = "v${artifactVersion}-mc${project.minecraft_version}-${modVersionSuffix}"
+String fullArtifactVersion = "${artifactVersion}-mc${project.minecraft_version}-${artifactVersionSuffix}"
 // Example version values:
-//   project.mod_version     1.0.3                      (the base mod version)
-//   modVersionSuffix        +build.88                  (use github action build number if possible)
+//   artifactVersion         1.0.3                             (the base mod version)
+//   modVersionSuffix        +build.88                         (use github action build number if possible)
 //   artifactVersionSuffix   -SNAPSHOT
-//   fullModVersion          1.0.3+build.88             (the actual mod version to use in the mod)
-//   fullProjectVersion      v1.0.3-mc1.15.2+build.88   (in build output jar name)
-//   fullArtifactVersion     1.0.3-mc1.15.2-SNAPSHOT    (maven artifact version)
+//   fullModVersion          1.0.3+build.88                    (the actual mod version to use in the mod)
+//   fullProjectVersion      v1.0.3-mc1.15.2-fabric+build.88   (in build output jar name)
+//   fullArtifactVersion     1.0.3-mc1.15.2-fabric-SNAPSHOT    (maven artifact version)
 
 group = project.maven_group
 if (System.getenv("JITPACK") == "true") {
-    // move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
-    base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
+	// move mc version into archivesBaseName, so jitpack will be able to organize archives from multiple subprojects correctly
+	base.archivesName = project.archives_base_name + '-mc' + project.minecraft_version
+	fullProjectVersion = 'v' + project.mod_version + modVersionSuffix
+	fullArtifactVersion = artifactVersion + artifactVersionSuffix
 } else {
-    base.archivesName = project.archives_base_name
+	base.archivesName = project.archives_base_name
+	fullProjectVersion = 'v' + project.mod_version + '-mc' + project.minecraft_version + modVersionSuffix
+	fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version + artifactVersionSuffix
 }
-fullProjectVersion = project.minecraft_version + '-' + project.mod_version
-fullArtifactVersion = artifactVersion + '-mc' + project.minecraft_version
 version = fullProjectVersion
-
-static def getGitBranchName() {
-    def branch = 'git rev-parse --abbrev-ref HEAD'.execute().text.trim()
-    return branch ?: 'unknown-branch'
-}
-
-def branchName = getGitBranchName()
-
-if (branchName != "main") {
-    // rename jar file when it's not main branch
-    base.archivesName = project.archives_base_name + "-" + branchName
-}
 
 // See https://youtrack.jetbrains.com/issue/IDEA-296490
 // if IDEA complains about "Cannot resolve resource filtering of MatchingCopyAction" and you want to know why
 processResources {
+    from "${project.mod_id}.accesswidener"
+
     inputs.property "id", project.mod_id
     inputs.property "name", project.mod_name
     inputs.property "version", artifactVersion
@@ -119,7 +162,7 @@ processResources {
         expand valueMap
     }
 
-    filesMatching("ama-tweaks.mixins.json") {
+    filesMatching(mixinFile) {
         filter { s -> s.replace('{{COMPATIBILITY_LEVEL}}', "JAVA_${MIXIN_COMPATIBILITY_LEVEL.ordinal() + 1}") }
     }
 }

@@ -1,11 +1,11 @@
 package org.amateras_smp.amatweaks;
 
-import fi.dy.masa.malilib.util.StringUtils;
+import net.fabricmc.loader.api.FabricLoader;
 
 public class Reference {
     public static final String MOD_ID = "ama-tweaks";
     public static final String MOD_NAME = "AmaTweaks";
-    public static final String MOD_VERSION = StringUtils.getModVersionString(MOD_ID);
+    public static final String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
 
     public static class ModIds {
         public static final String minecraft = "minecraft";
@@ -17,6 +17,7 @@ public class Reference {
         public static final String tweakermore = "tweakermore";
         public static final String itemscroller = "itemscroller";
         public static final String litematica = "litematica";
+        public static final String syncmatica = "syncmatica";
         public static final String minihud = "minihud";
         public static final String cheat_utils = "cheatutils";
         public static final String compact_chat = "compactchat";

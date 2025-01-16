@@ -6,37 +6,30 @@ import org.amateras_smp.amatweaks.config.FeatureToggle;
 import org.amateras_smp.amatweaks.config.Hotkeys;
 import fi.dy.masa.malilib.hotkeys.*;
 
-public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IMouseInputHandler
-{
+public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IMouseInputHandler {
     private static final InputHandler INSTANCE = new InputHandler();
 
-    private InputHandler()
-    {
+    private InputHandler() {
         super();
     }
 
-    public static InputHandler getInstance()
-    {
+    public static InputHandler getInstance() {
         return INSTANCE;
     }
 
     @Override
-    public void addKeysToMap(IKeybindManager manager)
-    {
-        for (FeatureToggle toggle : FeatureToggle.values())
-        {
+    public void addKeysToMap(IKeybindManager manager) {
+        for (FeatureToggle toggle : FeatureToggle.values()) {
             manager.addKeybindToMap(toggle.getKeybind());
         }
 
-        for (IHotkey hotkey : Hotkeys.HOTKEY_LIST)
-        {
+        for (IHotkey hotkey : Hotkeys.HOTKEY_LIST) {
             manager.addKeybindToMap(hotkey.getKeybind());
         }
     }
 
     @Override
-    public void addHotkeys(IKeybindManager manager)
-    {
+    public void addHotkeys(IKeybindManager manager) {
         manager.addHotkeysForCategory(Reference.MOD_NAME, "amatweaks.hotkeys.category.generic_hotkeys", Hotkeys.HOTKEY_LIST);
         manager.addHotkeysForCategory(Reference.MOD_NAME, "amatweaks.hotkeys.category.tweak_toggle_hotkeys", ImmutableList.copyOf(FeatureToggle.values()));
     }

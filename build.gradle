@@ -18,6 +18,7 @@ preprocess {
     def mc1204 = createNode('1.20.4', 1_20_04, '')
     def mc1206 = createNode('1.20.6', 1_20_06, '')
     def mc1211  = createNode('1.21.1', 1_21_01, '')
+    def mc1214  = createNode('1.21.4', 1_21_04, '')
 
     mc1201.link(mc1194, file('versions/mapping-1.20.1-1.19.txt') as File)
     mc1194.link(mc1182,  file('versions/mapping-1.19-1.18.txt') as File)
@@ -27,27 +28,37 @@ preprocess {
     mc1202.link(mc1204, file('versions/mapping-1.20.2-1.20.4.txt') as File)
     mc1204.link(mc1206, file('versions/mapping-1.20.4-1.20.6.txt') as File)
     mc1206.link(mc1211, file('versions/mapping-1.20.6-1.21.1.txt') as File)
+    mc1211.link(mc1214, file('versions/mapping-1.21.1-1.21.4.txt') as File)
 }
 
 tasks.register('buildAndGather') {
+    group = 'build'
     subprojects {
         dependsOn project.tasks.named('build').get()
     }
     doFirst {
         println 'Gathering builds'
+
+        String targetLibsName = "libs/${project.mod_version}"
+
         def buildLibs = {
-            p -> p.buildDir.toPath().resolve('libs')
+            p -> p.buildDir.toPath().resolve("libs")
         }
-        delete fileTree(buildLibs(rootProject)) {
+
+        def targetLibs = {
+            p -> p.buildDir.toPath().resolve(targetLibsName)
+        }
+
+        delete fileTree(targetLibs(rootProject)) {
             include '*'
         }
         subprojects {
             copy {
                 from(buildLibs(project)) {
-                    include '*.jar'
-                    exclude '*-dev.jar', '*-sources.jar', '*-shadow.jar'
+                    include "*.jar"
+                    exclude '*-sources.jar', '*-shadow.jar'
                 }
-                into buildLibs(rootProject)
+                into targetLibs(rootProject)
                 duplicatesStrategy DuplicatesStrategy.INCLUDE
             }
         }
