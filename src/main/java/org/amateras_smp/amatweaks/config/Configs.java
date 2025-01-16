@@ -60,7 +60,7 @@ public class Configs implements IConfigHandler {
     }
 
     public static class Lists {
-        public static final ConfigStringList CUSTOM_COMMAND_ALIASES_MAP = new ConfigStringList("customCommandAliasesMap", ImmutableList.of("gr *; gamerule *", "cp *; carpet *", "s1; ch s1"), "The mapping of command aliases.");
+        public static final ConfigStringList CUSTOM_COMMAND_ALIASES_MAP = new ConfigStringList("customCommandAliasesMap", ImmutableList.of("gr *; gamerule *", "cp *; carpet *"), "The mapping of command aliases.");
 
         public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "The items to restock with tweakAutoRestockHotbar.");
         public static final ItemRestriction HOTBAR_RESTOCK_ITEMS = new ItemRestriction();
