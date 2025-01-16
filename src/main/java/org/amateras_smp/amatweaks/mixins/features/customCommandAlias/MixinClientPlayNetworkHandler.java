@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MixinClientPlayNetworkHandler {
     @Inject(method = "onGameJoin", at = @At("HEAD"))
     private void onGameJoinRegisterCommands(GameJoinS2CPacket packet, CallbackInfo ci) {
-        InitHandler.registerCommandOnGameJoin();
+        InitHandler.registerDynamicCommands();
     }
 }

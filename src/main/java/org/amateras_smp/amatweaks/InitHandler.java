@@ -14,6 +14,8 @@ import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.arg
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 import org.amateras_smp.amatweaks.command.HistoryCommand;
 import org.amateras_smp.amatweaks.impl.util.ClientCommandUtil;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.core.config.Configurator;
 
 //#if MC >= 11900
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -31,6 +33,12 @@ public class InitHandler implements IInitializationHandler {
         InputEventHandler.getInputManager().registerMouseInputHandler(InputHandler.getInstance());
 
         Callbacks.init();
+    }
+
+    public static void initLogLevel(boolean shouldEnableDebug) {
+        Configurator.setLevel(AmaTweaks.LOGGER, shouldEnableDebug ? Level.DEBUG : Level.ERROR);
+        if (shouldEnableDebug) AmaTweaks.LOGGER.debug("debug print is enabled");
+        else AmaTweaks.LOGGER.info("debug print is disabled");
     }
 
     private static void registerCommand(String name, Command<FabricClientCommandSource> command) {
@@ -51,11 +59,10 @@ public class InitHandler implements IInitializationHandler {
     public static void registerCommandsOnClientLoad() {
         registerCommand("history", HistoryCommand.command);
         registerCommand("clearinteraction", HistoryCommand.clearCommand);
-
-
     }
 
-    public static void registerCommandOnGameJoin() {
+    public static void registerDynamicCommands() {
+        if (!Configs.Generic.CUSTOM_COMMAND_ALIASES.getBooleanValue()) return;
         for (String alias : ClientCommandUtil.initAndGetCommands()) {
             AmaTweaks.LOGGER.debug(alias);
             registerCommand(alias, LiteralCommandAliases.command);

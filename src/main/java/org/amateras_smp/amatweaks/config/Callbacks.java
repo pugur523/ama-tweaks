@@ -2,6 +2,7 @@ package org.amateras_smp.amatweaks.config;
 
 import fi.dy.masa.litematica.data.DataManager;
 import fi.dy.masa.litematica.materials.MaterialListBase;
+import org.amateras_smp.amatweaks.InitHandler;
 import org.amateras_smp.amatweaks.gui.GuiConfigs;
 import fi.dy.masa.malilib.hotkeys.KeyCallbackAdjustable;
 import fi.dy.masa.malilib.util.InfoUtils;
@@ -60,6 +61,10 @@ public class Callbacks {
         // FeatureToggle.TWEAK_.getKeybind().setCallback(KeyCallbackAdjustableFeature.createCallback(FeatureToggle.TWEAK_));
 
         Configs.Generic.INTERACTION_HISTORY_MAX_SIZE.setValueChangeCallback((cfg) -> InteractionHistory.resize());
+        Configs.Generic.ENABLE_DEBUG_PRINTS.setValueChangeCallback((cfg) -> InitHandler.initLogLevel(cfg.getBooleanValue()));
+
+        Configs.Generic.CUSTOM_COMMAND_ALIASES.setValueChangeCallback((cfg) -> InitHandler.registerDynamicCommands());
+        Configs.Lists.CUSTOM_COMMAND_ALIASES_MAP.setValueChangeCallback((cfg) -> InitHandler.registerDynamicCommands());
 
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_BLACKLIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
         Configs.Lists.PORTAL_BREAKING_RESTRICTION_WHITELIST.setValueChangeCallback((cfg) -> PreventBreakingAdjacentPortal.buildLists());
@@ -81,16 +86,13 @@ public class Callbacks {
         Configs.Lists.SELECTIVE_TOOL_SWITCH_LIST_TYPE.setValueChangeCallback((cfg) -> SelectiveToolSwitch.buildLists());
     }
 
-    private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback
-    {
+    private static class KeyCallbackHotkeysGeneric implements IHotkeyCallback {
 
-        public KeyCallbackHotkeysGeneric()
-        {
+        public KeyCallbackHotkeysGeneric() {
         }
 
         @Override
-        public boolean onKeyAction(KeyAction action, IKeybind key)
-        {
+        public boolean onKeyAction(KeyAction action, IKeybind key) {
             if (key == Hotkeys.OPEN_CONFIG_GUI.getKeybind()) {
                 GuiBase.openGui(new GuiConfigs());
                 return true;
@@ -115,25 +117,21 @@ public class Callbacks {
         }
     }
 
-    public static class FeatureCallbackHold implements IValueChangeCallback<IConfigBoolean>
-    {
+    public static class FeatureCallbackHold implements IValueChangeCallback<IConfigBoolean> {
         private final KeyBinding keyBind;
 
-        public FeatureCallbackHold(KeyBinding keyBind)
-        {
+        public FeatureCallbackHold(KeyBinding keyBind) {
             this.keyBind = keyBind;
         }
 
         @Override
         public void onValueChanged(IConfigBoolean config)
         {
-            if (config.getBooleanValue())
-            {
+            if (config.getBooleanValue()) {
                 KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(this.keyBind.getBoundKeyTranslationKey()), true);
                 KeyBinding.onKeyPressed(InputUtil.fromTranslationKey(this.keyBind.getBoundKeyTranslationKey()));
             }
-            else
-            {
+            else {
                 KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(this.keyBind.getBoundKeyTranslationKey()), false);
             }
         }

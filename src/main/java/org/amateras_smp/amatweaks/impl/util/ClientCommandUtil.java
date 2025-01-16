@@ -57,10 +57,101 @@ public class ClientCommandUtil {
                 if (fullCommandMeta == null) continue;
 
                 if (inputMeta.arguments.isBlank() || aliasMeta.arguments.isBlank()) return fullCommandMeta.asString();
-                if (isWildcardMatch(inputMeta.arguments, aliasMeta.arguments)) return fullCommandMeta.command + " " + fullCommandMeta.applyWildCard(aliasMeta, inputMeta);
+                if (isWildcardMatch(inputMeta.arguments, aliasMeta.arguments)) {
+                    // applyWildCard(fullCommandMeta, inputMeta, aliasMeta);
+                    // return fullCommandMeta.asString();
+                    fullCommandMeta.arguments = inputMeta.arguments;
+                    return fullCommandMeta.asString();
+                }
             }
         }
         return "";
+    }
+
+    public static void applyWildCard(CommandMeta source, CommandMeta input, CommandMeta alias) {
+        AmaTweaks.LOGGER.debug("applying wildcard");
+        String args = source.arguments;
+        List<String> matchResult = matchPattern(input.arguments, alias.arguments);
+
+        AmaTweaks.LOGGER.debug(matchResult);
+
+        if (matchResult == null || matchResult.size() != countWildcards(alias.arguments)) {
+            return;
+        }
+        int argsIndex = 0;
+        int resultIndex = 0;
+        StringBuilder result = new StringBuilder();
+
+        while (argsIndex < args.length()) {
+            char argChar = args.charAt(argsIndex);
+
+            if (argChar == '*' || argChar == '?') {
+                result.append(matchResult.get(resultIndex));
+                resultIndex++;
+            } else {
+                result.append(argChar);
+            }
+
+            argsIndex++;
+        }
+        AmaTweaks.LOGGER.debug(result.toString());
+        source.arguments = result.toString();
+    }
+
+    private static List<String> matchPattern(String input, String pattern) {
+        List<String> result = new ArrayList<>();
+
+        int patternIndex = 0;
+        int otherIndex = 0;
+
+        while (patternIndex < pattern.length() && otherIndex < input.length()) {
+            char patternChar = pattern.charAt(patternIndex);
+            char otherChar = input.charAt(otherIndex);
+
+            if (patternChar == '?') {
+                result.add(String.valueOf(otherChar));
+                patternIndex++;
+                otherIndex++;
+            } else if (patternChar == '*') {
+                if (patternIndex == pattern.length() - 1) {
+                    result.add(input.substring(otherIndex));
+                    break;
+                } else {
+                    char nextPatternChar = pattern.charAt(patternIndex + 1);
+                    while (otherIndex < input.length() && input.charAt(otherIndex) != nextPatternChar) {
+                        result.add(String.valueOf(input.charAt(otherIndex)));
+                        otherIndex++;
+                    }
+                    patternIndex++;
+                }
+            } else if (patternChar == otherChar) {
+                result.add(String.valueOf(otherChar));
+                patternIndex++;
+                otherIndex++;
+            } else {
+                return null;
+            }
+        }
+
+        while (patternIndex < pattern.length() && pattern.charAt(patternIndex) == '*') {
+            patternIndex++;
+        }
+
+        if (patternIndex == pattern.length() && otherIndex == input.length()) {
+            return result;
+        }
+
+        return null;
+    }
+
+    private static int countWildcards(String pattern) {
+        int count = 0;
+        for (char c : pattern.toCharArray()) {
+            if (c == '*' || c == '?') {
+                count++;
+            }
+        }
+        return count;
     }
 
     private static boolean isWildcardMatch(String str, String pattern) {
@@ -107,101 +198,6 @@ public class ClientCommandUtil {
         int ret = Math.min(firstSemicolonIndex, (Math.min(firstSpaceIndex, firstTabIndex)));
         if (ret == Integer.MAX_VALUE) ret = -1;
         return ret;
-    }
-
-    private record CommandMeta(String command, String arguments) {
-
-        public String asString() {
-            return (this.command + " " + this.arguments).strip();
-        }
-
-        @Override
-        public String toString() {
-            return ("command: \"" + this.command + "\", arguments : \"" + this.arguments + "\"").strip();
-        }
-
-        public String applyWildCard(CommandMeta pattern, CommandMeta other) {
-            String args = this.arguments;
-            List<String> matchResult = matchPattern(pattern.arguments, other.arguments);
-
-            if (matchResult == null || matchResult.size() != countWildcards(pattern.arguments)) {
-                return args;
-            }
-            int argsIndex = 0;
-            int resultIndex = 0;
-            StringBuilder result = new StringBuilder();
-
-            while (argsIndex < args.length()) {
-                char argChar = args.charAt(argsIndex);
-
-                if (argChar == '*' || argChar == '?') {
-                    result.append(matchResult.get(resultIndex));
-                    resultIndex++;
-                } else {
-                    result.append(argChar);
-                }
-
-                argsIndex++;
-            }
-
-            return result.toString();
-        }
-    }
-
-    private static List<String> matchPattern(String pattern, String other) {
-        List<String> result = new ArrayList<>();
-
-        int patternIndex = 0;
-        int otherIndex = 0;
-
-        while (patternIndex < pattern.length() && otherIndex < other.length()) {
-            char patternChar = pattern.charAt(patternIndex);
-            char otherChar = other.charAt(otherIndex);
-
-            if (patternChar == '?') {
-                result.add(String.valueOf(otherChar));
-                patternIndex++;
-                otherIndex++;
-            } else if (patternChar == '*') {
-                if (patternIndex == pattern.length() - 1) {
-                    result.add(other.substring(otherIndex));
-                    break;
-                } else {
-                    char nextPatternChar = pattern.charAt(patternIndex + 1);
-                    while (otherIndex < other.length() && other.charAt(otherIndex) != nextPatternChar) {
-                        result.add(String.valueOf(other.charAt(otherIndex)));
-                        otherIndex++;
-                    }
-                    patternIndex++;
-                }
-            } else if (patternChar == otherChar) {
-                result.add(String.valueOf(otherChar));
-                patternIndex++;
-                otherIndex++;
-            } else {
-                return null;
-            }
-        }
-
-        while (patternIndex < pattern.length() && pattern.charAt(patternIndex) == '*') {
-            patternIndex++;
-        }
-
-        if (patternIndex == pattern.length() && otherIndex == other.length()) {
-            return result;
-        }
-
-        return null;
-    }
-
-    private static int countWildcards(String pattern) {
-        int count = 0;
-        for (char c : pattern.toCharArray()) {
-            if (c == '*' || c == '?') {
-                count++;
-            }
-        }
-        return count;
     }
 
     private static CommandMeta getCommandMeta(String s) {

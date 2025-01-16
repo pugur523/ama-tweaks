@@ -12,6 +12,7 @@ import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
 import fi.dy.masa.malilib.util.restrictions.ItemRestriction;
 import fi.dy.masa.malilib.util.restrictions.UsageRestriction;
+import org.amateras_smp.amatweaks.InitHandler;
 import org.amateras_smp.amatweaks.Reference;
 import org.amateras_smp.amatweaks.impl.addon.tweakermore.SelectiveAutoPick;
 import org.amateras_smp.amatweaks.impl.addon.tweakeroo.SelectiveToolSwitch;
@@ -21,17 +22,16 @@ import org.amateras_smp.amatweaks.impl.features.SelectiveRendering;
 
 import java.io.File;
 
-public class Configs implements IConfigHandler
-{
+public class Configs implements IConfigHandler {
     private static final String CONFIG_FILE_NAME = Reference.MOD_ID + ".json";
 
-    public static class Generic
-    {
+    public static class Generic {
         public static final ConfigDouble AUTO_EAT_THRESHOLD = new ConfigDouble("autoEatThreshold", 1.0, 0, 1.0, "hunger level threshold for tweakAutoEat.");
         public static final ConfigInteger AUTO_FIREWORK_USE_INTERVAL = new ConfigInteger("autoFireworkUseInterval", 60, 1, 1000, "the interval game tick for automatically use firework rocket with tweakAutoFireworkGlide.");
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "the speed threshold for tweakAutoFireworkGlide to use firework rocket.");
         public static final ConfigBoolean AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX = new ConfigBoolean("autoRestockOnlyAllowShulkerBox", false, "autoRestock will be only triggered when you open shulker boxes");
         public static final ConfigBoolean CUSTOM_COMMAND_ALIASES = new ConfigBoolean("customCommandAliases", false, "set custom aliases of command that can be configured in customCommandAliasesMap in list tab.");
+        public static final ConfigBoolean ENABLE_DEBUG_PRINTS = new ConfigBoolean("enableDebugPrints", false, "enables debug prints for ama-tweaks developer.");
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
         public static final ConfigInteger FOOD_SWITCHABLE_SLOT = new ConfigInteger ("foodSwitchableSlot", 0, 0, 8, "slot to switch food by tweakAutoEat. starts from 0.");
         public static final ConfigBoolean GLIDING_AUTO_EAT_DISABLED = new ConfigBoolean("glidingAutoEatDisabled", false, "disable auto eat feature when you're gliding with elytra.");
@@ -47,6 +47,7 @@ public class Configs implements IConfigHandler
                 AUTO_GLIDE_SPEED_THRESHOLD,
                 AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX,
                 CUSTOM_COMMAND_ALIASES,
+                ENABLE_DEBUG_PRINTS,
                 FIREWORK_SWITCHABLE_SLOT,
                 FOOD_SWITCHABLE_SLOT,
                 GLIDING_AUTO_EAT_DISABLED,
@@ -58,8 +59,7 @@ public class Configs implements IConfigHandler
         );
     }
 
-    public static class Lists
-    {
+    public static class Lists {
         public static final ConfigStringList CUSTOM_COMMAND_ALIASES_MAP = new ConfigStringList("customCommandAliasesMap", ImmutableList.of("gr *; gamerule *", "cp *; carpet *", "s1; ch s1"), "The mapping of command aliases.");
 
         public static final ConfigStringList HOTBAR_RESTOCK_LIST = new ConfigStringList("hotbarRestockList", ImmutableList.of("minecraft:firework_rocket", "minecraft:golden_carrot", "minecraft:experience_bottle"), "The items to restock with tweakAutoRestockHotbar.");
@@ -109,8 +109,7 @@ public class Configs implements IConfigHandler
         );
     }
 
-    public static class Disable
-    {
+    public static class Disable {
         public static final ConfigBooleanHotkeyed DISABLE_NARRATOR = new ConfigBooleanHotkeyed("disableNarratorHotkey", false, "", "Disables the hotkey of the narrator");
         public static final ConfigBooleanHotkeyed DISABLE_SYNCMATICA_REMOVE_BUTTON = new ConfigBooleanHotkeyed("disableSyncmaticaRemoveButton", false, "", "Disables the remove gui button of Syncmatica");
 
@@ -122,6 +121,7 @@ public class Configs implements IConfigHandler
 
     public static void onConfigLoaded() {
         Lists.HOTBAR_RESTOCK_ITEMS.setListContents(ImmutableList.of(""), Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings());
+        InitHandler.initLogLevel(Generic.ENABLE_DEBUG_PRINTS.getBooleanValue());
 
         InteractionHistory.resize();
 
@@ -136,12 +136,10 @@ public class Configs implements IConfigHandler
     public static void loadFromFile() {
         File configFile = new File(FileUtils.getConfigDirectory(), CONFIG_FILE_NAME);
 
-        if (configFile.exists() && configFile.isFile() && configFile.canRead())
-        {
+        if (configFile.exists() && configFile.isFile() && configFile.canRead()) {
             JsonElement element = JsonUtils.parseJsonFile(configFile);
 
-            if (element != null && element.isJsonObject())
-            {
+            if (element != null && element.isJsonObject()) {
                 JsonObject root = element.getAsJsonObject();
                 ConfigUtils.readConfigBase(root, "Generic", Generic.OPTIONS);
                 // ConfigUtils.readConfigBase(root, "Fixes", Fixes.OPTIONS);
@@ -158,8 +156,7 @@ public class Configs implements IConfigHandler
     public static void saveToFile() {
         File dir = FileUtils.getConfigDirectory();
 
-        if ((dir.exists() && dir.isDirectory()) || dir.mkdirs())
-        {
+        if ((dir.exists() && dir.isDirectory()) || dir.mkdirs()) {
             JsonObject root = new JsonObject();
 
             ConfigUtils.writeConfigBase(root, "Generic", Configs.Generic.OPTIONS);
@@ -174,14 +171,12 @@ public class Configs implements IConfigHandler
     }
 
     @Override
-    public void load()
-    {
+    public void load() {
         loadFromFile();
     }
 
     @Override
-    public void save()
-    {
+    public void save() {
         saveToFile();
     }
 }
