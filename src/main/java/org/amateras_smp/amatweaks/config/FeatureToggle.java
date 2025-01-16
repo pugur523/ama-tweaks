@@ -15,6 +15,7 @@ import fi.dy.masa.malilib.hotkeys.KeybindSettings;
 import fi.dy.masa.malilib.interfaces.IValueChangeCallback;
 import fi.dy.masa.malilib.util.StringUtils;
 import org.amateras_smp.amatweaks.AmaTweaks;
+import org.amateras_smp.amatweaks.Reference;
 
 public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfigBoolean> {
     TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eats food automatically when your food level is not full."),
@@ -42,46 +43,125 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
 
     public static final ImmutableList<FeatureToggle> VALUES = ImmutableList.copyOf(values());
 
+    private final static String FEATURE_KEY = Reference.MOD_ID+ ".config.feature_toggle";
+
     private final String name;
-    private final String comment;
-    private final String prettyName;
+    private String comment;
+    private String prettyName;
+    private String translatedName;
     private final IKeybind keybind;
     private final boolean defaultValueBoolean;
     private final boolean singlePlayer;
     private boolean valueBoolean;
     private IValueChangeCallback<IConfigBoolean> callback;
 
-    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, String comment) {
-        this(name, defaultValue, false, defaultHotkey, KeybindSettings.DEFAULT, comment);
+    FeatureToggle(String name, boolean defaultValue, String defaultHotkey)
+    {
+        this(name, defaultValue, false, defaultHotkey, KeybindSettings.DEFAULT,
+                buildTranslateName(name, "comment"),
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
     }
 
-    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, String comment) {
-        this(name, defaultValue, singlePlayer, defaultHotkey, KeybindSettings.DEFAULT, comment);
+    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, KeybindSettings settings)
+    {
+        this(name, defaultValue, false, defaultHotkey, settings,
+                buildTranslateName(name, "comment"),
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
     }
 
-    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, KeybindSettings settings, String comment) {
-        this(name, defaultValue, false, defaultHotkey, settings, comment);
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey)
+    {
+        this(name, defaultValue, singlePlayer, defaultHotkey, KeybindSettings.DEFAULT,
+                buildTranslateName(name, "comment"),
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
     }
 
-    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, KeybindSettings settings, String comment) {
-        this(name, defaultValue, singlePlayer, defaultHotkey, settings, comment, StringUtils.splitCamelCase(name.substring(5)));
+    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, String comment, String prettyName, String translatedName)
+    {
+        this(name, defaultValue, false, defaultHotkey,
+                comment,
+                prettyName,
+                translatedName);
     }
 
-    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, String comment, String prettyName) {
-        this(name, defaultValue, false, defaultHotkey, comment, prettyName);
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, String comment, String prettyName, String translatedName)
+    {
+        this(name, defaultValue, singlePlayer, defaultHotkey, KeybindSettings.DEFAULT,
+                comment,
+                prettyName,
+                translatedName);
     }
 
-    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, String comment, String prettyName) {
-        this(name, defaultValue, singlePlayer, defaultHotkey, KeybindSettings.DEFAULT, comment, prettyName);
+    // Backwards Compatible constructors - START
+    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, String comment)
+    {
+        this(name, defaultValue, false, defaultHotkey, KeybindSettings.DEFAULT,
+                comment,
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
     }
 
-    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, KeybindSettings settings, String comment, String prettyName) {
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, String comment)
+    {
+        this(name, defaultValue, singlePlayer, defaultHotkey, KeybindSettings.DEFAULT,
+                comment,
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
+    }
+
+    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, KeybindSettings settings, String comment)
+    {
+        this(name, defaultValue, false, defaultHotkey, settings,
+                comment,
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
+    }
+
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, KeybindSettings settings, String comment)
+    {
+        this(name, defaultValue, singlePlayer, defaultHotkey, settings,
+                comment,
+                buildTranslateName(name, "prettyName"),
+                buildTranslateName(name, "name"));
+    }
+
+    FeatureToggle(String name, boolean defaultValue, String defaultHotkey, String comment, String prettyName)
+    {
+        this(name, defaultValue, false, defaultHotkey,
+                comment,
+                prettyName,
+                buildTranslateName(name, "name"));
+    }
+
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, String comment, String prettyName)
+    {
+        this(name, defaultValue, singlePlayer, defaultHotkey, KeybindSettings.DEFAULT,
+                comment,
+                prettyName,
+                buildTranslateName(name, "name"));
+    }
+
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, KeybindSettings settings, String comment, String prettyName)
+    {
+        this(name, defaultValue, singlePlayer, defaultHotkey, settings,
+                comment,
+                prettyName,
+                buildTranslateName(name, "name"));
+    }
+    // Backwards Compatible constructors - END
+
+    FeatureToggle(String name, boolean defaultValue, boolean singlePlayer, String defaultHotkey, KeybindSettings settings, String comment, String prettyName, String translatedName)
+    {
         this.name = name;
         this.valueBoolean = defaultValue;
         this.defaultValueBoolean = defaultValue;
         this.singlePlayer = singlePlayer;
         this.comment = comment;
         this.prettyName = prettyName;
+        this.translatedName = translatedName;
         this.keybind = KeybindMulti.fromStorageString(defaultHotkey, settings);
         this.keybind.setCallback(new KeyCallbackToggleBooleanConfigWithMessage(this));
     }
@@ -125,34 +205,43 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
         return comment;
     }
 
+    private static String buildTranslateName(String name, String type) {
+        return FEATURE_KEY + "." + type + "." + name;
+    }
+
     //#if MC >= 12104
     //$$ @Override
-    //$$ public String getTranslatedName() {
-    //$$     String name = StringUtils.getTranslatedOrFallback(this.translatedName, this.name);
-    //$$
-    //$$        if (this.singlePlayer)
-    //$$        {
-    //$$            name = GuiBase.TXT_GOLD + name + GuiBase.TXT_RST;
-    //$$        }
-    //$$
-    //$$        return name;
-    //$$ }
-    //$$
-    //$$ @Override
-    //$$ public void setPrettyName(String s) {
-    //$$    this.prettyName = s;
-    //$$ }
-    //$$
-    //$$ @Override
-    //$$ public void setTranslatedName(String s) {
-    //$$    this.translatedName = s;
-    //$$ }
-    //$$
-    //$$ @Override
-    //$$ public void setComment(String s) {
-    //$$    this.comment = s;
-    //$$ }
     //#endif
+    public String getTranslatedName() {
+        String name = StringUtils.getTranslatedOrFallback(this.translatedName, this.name);
+    
+        if (this.singlePlayer) {
+            name = GuiBase.TXT_GOLD + name + GuiBase.TXT_RST;
+        }
+    
+        return name;
+    }
+    
+    //#if MC >= 12104
+    //$$ @Override
+    //#endif
+    public void setPrettyName(String s) {
+       this.prettyName = s;
+    }
+    
+    //#if MC >= 12104
+    //$$ @Override
+    //#endif
+    public void setTranslatedName(String s) {
+       this.translatedName = s;
+    }
+    
+    //#if MC >= 12104
+    //$$ @Override
+    //#endif
+    public void setComment(String s) {
+       this.comment = s;
+    }
 
     @Override
     public String getStringValue() {

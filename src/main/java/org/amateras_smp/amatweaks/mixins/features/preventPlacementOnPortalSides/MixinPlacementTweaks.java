@@ -3,13 +3,13 @@ package org.amateras_smp.amatweaks.mixins.features.preventPlacementOnPortalSides
 import fi.dy.masa.tweakeroo.tweaks.PlacementTweaks;
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.world.ClientWorld;
-import net.minecraft.item.ItemPlacementContext;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.*;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -45,8 +45,25 @@ public class MixinPlacementTweaks {
         //#endif
     }
 
-    @Shadow
-    private static boolean isFacingValidFor(Direction facing, ItemStack stack) {
+    @Unique
+    private static boolean isFacingValidForDirection(ItemStack stack, Direction facing) {
+        Item item = stack.getItem();
+        if (!stack.isEmpty() && item instanceof BlockItem) {
+            Block block = ((BlockItem)item).getBlock();
+            BlockState state = block.getDefaultState();
+            if (state.contains(Properties.FACING)) {
+                return true;
+            }
+
+            if (state.contains(Properties.HOPPER_FACING) && !facing.equals(Direction.UP)) {
+                return true;
+            }
+
+            if (state.contains(Properties.HORIZONTAL_FACING) && !facing.equals(Direction.UP) && !facing.equals(Direction.DOWN)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -77,9 +94,9 @@ public class MixinPlacementTweaks {
 
         double x;
         //#if MC >= 12100
-        //$$ if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidFor(sideIn, stackOriginal)) {
+        //$$ if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidForDirection(stackOriginal, sideIn)) {
         //#else
-        if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.CARPET_ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidFor(sideIn, stackOriginal)) {
+        if (flexible && rotation && !accurate && fi.dy.masa.tweakeroo.config.Configs.Generic.CARPET_ACCURATE_PLACEMENT_PROTOCOL.getBooleanValue() && isFacingValidForDirection(stackOriginal, sideIn)) {
         //#endif
             Direction facing = sideIn.getOpposite();
             x = posIn.getX() + 2 + facing.getId() * 2;
