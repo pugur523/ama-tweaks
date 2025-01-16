@@ -3,7 +3,6 @@ package org.amateras_smp.amatweaks.command;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.config.Configs;

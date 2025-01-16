@@ -3,7 +3,6 @@ package org.amateras_smp.amatweaks.impl.features;
 import fi.dy.masa.malilib.util.StringUtils;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import org.amateras_smp.amatweaks.config.Configs;
