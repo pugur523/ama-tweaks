@@ -110,8 +110,49 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
 
     @Override
     public String getPrettyName() {
-        return this.prettyName;
+        return StringUtils.getTranslatedOrFallback(this.prettyName,
+                !this.prettyName.isEmpty() ? this.prettyName : StringUtils.splitCamelCase(this.name.substring(5)));
     }
+
+    @Override
+    public String getComment() {
+        String comment = StringUtils.getTranslatedOrFallback("config.comment." + this.getName().toLowerCase(), this.comment);
+
+        if (comment != null && this.singlePlayer) {
+            return comment + "\n" + StringUtils.translate("tweakeroo.label.config_comment.single_player_only");
+        }
+
+        return comment;
+    }
+
+    //#if MC >= 12104
+    //$$ @Override
+    //$$ public String getTranslatedName() {
+    //$$     String name = StringUtils.getTranslatedOrFallback(this.translatedName, this.name);
+    //$$
+    //$$        if (this.singlePlayer)
+    //$$        {
+    //$$            name = GuiBase.TXT_GOLD + name + GuiBase.TXT_RST;
+    //$$        }
+    //$$
+    //$$        return name;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public void setPrettyName(String s) {
+    //$$    this.prettyName = s;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public void setTranslatedName(String s) {
+    //$$    this.translatedName = s;
+    //$$ }
+    //$$
+    //$$ @Override
+    //$$ public void setComment(String s) {
+    //$$    this.comment = s;
+    //$$ }
+    //#endif
 
     @Override
     public String getStringValue() {
@@ -137,17 +178,6 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     @Override
     public void setValueChangeCallback(IValueChangeCallback<IConfigBoolean> callback) {
         this.callback = callback;
-    }
-
-    @Override
-    public String getComment() {
-        String comment = StringUtils.getTranslatedOrFallback("config.comment." + this.getName().toLowerCase(), this.comment);
-
-        if (comment != null && this.singlePlayer) {
-            return comment + "\n" + StringUtils.translate("tweakeroo.label.config_comment.single_player_only");
-        }
-
-        return comment;
     }
 
     @Override

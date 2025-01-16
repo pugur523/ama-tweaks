@@ -35,16 +35,18 @@ public class EnhancedRemoveButton {
                 return;
             }
             if (Configs.Generic.SYNCMATICA_REMOVE_REQUIRE_SHIFT.getBooleanValue() && !GuiBase.isShiftDown()) {
-                ScreenHelper.ifPresent((s) -> {
-                    s.addMessage(Message.MessageType.ERROR, "ama_tweaks.error.syncmatica_placements.remove_require_shift");
-                });
+                ScreenHelper.ifPresent((s) -> s.addMessage(Message.MessageType.ERROR, "ama_tweaks.error.syncmatica_placements.remove_require_shift"));
                 return;
             }
             Context con = LitematicManager.getInstance().getActiveContext();
             ExchangeTarget server = ((ClientCommunicationManager)con.getCommunicationManager()).getServer();
             PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
             packetBuf.writeUuid(placementId);
+            //#if MC >= 12004
+            //$$ server.sendPacket(PacketType.REMOVE_SYNCMATIC, packetBuf, LitematicManager.getInstance().getActiveContext());
+            //#else
             server.sendPacket(PacketType.REMOVE_SYNCMATIC.identifier, packetBuf, LitematicManager.getInstance().getActiveContext());
+            //#endif
         }
     }
 }

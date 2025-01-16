@@ -19,7 +19,7 @@ public class MixinWidgetSyncmaticaServerPlacementEntry {
     @Shadow @Final
     private ServerPlacement placement;
 
-    @ModifyArg(method = "<init>(IIIILch/endte/syncmatica/ServerPlacement;I)V", at = @At(value = "INVOKE", target = "Lch/endte/syncmatica/litematica/gui/WidgetSyncmaticaServerPlacementEntry;addButton(Lfi/dy/masa/malilib/gui/button/ButtonBase;Lfi/dy/masa/malilib/gui/button/IButtonActionListener;)Lfi/dy/masa/malilib/gui/button/ButtonBase;", ordinal = 0), index = 1)
+    @ModifyArg(method = "<init>", at = @At(value = "INVOKE", target = "Lch/endte/syncmatica/litematica/gui/WidgetSyncmaticaServerPlacementEntry;addButton(Lfi/dy/masa/malilib/gui/button/ButtonBase;Lfi/dy/masa/malilib/gui/button/IButtonActionListener;)Lfi/dy/masa/malilib/gui/button/ButtonBase;", ordinal = 0), index = 1)
     private IButtonActionListener onInitRemoveButton(IButtonActionListener par2) {
         return new EnhancedRemoveButton.ButtonListener((WidgetSyncmaticaServerPlacementEntry)(Object)this, placement.getId());
     }
