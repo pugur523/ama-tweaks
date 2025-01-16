@@ -48,10 +48,14 @@ public class InitHandler implements IInitializationHandler {
         ;
     }
 
-    public static void registerCommands() {
+    public static void registerCommandsOnClientLoad() {
         registerCommand("history", HistoryCommand.command);
         registerCommand("clearinteraction", HistoryCommand.clearCommand);
 
+
+    }
+
+    public static void registerCommandOnGameJoin() {
         for (String alias : ClientCommandUtil.initAndGetCommands()) {
             AmaTweaks.LOGGER.debug(alias);
             registerCommand(alias, LiteralCommandAliases.command);

@@ -17,7 +17,7 @@ public class AmaTweaks implements ClientModInitializer {
         LOGGER.debug("[AmaTweaks] debug log is enabled");
 
         InitializationHandler.getInstance().registerInitializationHandler(new InitHandler());
-        InitHandler.registerCommands();
+        InitHandler.registerCommandsOnClientLoad();
         LOGGER.info("ama-tweaks (v{}) has initialized!", Reference.MOD_VERSION);
     }
 }
