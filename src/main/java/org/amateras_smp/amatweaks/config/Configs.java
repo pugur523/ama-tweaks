@@ -1,3 +1,7 @@
+// Copyright (c) 2025 The Ama-Tweaks Authors
+// This file is part of the Ama-Tweaks project and is licensed under the terms of
+// the MIT License. See the LICENSE file for details.
+
 package org.amateras_smp.amatweaks.config;
 
 import com.google.common.collect.ImmutableList;
@@ -30,6 +34,7 @@ public class Configs implements IConfigHandler {
         public static final ConfigInteger AUTO_FIREWORK_USE_INTERVAL = new ConfigInteger("autoFireworkUseInterval", 60, 1, 1000, "the interval game tick for automatically use firework rocket with tweakAutoFireworkGlide.");
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "the speed threshold for tweakAutoFireworkGlide to use firework rocket.");
         public static final ConfigBoolean AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX = new ConfigBoolean("autoRestockOnlyAllowShulkerBox", false, "autoRestock will be only triggered when you open shulker boxes");
+        public static final ConfigBoolean CANCEL_AUTO_EAT_WHILE_DOING_ACTION = new ConfigBoolean("cancelAutoEatWhileDoingAction", false, "autoEat will not be triggered while using or attacking.");
         public static final ConfigBoolean CUSTOM_COMMAND_ALIASES = new ConfigBoolean("customCommandAliases", false, "set custom aliases of command that can be configured in customCommandAliasesMap in list tab.");
         public static final ConfigBoolean ENABLE_DEBUG_PRINTS = new ConfigBoolean("enableDebugPrints", false, "enables debug prints for ama-tweaks developer.");
         public static final ConfigInteger FIREWORK_SWITCHABLE_SLOT = new ConfigInteger ("fireworkSwitchableSlot", 0, 0, 8, "slot to switch firework rocket by tweakAutoFireworkGlide. starts from 0.");
@@ -46,6 +51,7 @@ public class Configs implements IConfigHandler {
                 AUTO_FIREWORK_USE_INTERVAL,
                 AUTO_GLIDE_SPEED_THRESHOLD,
                 AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX,
+                CANCEL_AUTO_EAT_WHILE_DOING_ACTION,
                 CUSTOM_COMMAND_ALIASES,
                 ENABLE_DEBUG_PRINTS,
                 FIREWORK_SWITCHABLE_SLOT,

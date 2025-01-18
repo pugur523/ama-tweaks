@@ -1,3 +1,7 @@
+// Copyright (c) 2025 The Ama-Tweaks Authors
+// This file is part of the Ama-Tweaks project and is licensed under the terms of
+// the MIT License. See the LICENSE file for details.
+
 package org.amateras_smp.amatweaks.impl.features;
 
 import net.minecraft.client.MinecraftClient;
@@ -30,41 +34,50 @@ public class AutoEat {
 
     public static void autoEat(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
         if ((double) player.getHungerManager().getFoodLevel() / 20 <= Configs.Generic.AUTO_EAT_THRESHOLD.getDoubleValue() && player.getHungerManager().isNotFull()) {
-            HitResult hit = mc.crosshairTarget;
-            if (hit == null) return;
-            if (hit.getType() == HitResult.Type.BLOCK) {
-                BlockHitResult hitBlock = (BlockHitResult) hit;
-                BlockPos hitBlockPos = hitBlock.getBlockPos();
+            if (shouldAutoEat(mc)) {
+                HitResult hit = mc.crosshairTarget;
+                if (hit == null) return;
+                if (hit.getType() == HitResult.Type.BLOCK) {
+                    BlockHitResult hitBlock = (BlockHitResult) hit;
+                    BlockPos hitBlockPos = hitBlock.getBlockPos();
 
-                // make sure hitBlock can't be interacted.
-                if (BlockTypeEquals.isSneakingInteractionCancel(player.getWorld().getBlockState(hitBlockPos))) {
+                    // make sure hitBlock can't be interacted.
+                    if (BlockTypeEquals.isSneakingInteractionCancel(player.getWorld().getBlockState(hitBlockPos))) {
+                        return;
+                    }
+                } else if (hit.getType() == HitResult.Type.ENTITY) {
+                    // hit target is entity, so just end this function.
                     return;
                 }
-            } else if (hit.getType() == HitResult.Type.ENTITY) {
-                // hit target is entity, so just end this function.
-                return;
-            }
 
-            // divide by 2 because of foodSaturationLevel
-            for (int i = 0; i < player.getInventory().size(); i++) {
-                ItemStack stack = player.getInventory().getStack(i);
-                //#if MC >= 12006
-                //$$ if (stack.getItem().getComponents().contains(DataComponentTypes.FOOD)) {
-                //#else
-                if (stack.getItem().isFood()) {
-                //#endif
-                    tryToSwap(i);
-                    if (eating) {
-                        KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
+                // divide by 2 because of foodSaturationLevel
+                for (int i = 0; i < player.getInventory().size(); i++) {
+                    ItemStack stack = player.getInventory().getStack(i);
+                    //#if MC >= 12006
+                    //$$ if (stack.getItem().getComponents().contains(DataComponentTypes.FOOD)) {
+                    //#else
+                    if (stack.getItem().isFood()) {
+                        //#endif
+                        tryToSwap(i);
+                        if (eating) {
+                            KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
+                        }
+                        eating = true;
+                        return;
                     }
-                    eating = true;
-                    return;
                 }
             }
         } else {
             autoEatCheck(mc, player, networkHandler);
         }
 
+    }
+
+    private static boolean shouldAutoEat(MinecraftClient mc) {
+        if (mc.interactionManager == null) return false;
+        if (mc.interactionManager.getCurrentGameMode().isCreative()) return false;
+        if (!Configs.Generic.CANCEL_AUTO_EAT_WHILE_DOING_ACTION.getBooleanValue()) return true;
+        return !mc.options.useKey.isPressed() && !mc.options.attackKey.isPressed();
     }
 
     public static void autoEatCheck(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
