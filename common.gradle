@@ -29,7 +29,7 @@ configurations {
     modImplementation.exclude group: 'io.github.prospector', module: 'modmenu'
 }
 // String tweakeroo_dependency = mcVersion >= 12100 ? "maven.modrinth:tweakeroo:${project.tweakeroo_version}" : "com.github.Andrews54757:tweakfork:${project.tweakfork_version}"
-String syncmatica_dependency = mcVersion >= 12004 ? "com.github.sakura-ryoko:syncmatica:${project.syncmatica_version}" : "maven.modrinth:syncmatica:${project.syncmatica_version}"
+String syncmatica_dependency = mcVersion >= 12005 ? "com.github.sakura-ryoko:syncmatica:${project.syncmatica_version}" : "maven.modrinth:syncmatica:${project.syncmatica_version}"
 
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft_version}"

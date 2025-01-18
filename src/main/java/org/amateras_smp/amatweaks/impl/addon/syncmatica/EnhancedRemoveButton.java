@@ -42,7 +42,7 @@ public class EnhancedRemoveButton {
             ExchangeTarget server = ((ClientCommunicationManager)con.getCommunicationManager()).getServer();
             PacketByteBuf packetBuf = new PacketByteBuf(Unpooled.buffer());
             packetBuf.writeUuid(placementId);
-            //#if MC >= 12004
+            //#if MC > 12004
             //$$ server.sendPacket(PacketType.REMOVE_SYNCMATIC, packetBuf, LitematicManager.getInstance().getActiveContext());
             //#else
             server.sendPacket(PacketType.REMOVE_SYNCMATIC.identifier, packetBuf, LitematicManager.getInstance().getActiveContext());
