@@ -1,3 +1,7 @@
+// Copyright (c) 2025 The Ama-Tweaks Authors
+// This file is part of the Ama-Tweaks project and is licensed under the terms of
+// the MIT License. See the LICENSE file for details.
+
 package org.amateras_smp.amatweaks;
 
 import com.mojang.brigadier.Command;
@@ -6,7 +10,6 @@ import fi.dy.masa.malilib.config.ConfigManager;
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.interfaces.IInitializationHandler;
 import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
-import org.amateras_smp.amatweaks.command.LiteralCommandAliases;
 import org.amateras_smp.amatweaks.config.Callbacks;
 import org.amateras_smp.amatweaks.config.Configs;
 import org.amateras_smp.amatweaks.event.InputHandler;
@@ -26,7 +29,7 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 public class InitHandler implements IInitializationHandler {
     @Override
     public void registerModHandlers() {
-        ConfigManager.getInstance().registerConfigHandler(Reference.MOD_ID, new Configs());
+        ConfigManager.getInstance().registerConfigHandler(Reference.kModId, new Configs());
 
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());
@@ -36,7 +39,7 @@ public class InitHandler implements IInitializationHandler {
     }
 
     public static void initLogLevel(boolean shouldEnableDebug) {
-        Configurator.setLevel(AmaTweaks.LOGGER, shouldEnableDebug ? Level.DEBUG : Level.ERROR);
+        Configurator.setLevel(Reference.kModName, shouldEnableDebug ? Level.DEBUG : Level.INFO);
         if (shouldEnableDebug) AmaTweaks.LOGGER.debug("debug print is enabled");
         else AmaTweaks.LOGGER.info("debug print is disabled");
     }
@@ -44,13 +47,13 @@ public class InitHandler implements IInitializationHandler {
     private static void registerCommand(String name, Command<FabricClientCommandSource> command) {
         //#if MC >= 11900
         ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(literal(name)
-        //#else
-        //$$ ClientCommandManager.DISPATCHER.register(literal(name)
-        //#endif
-                .executes(command)
-                .then(argument("arguments", StringArgumentType.greedyString())
-                        .executes(command)))
-        //#if MC >= 11900
+                        //#else
+                        //$$ ClientCommandManager.DISPATCHER.register(literal(name)
+                        //#endif
+                        .executes(command)
+                        .then(argument("arguments", StringArgumentType.greedyString())
+                                .executes(command)))
+                //#if MC >= 11900
         )
         //#endif
         ;
@@ -59,13 +62,5 @@ public class InitHandler implements IInitializationHandler {
     public static void registerCommandsOnClientLoad() {
         registerCommand("history", HistoryCommand.command);
         registerCommand("clearinteraction", HistoryCommand.clearCommand);
-    }
-
-    public static void registerDynamicCommands() {
-        if (!Configs.Generic.CUSTOM_COMMAND_ALIASES.getBooleanValue()) return;
-        for (String alias : ClientCommandUtil.initAndGetCommands()) {
-            AmaTweaks.LOGGER.debug(alias);
-            registerCommand(alias, LiteralCommandAliases.command);
-        }
     }
 }

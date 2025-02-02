@@ -1,4 +1,8 @@
-package org.amateras_smp.amatweaks.mixins.features.hotbarRestock;
+// Copyright (c) 2025 The Ama-Tweaks Authors
+// This file is part of the Ama-Tweaks project and is licensed under the terms of
+// the MIT License. See the LICENSE file for details.
+
+package org.amateras_smp.amatweaks.mixins.features.autoRestockInventory;
 
 import me.fallenbreath.conditionalmixin.api.annotation.Condition;
 import me.fallenbreath.conditionalmixin.api.annotation.Restriction;
@@ -29,7 +33,7 @@ public abstract class MixinClientPlayNetworkHandler {
     private void onOpenScreen(OpenScreenS2CPacket packet, CallbackInfo ci) {
         Screen screen = MinecraftClient.getInstance().currentScreen;
         if (screen != null) {
-            ((AutoProcessableScreen) screen).setShouldProcess$AMT(!Configs.Generic.AUTO_RESTOCK_ONLY_ALLOW_SHULKER_BOX.getBooleanValue() || packet.getScreenHandlerType() == ScreenHandlerType.SHULKER_BOX);
+            ((AutoProcessableScreen) screen).setShouldProcess$AMT(!Configs.Generic.INVENTORY_RESTOCK_ONLY_ALLOW_SHULKER_BOX.getBooleanValue() || packet.getScreenHandlerType() == ScreenHandlerType.SHULKER_BOX);
         }
     }
 }

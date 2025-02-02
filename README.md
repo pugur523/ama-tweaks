@@ -21,10 +21,10 @@ The `autoEatThreshold` can be configured in the `Generic` tab of the configs.
 > Automatically glide with firework rocket in you inventory when you're flying and flying speed is less than the value `autoGlideSpeedThreshold` that can be configured in the config `Generic`.
 <br><br>
 
-### tweakAutoRestockHotbar
+### tweakAutoRestockInventory
 
 > Automatically restocks items from a container block (like chests, shulker-boxes, etc.) when you open it.
-The `hotbarRestockList` can be customized in the `List` tab of the config.
+The `inventoryRestockList` can be customized in the `List` tab of the config.
 <br><br>
 
 ### tweakCompactScoreboard
@@ -60,14 +60,14 @@ The interactions can be checked with `/history` command in the game and cleared 
 The number of interaction to keep can be set by `interactionHistoryMaxSize` in config generic.
 <br><br>
 
-### tweakMonoChat
-
-> Overrides chat color with white.
-<br><br>
-
 ### tweakMonoGui
 
 > Overrides text color in gui with white.
+<br><br>
+
+### tweakMonoTeam
+
+> Overrides text color of team with white.
 <br><br>
 
 ### tweakPersistentGammaOverride

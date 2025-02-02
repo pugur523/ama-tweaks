@@ -35,7 +35,7 @@ import java.util.List;
 public class AutoRestockHotbar implements IContainerProcessor {
     @Override
     public FeatureToggle getConfig() {
-        return FeatureToggle.TWEAK_AUTO_RESTOCK_HOTBAR;
+        return FeatureToggle.TWEAK_AUTO_RESTOCK_INVENTORY;
     }
 
     public ProcessResult process(ClientPlayerEntity player, HandledScreen<?> containerScreen, List<Slot> allSlots, List<Slot> playerInvSlots, List<Slot> containerInvSlots) {
@@ -102,7 +102,7 @@ public class AutoRestockHotbar implements IContainerProcessor {
     }
 
     private boolean isHotbarRestockListContains(String itemId) {
-        return Configs.Lists.HOTBAR_RESTOCK_LIST.getStrings().stream().anyMatch(target -> target.equals(itemId));
+        return Configs.Lists.INVENTORY_RESTOCK_LIST.getStrings().stream().anyMatch(target -> target.equals(itemId));
     }
     private HashMap<String, Integer> executeRestock(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots) {
         HashMap<String, Integer> restockedMap = new HashMap<>();

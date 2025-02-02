@@ -37,8 +37,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    modImplementation "org.apache.logging.log4j:log4j-core:${project.log4j_version}"
-    modImplementation "org.apache.logging.log4j:log4j-api:${project.log4j_version}"
+    include("org.apache.logging.log4j:log4j-core:${project.log4j_version}")
+    include("org.apache.logging.log4j:log4j-api:${project.log4j_version}")
 
     modImplementation "com.github.Fallen-Breath:conditional-mixin:${project.conditional_mixin_version}"
 

@@ -3,15 +3,15 @@
   "id": "${id}",
   "version": "${version}",
   "name": "${name}",
-  "description": "Client side minecraft fabric mod for Amateras-SMP",
+  "description": "client side utilities mod made for amateras",
+  "license": "MIT",
   "authors": [
     "pugur"
   ],
   "contact": {
-    "homepage": "https://modrinth.com/mod/amatweaks",
-    "sources": "https://github.com/pugur523/ama-tweaks"
+    "sources": "https://github.com/pugur523/ama-tweaks",
+    "issues": "https://github.com/pugur523/ama-tweaks/issues"
   },
-  "license": "MIT",
   "icon": "assets/ama-tweaks/icon.png",
   "environment": "client",
   "accessWidener": "ama-tweaks.accesswidener",
@@ -28,16 +28,18 @@
   ],
   "depends": {
     "minecraft": "${minecraft_dependency}",
-    "fabricloader": ">=0.15.4",
+    "fabricloader": ">=0.16.10",
     "fabric": "*",
     "malilib": "*",
+    "modmenu": "*",
     "tweakermore": "*"
   },
-  "recommends": {
-    "modmenu": "*",
-    "litematica": "*",
-    "itemscroller": "*",
-    "tweakeroo": "*",
-    "syncmatica": "*"
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/YFJff2Bkx8",
+        "modmenu.modrinth": "https://modrinth.com/mod/amatweaks"
+      }
+    }
   }
 }

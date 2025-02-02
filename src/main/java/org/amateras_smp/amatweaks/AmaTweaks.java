@@ -1,3 +1,7 @@
+// Copyright (c) 2025 The Ama-Tweaks Authors
+// This file is part of the Ama-Tweaks project and is licensed under the terms of
+// the MIT License. See the LICENSE file for details.
+
 package org.amateras_smp.amatweaks;
 
 import fi.dy.masa.malilib.event.InitializationHandler;
@@ -9,10 +13,10 @@ public class AmaTweaks implements ClientModInitializer {
     public static Logger LOGGER;
     @Override
     public void onInitializeClient() {
-        LOGGER = LogManager.getLogger(Reference.MOD_NAME);
+        LOGGER = LogManager.getLogger(Reference.kModName);
 
         InitializationHandler.getInstance().registerInitializationHandler(new InitHandler());
         InitHandler.registerCommandsOnClientLoad();
-        LOGGER.info("ama-tweaks (v{}) has initialized!", Reference.MOD_VERSION);
+        LOGGER.info("{} (version {}) has initialized!", Reference.kModName, Reference.kModVersion);
     }
 }

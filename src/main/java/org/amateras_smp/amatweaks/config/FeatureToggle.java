@@ -24,30 +24,28 @@ import org.amateras_smp.amatweaks.Reference;
 public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfigBoolean> {
     TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eats food automatically when your food level is not full."),
     TWEAK_AUTO_FIREWORK_GLIDE("tweakAutoFireworkGlide", false, "", "Use fireworks rocket automatically while elytra gliding."),
-    TWEAK_AUTO_RESTOCK_HOTBAR("tweakAutoRestockHotbar", false, "", "Restock a stack of items from container specified by hotbarRestockList."),
-    TWEAK_COMPACT_SCOREBOARD("tweakCompactScoreboard", false, "", "Displays compact values in scoreboard. §7like this: 12345 -> 1.2K, 98765432 -> 9.87M"),
+    TWEAK_AUTO_RESTOCK_INVENTORY("tweakAutoRestockInventory", false, "", "Restock a stack of items specified by inventoryRestockList when open a container."),
+    TWEAK_COMPACT_SCOREBOARD("tweakCompactScoreboard", false, "", "Displays compact values in scoreboard like : 12345 -> 1.2K, 98765432 -> 9.87M."),
     TWEAK_HOLD_BACK("tweakHoldBack", false, "", "Hold moving back."),
     TWEAK_HOLD_FORWARD("tweakHoldForward", false, "", "Hold moving forward."),
     TWEAK_HOLD_LEFT("tweakHoldLeft", false, "", "Hold moving left."),
     TWEAK_HOLD_RIGHT("tweakHoldRight", false, "", "Hold moving right."),
     TWEAK_INTERACTION_HISTORY("tweakInteractionHistory", false, "", "Remember some interactions to break blocks, use items, attack entities. Can check the history by typing /history command."),
-    TWEAK_MONO_CHAT("tweakMonoChat", false, "", "Render monochrome chat."),
     TWEAK_MONO_GUI("tweakMonoGui", false, "", "Render monochrome gui. including tweakMonoChat, tweakMonoTeamColor."),
     TWEAK_MONO_TEAM_COLOR("tweakMonoTeamColor", false, "", "Render monochrome team color."),
     TWEAK_PICK_BLOCK_REDIRECT("tweakPickBlockRedirect", false, "", "Automatically replaces blocks that should be picked by litematica or tweakermore."),
-    TWEAK_PERSISTENT_GAMMA_OVERRIDE("tweakPersistentGammaOverride", false, "", "Fix a tweakeroo's \"tweakGammaOverride\" will not be enabled on client restart"),
-    TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentToPortal", false, "", "Prevents breaking nether portals frame"),
-    TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "Disables placement on sliced nether portal sides"),
-    TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward"),
-    TWEAK_SELECTIVE_AUTO_PICK("tweakSelectiveAutoPick", false, "", "Adds whitelist/blacklist for autoPickSchematicBlock(in tweakermore)"),
-    TWEAK_SELECTIVE_BLOCK_RENDERING("tweakSelectiveBlockRendering", false, "", "Renders blocks in accordance with custom selected list"),
-    TWEAK_SELECTIVE_ENTITY_RENDERING("tweakSelectiveEntityRendering", false, "", "Renders entities in accordance with custom selected list"),
-    TWEAK_SELECTIVE_TOOL_SWITCH("tweakSelectiveToolSwitch", false, "", "Adds whitelist/blacklist for tweakToolSwitch(in tweakeroo)");
+    TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentToPortal", false, "", "Prevents breaking nether portals frame."),
+    TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "Disables placement on sliced nether portal sides."),
+    TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward."),
+    TWEAK_SELECTIVE_AUTO_PICK("tweakSelectiveAutoPick", false, "", "Adds whitelist/blacklist for autoPickSchematicBlock(in tweakermore)."),
+    TWEAK_SELECTIVE_BLOCK_RENDERING("tweakSelectiveBlockRendering", false, "", "Renders blocks in accordance with custom selected list."),
+    TWEAK_SELECTIVE_ENTITY_RENDERING("tweakSelectiveEntityRendering", false, "", "Renders entities in accordance with custom selected list."),
+    TWEAK_SELECTIVE_TOOL_SWITCH("tweakSelectiveToolSwitch", false, "", "Adds whitelist/blacklist for tweakToolSwitch(in tweakeroo).");
 
 
     public static final ImmutableList<FeatureToggle> VALUES = ImmutableList.copyOf(values());
 
-    private final static String FEATURE_KEY = Reference.MOD_ID+ ".config.feature_toggle";
+    private final static String FEATURE_KEY = Reference.kSnakeCaseModName + ".config.feature_toggle";
 
     private final String name;
     private String comment;
@@ -203,14 +201,15 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
         String comment = StringUtils.getTranslatedOrFallback("config.comment." + this.getName().toLowerCase(), this.comment);
 
         if (comment != null && this.singlePlayer) {
-            return comment + "\n" + StringUtils.translate("tweakeroo.label.config_comment.single_player_only");
+            return comment + "\n" + StringUtils.translate(Reference.kSnakeCaseModName + ".label.config_comment.single_player_only");
         }
 
         return comment;
     }
 
     private static String buildTranslateName(String name, String type) {
-        return FEATURE_KEY + "." + type + "." + name;
+        // return FEATURE_KEY + "." + type + "." + name;
+        return name;
     }
 
     //#if MC >= 12104

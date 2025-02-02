@@ -1,20 +1,28 @@
+// Copyright (c) 2025 The Ama-Tweaks Authors
+// This file is part of the Ama-Tweaks project and is licensed under the terms of
+// the MIT License. See the LICENSE file for details.
+
 package org.amateras_smp.amatweaks;
 
 import net.fabricmc.loader.api.FabricLoader;
 
 public class Reference {
-    public static final String MOD_ID = "ama-tweaks";
-    public static final String MOD_NAME = "AmaTweaks";
-    public static final String MOD_VERSION = FabricLoader.getInstance().getModContainer(MOD_ID).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
+    public static final String kModId = "ama-tweaks";
+    public static final String kModName = "AmaTweaks";
+    public static final String kSnakeCaseModName = "ama_tweaks";
+    public static final String kModVersion = FabricLoader.getInstance().getModContainer(kModId).orElseThrow(RuntimeException::new).getMetadata().getVersion().getFriendlyString();
 
     public static class ModIds {
         public static final String minecraft = "minecraft";
-        public static final String amatweaks = "ama-tweaks";
+        public static final String amatweaks = kModId;
+        public static final String amacarpet = "ama-carpet";
         public static final String fabric_loader = "fabricloader";
         public static final String fabric_api = "fabric";
+        public static final String kyoyu = "kyoyu";
         public static final String malilib = "malilib";
         public static final String tweakeroo = "tweakeroo";
         public static final String tweakermore = "tweakermore";
+        public static final String masaadditions = "masaadditions";
         public static final String itemscroller = "itemscroller";
         public static final String litematica = "litematica";
         public static final String syncmatica = "syncmatica";
