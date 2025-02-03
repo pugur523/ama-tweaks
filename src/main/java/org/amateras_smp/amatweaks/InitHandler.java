@@ -16,7 +16,6 @@ import org.amateras_smp.amatweaks.event.InputHandler;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.argument;
 import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 import org.amateras_smp.amatweaks.command.HistoryCommand;
-import org.amateras_smp.amatweaks.impl.util.ClientCommandUtil;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.config.Configurator;
 
@@ -25,11 +24,21 @@ import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallba
 //#else
 //$$ import net.fabricmc.fabric.api.client.command.v1.ClientCommandManager;
 //#endif
+//#if MC >= 12101
+//$$ import fi.dy.masa.malilib.registry.Registry;
+//$$ import fi.dy.masa.malilib.util.data.ModInfo;
+//$$ import org.amateras_smp.amatweaks.gui.GuiConfigs;
+//#endif
 
 public class InitHandler implements IInitializationHandler {
     @Override
     public void registerModHandlers() {
         ConfigManager.getInstance().registerConfigHandler(Reference.kModId, new Configs());
+        //#if MC >= 12101
+        //$$ Registry.CONFIG_SCREEN.registerConfigScreenFactory(
+        //$$         new ModInfo(Reference.kModId, Reference.kModName, GuiConfigs::new)
+        //$$ );
+        //#endif
 
         InputEventHandler.getKeybindManager().registerKeybindProvider(InputHandler.getInstance());
         InputEventHandler.getInputManager().registerKeyboardInputHandler(InputHandler.getInstance());

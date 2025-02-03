@@ -19,7 +19,6 @@ import fi.dy.masa.malilib.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class GuiConfigs extends GuiConfigsBase {
     // If you have an add-on mod, you can append stuff to these GUI lists by re-assigning a new list to it.
@@ -122,7 +121,7 @@ public class GuiConfigs extends GuiConfigsBase {
         public void actionPerformedWithButton(ButtonBase button, int mouseButton) {
             GuiConfigs.tab = this.tab;
             this.parent.reCreateListWidget(); // apply the new config width
-            Objects.requireNonNull(this.parent.getListWidget()).resetScrollbarPosition();
+            this.parent.getListWidget().resetScrollbarPosition();
             this.parent.initGui();
         }
     }

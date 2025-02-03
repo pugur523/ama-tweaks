@@ -22,7 +22,7 @@ import org.amateras_smp.amatweaks.AmaTweaks;
 import org.amateras_smp.amatweaks.Reference;
 
 public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfigBoolean> {
-    TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Eats food automatically when your food level is not full."),
+    TWEAK_AUTO_EAT("tweakAutoEat", false, "", "Automatically eats food from your inventory when your food level is not full."),
     TWEAK_AUTO_FIREWORK_GLIDE("tweakAutoFireworkGlide", false, "", "Use fireworks rocket automatically while elytra gliding."),
     TWEAK_AUTO_RESTOCK_INVENTORY("tweakAutoRestockInventory", false, "", "Restock a stack of items specified by inventoryRestockList when open a container."),
     TWEAK_COMPACT_SCOREBOARD("tweakCompactScoreboard", false, "", "Displays compact values in scoreboard like : 12345 -> 1.2K, 98765432 -> 9.87M."),
@@ -34,7 +34,7 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
     TWEAK_MONO_GUI("tweakMonoGui", false, "", "Render monochrome gui. including tweakMonoChat, tweakMonoTeamColor."),
     TWEAK_MONO_TEAM_COLOR("tweakMonoTeamColor", false, "", "Render monochrome team color."),
     TWEAK_PICK_BLOCK_REDIRECT("tweakPickBlockRedirect", false, "", "Automatically replaces blocks that should be picked by litematica or tweakermore."),
-    TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentToPortal", false, "", "Prevents breaking nether portals frame."),
+    TWEAK_PREVENT_BREAKING_ADJACENT_PORTAL("tweakPreventBreakingAdjacentPortal", false, "", "Prevents breaking blocks adjacent to nether portal block."),
     TWEAK_PREVENT_PLACEMENT_ON_PORTAL_SIDES("tweakPreventPlacementOnPortalSides", false, "", "Disables placement on sliced nether portal sides."),
     TWEAK_SAFE_STEP_PROTECTION("tweakSafeStepProtection",false, "","Restrict Breaking Blocks below you when you're moving forward."),
     TWEAK_SELECTIVE_AUTO_PICK("tweakSelectiveAutoPick", false, "", "Adds whitelist/blacklist for autoPickSchematicBlock(in tweakermore)."),
@@ -44,8 +44,6 @@ public enum FeatureToggle implements IHotkeyTogglable, IConfigNotifiable<IConfig
 
 
     public static final ImmutableList<FeatureToggle> VALUES = ImmutableList.copyOf(values());
-
-    private final static String FEATURE_KEY = Reference.kSnakeCaseModName + ".config.feature_toggle";
 
     private final String name;
     private String comment;
