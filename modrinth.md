@@ -1,6 +1,7 @@
 # AmaTweaks
 
-[日本語の説明はこちら](https://github.com/pugur523/ama-tweaks/blob/main/README_ja.md)<br><br>
+[日本語の説明はこちら](https://github.com/pugur523/ama-tweaks/blob/main/README_ja.md)
+
 [![Dev Builds](https://github.com/pugur523/ama-tweaks/actions/workflows/gradle.yml/badge.svg)](https://github.com/pugur523/ama-tweaks/actions/workflows/gradle.yml)
 [![License](https://img.shields.io/github/license/pugur523/ama-tweaks.svg)](https://opensource.org/licenses/MIT)
 [![Issues](https://img.shields.io/github/issues/pugur523/ama-tweaks.svg)](https://github.com/pugur523/ama-tweaks/issues)

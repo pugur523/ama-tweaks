@@ -1,6 +1,7 @@
 # AmaTweaks
 
-[日本語の説明はこちら](README_ja.md)<br><br>
+[日本語の説明はこちら](README_ja.md)
+
 [![Dev Builds](https://github.com/pugur523/ama-tweaks/actions/workflows/gradle.yml/badge.svg)](https://github.com/pugur523/ama-tweaks/actions/workflows/gradle.yml)
 [![License](https://img.shields.io/github/license/pugur523/ama-tweaks.svg)](https://opensource.org/licenses/MIT)
 [![Issues](https://img.shields.io/github/issues/pugur523/ama-tweaks.svg)](https://github.com/pugur523/ama-tweaks/issues)
@@ -69,11 +70,6 @@ The number of interaction to keep can be set by `interactionHistoryMaxSize` in c
 ### tweakMonoTeam
 
 > Overrides text color of team with white.
-<br><br>
-
-### tweakPersistentGammaOverride
-
-> Fix a tweakeroo's bug that "tweakGammaOverride" will be not enabled on client restart.
 <br><br>
 
 ### tweakPickBlockRedirect

@@ -1,6 +1,7 @@
 # AmaTweaks
 
-[English Readme here](README.md)<br><br>
+[English Readme here](README.md)
+
 [![Dev Builds](https://github.com/pugur523/ama-tweaks/actions/workflows/gradle.yml/badge.svg)](https://github.com/pugur523/ama-tweaks/actions/workflows/gradle.yml)
 [![License](https://img.shields.io/github/license/pugur523/ama-tweaks.svg)](https://opensource.org/licenses/MIT)
 [![Issues](https://img.shields.io/github/issues/pugur523/ama-tweaks.svg)](https://github.com/pugur523/ama-tweaks/issues)
@@ -70,11 +71,6 @@ AmaTweaksはAmateras SMPのために作られたclient-sideのMinecraft Fabric m
 ### tweakMonoGui
 
 > guiに表示されるすべてのテキストを白色として表示します。
-<br><br>
-
-### tweakPersistentGammaOverride
-
-> tweakerooのtweakGammaOverrideが起動時に有効にならない問題を修正します。
 <br><br>
 
 ### tweakPickBlockRedirect
