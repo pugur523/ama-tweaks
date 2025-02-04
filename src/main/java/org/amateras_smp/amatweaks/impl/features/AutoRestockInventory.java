@@ -58,7 +58,7 @@ public class AutoRestockInventory implements IContainerProcessor {
 
         for (Slot containerSlot : containerInvSlots) {
             String itemId = Registries.ITEM.getId(containerSlot.getStack().getItem()).toString();
-            if (isHotbarRestockListContains(itemId)) {
+            if (isInventoryRestockListContains(itemId)) {
                 restockableMap.put(containerSlot.getStack().getItem(), restockableMap.getOrDefault(containerSlot.getStack().getItem(), 0) + containerSlot.getStack().getCount());
             }
         }
@@ -80,7 +80,7 @@ public class AutoRestockInventory implements IContainerProcessor {
         for (HashMap.Entry<String, Integer> entry : restockedMap.entrySet()) {
             restockedContents.add(String.format("%s +%s", entry.getKey(), GuiBase.TXT_GREEN + entry.getValue() + GuiBase.TXT_RST));
         }
-        String message = "tweakAutoRestockHotbar : " + Joiner.on(", ").join(restockedContents);
+        String message = FeatureToggle.TWEAK_AUTO_RESTOCK_INVENTORY.getPrettyName() + " : " + Joiner.on(", ").join(restockedContents);
         InfoUtils.printActionbarMessage(message);
 
         // first restock
@@ -101,7 +101,7 @@ public class AutoRestockInventory implements IContainerProcessor {
         return new ProcessResult(true, true);
     }
 
-    private boolean isHotbarRestockListContains(String itemId) {
+    private boolean isInventoryRestockListContains(String itemId) {
         return Configs.Lists.INVENTORY_RESTOCK_LIST.getStrings().stream().anyMatch(target -> target.equals(itemId));
     }
     private HashMap<String, Integer> executeRestock(HandledScreen<?> containerScreen, List<Slot> shouldRestockSlots, List<Slot> containerSlots) {

@@ -29,7 +29,8 @@ import java.util.Objects;
 
 
 public class AutoEat {
-    private static int beforeSlot;
+    private static int beforeSlot = -1;
+    private static int foodTakenSlot = -1;
     private static boolean eating = false;
 
     public static void autoEat(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
@@ -59,6 +60,7 @@ public class AutoEat {
                     if (stack.getItem().isFood()) {
                         //#endif
                         tryToSwap(i);
+                        foodTakenSlot = i;
                         if (eating) {
                             KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), true);
                         }
@@ -82,9 +84,16 @@ public class AutoEat {
 
     public static void autoEatCheck(MinecraftClient mc, ClientPlayerEntity player, ClientPlayNetworkHandler networkHandler) {
         if (eating) {
-            player.getInventory().selectedSlot = beforeSlot;
-            networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(beforeSlot));
+            if (beforeSlot != -1) {
+                player.getInventory().selectedSlot = beforeSlot;
+                networkHandler.sendPacket(new UpdateSelectedSlotC2SPacket(beforeSlot));
+                beforeSlot = -1;
+            }
             eating = false;
+            if (Configs.Generic.AUTO_EAT_PUT_BACK_FOOD.getBooleanValue() && foodTakenSlot != -1) {
+                tryToSwap(foodTakenSlot);
+                foodTakenSlot = -1;
+            }
             KeyBinding.setKeyPressed(InputUtil.fromTranslationKey(mc.options.useKey.getBoundKeyTranslationKey()), false);
         }
     }
@@ -99,7 +108,7 @@ public class AutoEat {
         //#endif
         PlayerInventory inventory = player.getInventory();
         ScreenHandler container = player.playerScreenHandler;
-        if (slot >= 0 && slot!= inventory.selectedSlot && player.currentScreenHandler == player.playerScreenHandler) {
+        if (slot >= 0 && slot != inventory.selectedSlot && player.currentScreenHandler == player.playerScreenHandler) {
             beforeSlot = inventory.selectedSlot;
             if (PlayerInventory.isValidHotbarIndex(slot)) {
                 inventory.selectedSlot = slot;

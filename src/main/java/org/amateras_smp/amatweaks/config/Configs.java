@@ -30,6 +30,7 @@ public class Configs implements IConfigHandler {
     private static final String CONFIG_FILE_NAME = Reference.kModId + ".json";
 
     public static class Generic {
+        public static final ConfigBoolean AUTO_EAT_PUT_BACK_FOOD = new ConfigBoolean("autoEatPutBackFood", false, "\"tweakAutoEat\" puts back the foods to the slot where food was.");
         public static final ConfigDouble AUTO_EAT_THRESHOLD = new ConfigDouble("autoEatThreshold", 1.0, 0, 1.0, "The hunger level threshold for \"tweakAutoEat\".");
         public static final ConfigInteger AUTO_FIREWORK_USE_INTERVAL = new ConfigInteger("autoFireworkUseInterval", 60, 1, 1000, "The interval game tick for automatically try to use firework rocket with \"tweakAutoFireworkGlide\".");
         public static final ConfigDouble AUTO_GLIDE_SPEED_THRESHOLD = new ConfigDouble("autoGlideSpeedThreshold", 15.0, 0, 1000, "The speed threshold for \"tweakAutoFireworkGlide\" to use firework rocket.");
@@ -47,6 +48,7 @@ public class Configs implements IConfigHandler {
         public static final ConfigBoolean SYNCMATICA_REMOVE_REQUIRE_SHIFT = new ConfigBoolean("syncmaticaRemoveRequireShift", false, "Requires shift to remove shared schematic from the server");
 
         public static final ImmutableList<IConfigBase> OPTIONS = ImmutableList.of(
+                AUTO_EAT_PUT_BACK_FOOD,
                 AUTO_EAT_THRESHOLD,
                 AUTO_FIREWORK_USE_INTERVAL,
                 AUTO_GLIDE_SPEED_THRESHOLD,
